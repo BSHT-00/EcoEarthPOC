@@ -9,13 +9,15 @@ main {
 }
 
 .sidebar {
-    background-image: url('wwwroot\Backgrounds\NavBarBackground.jpg');
+    background-image: url('Backgrounds/NavBarBackground.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .top-row {
-    background-color: #b2d8b2;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
     height: 3.5rem;
@@ -27,7 +29,7 @@ main {
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
-        color: white;
+        color: black;
     }
 
         .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {

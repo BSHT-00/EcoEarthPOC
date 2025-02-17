@@ -17,7 +17,7 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: #b2d8b2;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
 }
 
 
@@ -61,11 +61,12 @@
         align-items: center;
         line-height: 3rem;
         font-family: Minecraft;
-        background-color: #8fbf8f;
+        background-color: #006400;
+        padding-left: 1.25rem;
     }
 
         .nav-item ::deep a.active {
-            background-color: #a3cfa3;
+            background-color: #77a377;
             color: white;
             border: 2px solid white; 
         }
@@ -76,19 +77,12 @@
         }
 
 .nav-scrollable {
-    display: none;
-    background-color: #8fbf8f;
-    position: absolute;
-    top: 3.5rem;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1000;
+    background-size: cover;
+    background-repeat: no-repeat;
     padding-top: 1rem;
     padding-bottom: 1rem;
     overflow-y: auto;
     transition: transform 0.3s ease;
-
 }
 
 .navbar-toggler:checked ~ .nav-scrollable {

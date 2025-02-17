@@ -1,0 +1,27 @@
+﻿body {
+    font-family: Minecraft;
+}
+
+.button-container-scanner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color:yellow;
+}
+
+.nav-button {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    background-color: #4CAF50; /* Example background color */
+    color: white; /* Example text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .nav-button:hover {
+        background-color: #45a049; /* Example hover background color */
+    }
