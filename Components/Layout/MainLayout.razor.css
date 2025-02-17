@@ -9,11 +9,13 @@ main {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: url('wwwroot\Backgrounds\NavBarBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .top-row {
-    background-color: #f7f7f7;
+    background-color: #b2d8b2;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
     height: 3.5rem;
@@ -25,6 +27,7 @@ main {
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
+        color: white;
     }
 
         .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
