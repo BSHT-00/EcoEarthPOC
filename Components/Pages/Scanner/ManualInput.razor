@@ -1,0 +1,28 @@
+﻿@page "/scanner/manualinput"
+
+<div>
+    <label for="inputText">Enter Text:</label>
+    <input type="text" id="inputText" @bind="inputText" />
+    <button @onclick="Submit">Submit</button>
+</div>
+
+@code {
+    private string inputText;
+    private readonly IOffService offService;
+
+    public ManualInput(IOffService offService)
+    {
+        this.offService = offService;
+    }
+
+    private async Task Submit()
+    {
+        await offService.GetPackagingInformation(inputText);
+    }
+
+    // Look into reg expressions for validation
+    protected bool validateBarcodeNumber()
+    {
+        // Examples: 6111035000430 , 50184453
+    }
+}
