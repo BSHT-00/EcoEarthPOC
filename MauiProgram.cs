@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using EcoEarthPOC.Components.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EcoEarthPOC
 {
@@ -15,10 +17,12 @@ namespace EcoEarthPOC
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddScoped<OFFPackaging>();
+            builder.Services.AddHttpClient();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
-    		builder.Logging.AddDebug();
+            builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

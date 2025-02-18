@@ -1,4 +1,5 @@
 ﻿@page "/scanner/manualinput"
+@inject EcoEarthPOC.Components.Services.OFFPackaging _offService
 
 <div>
     <label for="inputText">Enter Text:</label>
@@ -6,23 +7,47 @@
     <button @onclick="Submit">Submit</button>
 </div>
 
+<label for="outputText">Output:</label>
+<div>@outputText</div>
+
 @code {
     private string inputText;
-    private readonly IOffService offService;
-
-    public ManualInput(IOffService offService)
-    {
-        this.offService = offService;
-    }
+    private string outputText;
 
     private async Task Submit()
     {
-        await offService.GetPackagingInformation(inputText);
+        try
+        {
+            if (!validateBarcodeNumber(inputText))
+            {
+                outputText = "Invalid barcode number, please try again";
+            }
+            else
+            {
+                var result = await _offService.GetPackagingInformation(inputText);
+
+                if (result.Status == 0)
+                {
+                    throw new Exception("Product Not Found :(");
+                }
+
+                outputText = result.Product.Packaging;
+            }
+        }
+        catch (Exception ex)
+        {
+            outputText = "Invalid input, please try again";
+        }
     }
 
-    // Look into reg expressions for validation
-    protected bool validateBarcodeNumber()
+    // In the UK, barcodes can have format: EAN-13 (5901234123457), 
+    //                                      UPC-A (036000291452), 
+    //                                      EAN-8 (96385074),
+    //                                      UPC-E (04252614).
+    protected bool validateBarcodeNumber(string barcode)
     {
-        // Examples: 6111035000430 , 50184453
+        // Validate barcode using reg exp
+        var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
+        return regex.IsMatch(barcode);
     }
 }

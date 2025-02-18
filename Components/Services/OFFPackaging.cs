@@ -22,7 +22,7 @@ namespace EcoEarthPOC.Components.Services
             _httpClient = httpClient;
         }
 
-        JsonSerializerOptions jsonOptions = new JsonSerializerOptions
+        JsonSerializerOptions jsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
@@ -34,12 +34,7 @@ namespace EcoEarthPOC.Components.Services
             var response = await _httpClient.GetAsync(url);
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var item = JsonSerializer.Deserialize<GetPackagingInfoDTO>(jsonResponse);
-
-            if (item.Status == 0)
-            {
-                // means item does not exist inside api
-            }
+            var item = JsonSerializer.Deserialize<GetPackagingInfoDTO>(jsonResponse, jsonOptions);
 
             if (item == null)
             {

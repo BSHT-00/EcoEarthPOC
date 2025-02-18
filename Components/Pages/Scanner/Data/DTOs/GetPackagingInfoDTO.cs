@@ -13,13 +13,20 @@ namespace EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        [JsonProperty("packaging")]
-        public string Packaging { get; set; }
-
         [JsonProperty("status")]
         public int Status { get; set; }
 
         [JsonProperty("status_verbose")]
         public string StatusVerbose { get; set; }
+
+        [JsonProperty("product")]
+        public ProductInfo Product { get; set; }
     }
+
+    public class ProductInfo
+    {
+        [JsonProperty("packaging")]
+        public string Packaging { get; set; }
+    }
+
 }
