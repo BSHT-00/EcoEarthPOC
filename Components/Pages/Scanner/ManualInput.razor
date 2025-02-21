@@ -7,12 +7,17 @@
     <button @onclick="Submit">Submit</button>
 </div>
 
+<button @onclick="NavigateToMoreInfo">More Info</button>
+
 <label for="outputText">Output:</label>
 <div>@outputText</div>
 
 @code {
     private string inputText;
     private string outputText;
+
+    [Inject]
+    NavigationManager navigationManager { get; set; }
 
     private async Task Submit()
     {
@@ -30,6 +35,10 @@
                 {
                     throw new Exception("Product Not Found :(");
                 }
+
+                //TODO: Redirect to more details about product
+
+
 
                 outputText = result.Product.Packaging;
             }
@@ -49,5 +58,10 @@
         // Validate barcode using reg exp
         var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
         return regex.IsMatch(barcode);
+    }
+
+    private void NavigateToMoreInfo()
+    {
+        navigationManager.NavigateTo("/scanner/productinfo/" + inputText);
     }
 }

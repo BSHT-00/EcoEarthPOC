@@ -1,0 +1,47 @@
+﻿@page "/scanner/productinfo/{ProductId}"
+
+@using EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
+@inject EcoEarthPOC.Components.Services.OFFPackaging _offService
+
+<h3>Product Information</h3>
+
+@if (productInfo == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div>
+        <h4>@productInfo.ProductName</h4>
+        <p><strong>Brand:</strong> @productInfo.Brand</p>
+        <p><strong>Status:</strong> @productInfo.Status</p>
+        <h5>Packaging Information</h5>
+        <p><strong>Non-Recyclable and Non-Biodegradable Materials:</strong> @productInfo.Packaging.NonRecyclableAndNonBiodegradableMaterials</p>
+        <ul>
+            @foreach (var packaging in productInfo.Packaging.Packagings)
+            {
+                <li>
+                    <p><strong>Material:</strong> @packaging.Material</p>
+                    <p><strong>Shape:</strong> @packaging.Shape</p>
+                    <p><strong>Environmental Score (Material):</strong> @packaging.EnvironmentalScoreMaterialScore</p>
+                    <p><strong>Environmental Score (Shape):</strong> @packaging.EnvironmentalScoreShapeRatio</p>
+                    <p><strong>Non-Recyclable and Non-Biodegradable:</strong> @packaging.NonRecyclableAndNonBiodegradable</p>
+                </li>
+            }
+        </ul>
+        <h5>Images</h5>
+        <img src="@productInfo.Images.Front.Display.Url" alt="Product Image" />
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string ProductId { get; set; }
+
+    private GetMorePackagingInfoDTO productInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        productInfo = await _offService.GetMorePackagingInformation(ProductId);
+    }
+}
