@@ -2,45 +2,22 @@
 @using BlazorCameraStreamer
 @using System.IO
 @using Microsoft.Maui.Graphics
+@using ZXing.Net.Maui
 
-<CameraStreamer @ref="CameraStreamerReference"
-                Width="1920"
-                Height="1080"
-                OnRendered="OnRenderedHandler"
-                OnFrame="OnFrameHandler"
-                Style="width: 480px; height: 270px;"
-                CameraID="@cameraId"
-                Autostart />
+@* https://github.com/Redth/ZXing.Net.Maui?tab=readme-ov-file *@
+
+<CameraView x:Name="cameraView" 
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand" 
+            OnDetected="OnBarcodeDetected" />
 
 @code
 {
-    // ZXing.Net.Maui for scanning barcodes, this just makes the camera display
-    CameraStreamer CameraStreamerReference;
-
-    string cameraId = null;
-
-    private async void OnRenderedHandler()
+    private void OnBarcodeDetected(object sender, BarcodeDetectionEventArgs e)
     {
-        // Check camera-access or ask user, if it's not allowed currently
-        if (await CameraStreamerReference.GetCameraAccessAsync())
+        foreach (var barcode in e.Results)
         {
-            // Reloading re-initializes the stream and starts the
-            // stream automatically if the Autostart parameter is set
-            await CameraStreamerReference.ReloadAsync();
-
-            // If Autostart is not set, you have to manually start the stream again
-            /* await CameraStreamerReference.StartAsync(); */
+            Console.WriteLine($"Detected barcode: {barcode.Value} (Format: {barcode.Format})");
         }
-    }
-
-    private void OnFrameHandler(string data)
-    {
-        // Remove the suffix added by javascript
-        data = data[(data.IndexOf(',') + 1)..];
-
-        // Convert the base64 string to a Microsoft.Maui.Graphics.IImage
-        // IImage image = LoadImageFromBase64(data);
-
-        // Do something with the image
     }
 }

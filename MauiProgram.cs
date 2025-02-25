@@ -1,6 +1,7 @@
 ﻿using EcoEarthPOC.Components.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
+using ZXing.Net.Maui;
+using ZXing.Net.Maui.Controls;
 
 namespace EcoEarthPOC
 {
@@ -14,11 +15,13 @@ namespace EcoEarthPOC
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("Minecraft.ttf", "Minecraft");
                 });
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<OFFPackaging>();
             builder.Services.AddHttpClient();
+            builder.UseMauiApp<App>().UseBarcodeReader(); // Corrected method call
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
