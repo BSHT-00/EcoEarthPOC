@@ -14,7 +14,7 @@ namespace EcoEarthPOC.Components.Services
         // Attatch Barcode number to the end of this for details about product.
         // E.g. https://en.openfoodfacts.org/api/v0/product/6111035000430.json?fields=packaging
         const string API_URL_Packaging = "https://en.openfoodfacts.org/api/v0/product/{0}.json?fields=packaging";
-        const string API_URL_MoreInfo = "https://en.openfoodfacts.org/api/v0/product/{0}}.json?fields=packaging,product,selected_images,brands";
+        const string API_URL_MoreInfo = "https://en.openfoodfacts.org/api/v0/product/{0}.json?fields=packaging,product,selected_images,brands,packagings,product_name_en";
 
         private readonly HttpClient _httpClient;
 

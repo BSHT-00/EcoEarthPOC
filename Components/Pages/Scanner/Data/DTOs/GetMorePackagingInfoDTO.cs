@@ -1,24 +1,53 @@
-﻿using AuthenticationServices;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
 {
-    // This DTO is used to transfer more detailed data about a product (Image, name, etc)
     public class GetMorePackagingInfoDTO
     {
+        [JsonPropertyName("status")]
+        public int Status { get; set; }
+
+        [JsonPropertyName("status_verbose")]
+        public string StatusVerbose { get; set; }
+
+        [JsonPropertyName("product")]
+        public Product ProductInfo { get; set; }
+
+        public class Product
+        {
+            [JsonPropertyName("brands")]
             public string Brand { get; set; }
-            public string ImageUrl { get; set; }
-            public string Packaging { get; set; }
-            public string ProductName { get; set; }
+
+            [JsonPropertyName("packagings")]
+            public List<Packagings> DetailedPackaging { get; set; }
+
+            [JsonPropertyName("selected_images")]
             public Dictionary<string, ImageUrls> SelectedImages { get; set; }
-        
+
+            [JsonPropertyName("product_name_en")]
+            public string ProductName { get; set; }
+        }
 
         public class ImageUrls
         {
-            public string Display { get; set; }
-            public string Small { get; set; }
-            public string Thumb { get; set; }
+            [JsonPropertyName("display")]
+            public Dictionary<string, string> Display { get; set; }
+
+            [JsonPropertyName("small")]
+            public Dictionary<string, string> Small { get; set; }
+
+            [JsonPropertyName("thumb")]
+            public Dictionary<string, string> Thumb { get; set; }
+        }
+
+        public class Packagings
+        {
+            [JsonPropertyName("material")]
+            public string Material { get; set; }
+
+            [JsonPropertyName("shape")]
+            public string Shape { get; set; }
         }
     }
 }
