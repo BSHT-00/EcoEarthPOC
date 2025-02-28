@@ -27,6 +27,7 @@ namespace EcoEarthPOC
             builder.Services.AddBlazorWebViewDeveloperTools();
             builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<IAppService, AppService>();
 
             return builder.Build();
         }
