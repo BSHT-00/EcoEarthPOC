@@ -3,21 +3,46 @@
 @using EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
 @inject EcoEarthPOC.Components.Services.OFFPackaging _offService
 
+<!--- Displaying Product Info->
+<div>
+    @if (productInfo != null)
+    {
+        <h3>@productInfo.ProductInfo.ProductName: @productInfo.ProductInfo.ProductName</h3>
 
+        @foreach (var material in productInfo.ProductInfo.DetailedPackaging)
+        {
+            <p>@material.Material: @material.Shape</p>
+        }
+
+        <img src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
+
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
+</div>
 
 @code {
     [Parameter]
     public string ProductId { get; set; }
 
-    private GetMorePackagingInfoDTO productInfo;
+    public GetMorePackagingInfoDTO productInfo;
 
     protected override async Task OnInitializedAsync()
     {
-        productInfo = await _offService.GetMorePackagingInformation(ProductId);
-
-        if (productInfo.Status == 0)
+        try
         {
-            throw new Exception("Product not found");
+            productInfo = await _offService.GetMorePackagingInformation(ProductId);
+
+            if (productInfo.Status == 0)
+            {
+                throw new Exception("Product not found");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception (e.g., log it, show a message to the user, etc.)
         }
     }
 }

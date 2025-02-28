@@ -45,6 +45,7 @@ namespace EcoEarthPOC.Components.Services
             return item;
         }
 
+
         public async Task<GetMorePackagingInfoDTO> GetMorePackagingInformation(string productCode)
         {
             var url = string.Format(API_URL_MoreInfo, productCode);
