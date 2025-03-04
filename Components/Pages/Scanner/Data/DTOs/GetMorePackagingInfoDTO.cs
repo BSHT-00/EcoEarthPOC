@@ -49,5 +49,7 @@ namespace EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
             [JsonPropertyName("shape")]
             public string Shape { get; set; }
         }
+
+
     }
 }

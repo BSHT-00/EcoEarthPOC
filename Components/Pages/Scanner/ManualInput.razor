@@ -36,11 +36,8 @@
                     throw new Exception("Product Not Found :(");
                 }
 
-                //TODO: Redirect to more details about product
-
-
-
-                outputText = result.Product.Packaging;
+                // Navigates to the more info page after this page has checked whether product exists
+                NavigateToMoreInfo();
             }
         }
         catch (Exception ex)
