@@ -1,0 +1,56 @@
+﻿@page "/Registration"
+@using EcoEarthPOC.Models
+
+<h3 class="text-center mt-4">Registration</h3>
+
+<EditForm Model="registrationModel" OnValidSubmit="Submit" class="container mt-4">
+    <DataAnnotationsValidator />
+    <div class="form-group mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" @bind-value="registrationModel.FirstName" placeholder="Enter your first name" />
+        <ValidationMessage For="@(() => registrationModel.FirstName)" class="text-danger" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" @bind-value="registrationModel.LastName" placeholder="Enter your last name" />
+        <ValidationMessage For="@(() => registrationModel.LastName)" class="text-danger" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" @bind-value="registrationModel.Email" placeholder="Enter your email" />
+        <ValidationMessage For="@(() => registrationModel.Email)" class="text-danger" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" @bind-value="registrationModel.Password" placeholder="Enter your password" />
+        <ValidationMessage For="@(() => registrationModel.Password)" class="text-danger" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" @bind-value="registrationModel.ConfirmPassword" placeholder="Retype the password" />
+        <ValidationMessage For="@(() => registrationModel.ConfirmPassword)" class="text-danger" />
+    </div>
+
+    <div class="text-end mb-3">
+        <NavLink class="nav-link" href="login">
+            <span>Already have an account?</span>
+        </NavLink>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Register</button>
+    </div>
+</EditForm>
+
+@code {
+    RegistrationModel registrationModel = new RegistrationModel();
+
+    private void Submit()
+    {
+        // Implement registration logic here
+    }
+}
