@@ -8,12 +8,16 @@
 <div>
     @if (productInfo != null)
     {
-        <h3>@productInfo.ProductInfo.ProductName: @productInfo.ProductInfo.ProductName</h3>
+        <h3>@productInfo.ProductInfo.Brand: @productInfo.ProductInfo.ProductName</h3>
 
-        <!--- TODO: Add code which handles null cases-->
         <ul id="RecyclableProducts">
             @foreach (var material in recylableMaterials)
             {
+                @if (material.Recyclable == null)
+                {
+                    break;
+                }
+
                 @if (material.Recyclable)
                 {
                     <li>Material: @material.Material - Shape: @material.Shape</li>
@@ -21,10 +25,14 @@
             }
         </ul>
 
-        <!--- TODO: Add code which handles null cases-->
         <ul id="NonRecyclableProducts">
             @foreach (var material in recylableMaterials)
             {
+                @if (material.Recyclable == null)
+                {
+                    break;
+                }
+
                 @if (!material.Recyclable)
                 {
                     <li>Material: @material.Material - Shape: @material.Shape</li>
@@ -73,10 +81,17 @@
             }
 
             material.Material = material.Material.Replace("en:", "").Replace("-", " ").Replace("_", " ");
+            material.Shape = material.Shape.Replace("en:", "").Replace("-", " ").Replace("_", " ");
         }
 
         recylableMaterials = ScannerMoreInfoUtils.InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
 
         Console.WriteLine("e");
+    }
+
+    //TODO: Implement this method
+    public bool AssigningCurrency()
+    {
+        return false;
     }
 }

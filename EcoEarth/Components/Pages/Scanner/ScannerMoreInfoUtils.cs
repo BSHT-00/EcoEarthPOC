@@ -12,14 +12,9 @@ namespace EcoEarthPOC.Components.Pages.Scanner
         // Checks whether materials in a product can be recycled 
         private static bool DoItRecycle(string Material)
         {
-            string test = File.ReadAllText("EcoEarthPOC/Components/Pages/Scanner/Data/Lists/RecyclableMaterials.txt");
+            // Will query database
 
-            if (File.ReadAllText("EcoEarthPOC/Components/Pages/Scanner/Data/Lists/RecyclableMaterials.txt").Contains(Material))
-            {
-                return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         // Initialises a list with the recyclable materials inside a product and includes a bool detailing whether it can be recycled
