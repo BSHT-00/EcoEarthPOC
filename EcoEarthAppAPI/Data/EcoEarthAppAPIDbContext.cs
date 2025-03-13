@@ -24,10 +24,6 @@ namespace EcoEarthAppAPI.Data
             DbPath = Path.Join(path, "EcoEarthApp.db");
         }
 
-        public EcoEarthAppAPIDbContext(DbContextOptions<EcoEarthAppAPIDbContext> options)
-            : base(options)
-        {
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

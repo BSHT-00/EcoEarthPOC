@@ -12,8 +12,7 @@ builder.Services.AddSwaggerGen();
 
 
 // Register the DbContext
-builder.Services.AddDbContext<EcoEarthAppAPIDbContext>(options =>
-    options.UseSqlite($"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EcoEarthApp.db")}"));
+builder.Services.AddDbContext<EcoEarthAppAPIDbContext>();
 
 var app = builder.Build();
 

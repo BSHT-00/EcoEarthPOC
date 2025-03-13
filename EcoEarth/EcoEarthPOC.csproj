@@ -73,6 +73,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="System.Net.Http.Json" Version="9.0.3" />
         <PackageReference Include="System.Text.Json" Version="9.0.3" />
         <PackageReference Include="ZXing.Net" Version="0.16.10" />
         <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
