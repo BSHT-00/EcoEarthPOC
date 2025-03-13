@@ -349,7 +349,6 @@ C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\staticwebass
 C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.LoginAPI.props
 C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.LoginAPI.props
 C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\LoginAPI.csproj.Up2Date
 C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\LoginAPI.dll
 C:\Users\justi\Source\Repos\EcoEarthPOCKY\LoginAPI\obj\Debug\net8.0\refint\LoginAPI.dll
