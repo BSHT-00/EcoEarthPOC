@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui;
 using ZXing.Net.Maui.Controls;
+using EcoEarthPOC.Components.Services.EcoEarthAPI_Services;
 
 namespace EcoEarthPOC
 {
@@ -21,6 +22,12 @@ namespace EcoEarthPOC
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<OFFPackaging>();
             builder.Services.AddHttpClient();
+
+            builder.Services.AddHttpClient<IsProductRecyclableService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:7111/api");
+            });
+
             builder.UseMauiApp<App>().UseBarcodeReader(); // Corrected method call
 
 #if DEBUG
