@@ -145,6 +145,9 @@
     // Checks whether materials in a product can be recycled
     protected bool DoItRecycle(string material)
     {
+        if (material == null)
+            return false;
+
         if (recylableMaterials.Any(m => m.Material.ToLower() == material.ToLower()))
         {
             return true;

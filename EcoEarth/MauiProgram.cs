@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui;
 using ZXing.Net.Maui.Controls;
 using EcoEarthPOC.Components.Services.EcoEarthAPI_Services;
+using CommunityToolkit.Maui.Core;
 
 namespace EcoEarthPOC
 {
@@ -23,6 +24,7 @@ namespace EcoEarthPOC
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<OFFPackaging>();
             builder.Services.AddHttpClient();
+            builder.UseMauiApp<App>().UseMauiCommunityToolkitCore();
 
             builder.Services.AddHttpClient<IsProductRecyclableService>(client =>
             {
