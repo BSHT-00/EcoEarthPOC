@@ -2,6 +2,7 @@
 @using EcoEarthPOC.Models
 @using EcoEarthPOC.Components.Services
 @inject IAppService AppService;
+@inject NavigationManager NavigationManager
 <h3 class="text-center text-primary">Login</h3>
 
 <EditForm Model="@loginModel" OnValidSubmit="Submit">
@@ -45,16 +46,23 @@
     {
         _spinnerClass = "spinner-border spinner-border-sm";
         var response = await AppService.AuthenticateUser(loginModel);
-        if (!string.IsNullOrWhiteSpace(response))
+        var mainPage = App.Current?.Windows[0]?.Page;
+        if (mainPage != null)
         {
-            await App.Current.MainPage.DisplayAlert("Success", "Valid credentials", "OK");
+            if (!string.IsNullOrWhiteSpace(response))
+            {
+                await mainPage.DisplayAlert("Success", "Valid credentials", "OK");
+            }
+            else
+            {
+                await mainPage.DisplayAlert("Error", "Invalid credentials", "OK");
+            }
         }
-        else
-        {
-            await App.Current.MainPage.DisplayAlert("Error", "Invalid credentials", "OK");
-        }
+
         await Task.Delay(500);
         _spinnerClass = "";
         this.StateHasChanged();
+
+        NavigationManager.NavigateTo("/");
     }
 }

@@ -2,6 +2,7 @@
 @using EcoEarthPOC.Models
 @using EcoEarthPOC.Components.Services
 @inject IAppService AppService;
+@inject NavigationManager NavigationManager
 
 <h3 class="text-center mt-4">Registration</h3>
 
@@ -70,5 +71,7 @@
         await Task.Delay(500);
         _spinnerClass = "";
         this.StateHasChanged();
+
+        NavigationManager.NavigateTo("/login");
     }
 }

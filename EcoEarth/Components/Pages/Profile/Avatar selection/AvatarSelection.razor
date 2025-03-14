@@ -2,8 +2,96 @@
 
 <h3>AvatarSelection</h3>
 
-<img src="img_avatar.png" alt="Avatar" class="avatar">
-<img src="img_avatar2.png" alt="Avatar" class="avatar">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .avatar-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s, border 0.2s;
+            border: 4px solid transparent;
+        }
+        .avatar:hover {
+            transform: scale(1.1);
+        }
+        .selected {
+            border: 4px solid #007bff;
+        }
+        #confirm-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #confirm-btn:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Select Your Avatar</h2>
+
+    <div class="avatar-container" id="avatars">
+        <img src="https://i.pravatar.cc/100?img=1" class="avatar" onclick="selectAvatar(this)">
+        <img src="https://i.pravatar.cc/100?img=2" class="avatar" onclick="selectAvatar(this)">
+        <img src="https://i.pravatar.cc/100?img=3" class="avatar" onclick="selectAvatar(this)">
+        <img src="https://i.pravatar.cc/100?img=4" class="avatar" onclick="selectAvatar(this)">
+        <img src="https://i.pravatar.cc/100?img=5" class="avatar" onclick="selectAvatar(this)">
+    </div>
+
+    <button id="confirm-btn" disabled onclick="confirmSelection()">Confirm</button>
+
+    <script>
+        let selectedAvatar = null;
+
+        function selectAvatar(img) {
+            // Remove "selected" class from previously selected avatar
+            if (selectedAvatar) {
+                selectedAvatar.classList.remove("selected");
+            }
+
+            // Set new selected avatar
+            selectedAvatar = img;
+            selectedAvatar.classList.add("selected");
+
+            // Enable the confirm button
+            document.getElementById("confirm-btn").disabled = false;
+        }
+
+        function confirmSelection() {
+            if (selectedAvatar) {
+                alert("You selected: " + selectedAvatar.src);
+            }
+        }
+    </script>
+
+</body>
+</html>
+
 @code {
 
 }
