@@ -12,7 +12,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
     public class IsProductRecyclableService
     {
         // https://localhost:7111/api/RecyclableMaterials
-        const string ServiceBaseUrl = "http://localhost:7111/api";
+        const string ServiceBaseUrl = "https://localhost:44387/api";
         const string Endpoint = "/RecyclableMaterials";
         private readonly HttpClient _httpClient;
 
