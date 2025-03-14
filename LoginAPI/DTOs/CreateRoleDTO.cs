@@ -2,6 +2,6 @@
 {
     public class CreateRoleDTO
     {
-        public string RoleName { get; set; }
+        public required string RoleName { get; set; }
     }
 }

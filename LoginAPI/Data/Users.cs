@@ -11,7 +11,7 @@ namespace LoginAPI.Data
         [MaxLength(50)]
         public string LastName { get; set; } = null!;
 
-        public string? Email { get; set; }
+        public new string? Email { get; set; }
 
         public string? Password { get; set; }
 

@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "LoginAPI",
-    "version": "1.0"
+    "title": "Login API",
+    "description": "Login API for EcoEarth App",
+    "version": "V1"
   },
   "paths": {
     "/api/Users/CreateRole": {
@@ -195,6 +196,10 @@
   "components": {
     "schemas": {
       "AssignRoleToUserDTO": {
+        "required": [
+          "email",
+          "roleName"
+        ],
         "type": "object",
         "properties": {
           "email": {
@@ -209,9 +214,13 @@
         "additionalProperties": false
       },
       "AuthenticateUser": {
+        "required": [
+          "email",
+          "password"
+        ],
         "type": "object",
         "properties": {
-          "userName": {
+          "email": {
             "type": "string",
             "nullable": true
           },
@@ -223,6 +232,9 @@
         "additionalProperties": false
       },
       "CreateRoleDTO": {
+        "required": [
+          "roleName"
+        ],
         "type": "object",
         "properties": {
           "roleName": {
@@ -233,6 +245,9 @@
         "additionalProperties": false
       },
       "DeleteUserDTO": {
+        "required": [
+          "email"
+        ],
         "type": "object",
         "properties": {
           "email": {
@@ -243,6 +258,10 @@
         "additionalProperties": false
       },
       "RefreshTokenRequest": {
+        "required": [
+          "accessToken",
+          "refreshToken"
+        ],
         "type": "object",
         "properties": {
           "accessToken": {
@@ -257,6 +276,12 @@
         "additionalProperties": false
       },
       "RegisterUserDTO": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password"
+        ],
         "type": "object",
         "properties": {
           "firstName": {
@@ -278,6 +303,18 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Authorization header using the Bearer scheme. Example \"Authorization: Bearer {token}\"",
+        "scheme": "Bearer"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

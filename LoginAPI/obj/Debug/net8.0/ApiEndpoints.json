@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "assignRoleToUserDTO",
-        "Type": "LoginAPI.Models.AssignRoleToUserDTO",
+        "Type": "LoginAPI.DTOs.AssignRoleToUserDTO",
         "IsRequired": true
       }
     ],
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "authenticateUser",
-        "Type": "LoginAPI.Models.AuthenticateUser",
+        "Type": "LoginAPI.DTOs.AuthenticateUser",
         "IsRequired": true
       }
     ],
@@ -41,7 +41,7 @@
     "Parameters": [
       {
         "Name": "roleDTO",
-        "Type": "LoginAPI.Models.CreateRoleDTO",
+        "Type": "LoginAPI.DTOs.CreateRoleDTO",
         "IsRequired": true
       }
     ],
@@ -57,7 +57,7 @@
     "Parameters": [
       {
         "Name": "userDetails",
-        "Type": "LoginAPI.Models.DeleteUserDTO",
+        "Type": "LoginAPI.DTOs.DeleteUserDTO",
         "IsRequired": true
       }
     ],
@@ -73,7 +73,7 @@
     "Parameters": [
       {
         "Name": "refreshTokenRequest",
-        "Type": "LoginAPI.Models.RefreshTokenRequest",
+        "Type": "LoginAPI.DTOs.RefreshTokenRequest",
         "IsRequired": true
       }
     ],
@@ -89,7 +89,7 @@
     "Parameters": [
       {
         "Name": "registerUserDTO",
-        "Type": "LoginAPI.Models.RegisterUserDTO",
+        "Type": "LoginAPI.DTOs.RegisterUserDTO",
         "IsRequired": true
       }
     ],

@@ -94,6 +94,11 @@ namespace LoginAPI.Controllers
             if (principal != null)
             {
                 var email = principal.Claims.FirstOrDefault(f => f.Type == ClaimTypes.Email);
+                if(email == null)
+                {
+                    response.ErrorMessage = "Invalid Request";
+                    return BadRequest(response);
+                }
 
                 var user = await _userManager.FindByEmailAsync(email?.Value);
 
@@ -130,7 +135,7 @@ namespace LoginAPI.Controllers
         [HttpPost("AuthenticateUser")]
         public async Task<IActionResult> AuthenticateUser(AuthenticateUser authenticateUser)
         {
-            var user = await _userManager.FindByNameAsync(authenticateUser.UserName);
+            var user = await _userManager.FindByNameAsync(authenticateUser.Email);
             if (user == null) return Unauthorized();
 
             bool isValidUser = await _userManager.CheckPasswordAsync(user, authenticateUser.Password);
@@ -235,29 +240,14 @@ namespace LoginAPI.Controllers
             };
 
             var response = await _userManager.CreateAsync(userToBeCreated, registerUserDTO.Password);
+
             if (response.Succeeded)
             {
-                return Ok(new MainResponse
-                {
-                    IsSuccess = true,
-                });
+                return Ok(new { isSuccess = true, errorMessage = string.Empty, content = userToBeCreated });
             }
-            else
-            {
-                return ErrorResponse.ReturnErrorResponse(response.Errors?.ToString() ?? "");
-            }
-        }
 
-
-        private async Task<string> UploadFile(byte[] bytes, string fileName)
-        {
-            string uploadsFolder = Path.Combine("Images", fileName);
-            Stream stream = new MemoryStream(bytes);
-            using (var ms = new FileStream(uploadsFolder, FileMode.Create))
-            {
-                await stream.CopyToAsync(ms);
-            }
-            return uploadsFolder;
+            var errors = response.Errors.Select(e => e.Description).ToList();
+            return BadRequest(new { isSuccess = false, errorMessage = errors, content = (object)null });
         }
 
 

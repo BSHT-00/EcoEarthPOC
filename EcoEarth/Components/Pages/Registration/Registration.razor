@@ -1,5 +1,7 @@
 ﻿@page "/Registration"
 @using EcoEarthPOC.Models
+@using EcoEarthPOC.Components.Services
+@inject IAppService AppService;
 
 <h3 class="text-center mt-4">Registration</h3>
 
@@ -42,15 +44,31 @@
     </div>
 
     <div class="text-center">
-        <button class="btn btn-primary" type="submit">Register</button>
+        <button class="btn btn-primary btn-lg" type="submit">
+            <span class="@_spinnerClass" role="status" aria-hidden="true"></span>
+            Register
+        </button>
     </div>
 </EditForm>
 
 @code {
     RegistrationModel registrationModel = new RegistrationModel();
 
-    private void Submit()
+    private string _spinnerClass = "";
+    private async void Submit()
     {
-        // Implement registration logic here
+        _spinnerClass = "spinner-border spinner-border-sm";
+        var response = await AppService.RegisterUser(registrationModel);
+        if (response.IsSuccess)
+        {
+            await App.Current.MainPage.DisplayAlert("Success", "You have been registered.", "OK");
+        }
+        else
+        {
+            await App.Current.MainPage.DisplayAlert("Error",response.ErrorMessage, "OK");
+        }
+        await Task.Delay(500);
+        _spinnerClass = "";
+        this.StateHasChanged();
     }
 }
