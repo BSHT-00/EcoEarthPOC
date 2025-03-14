@@ -1,0 +1,6 @@
+@EcoEarthAppAPI_HostAddress = http://localhost:5250
+
+GET {{EcoEarthAppAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EcoEarthAppAPI
+LoginAPI/obj/Debug/net8.0/LoginAPI.AssemblyInfo.cs
+LoginAPI/obj/Debug/net8.0/LoginAPI.AssemblyInfo.cs
+LoginAPI/obj/Debug/net8.0/LoginAPI.AssemblyInfoInputs.cache
+LoginAPI/obj/Debug/net8.0/LoginAPI.assets.cache
+LoginAPI/obj/Debug/net8.0/LoginAPI.csproj.AssemblyReference.cache
+LoginAPI/obj/Debug/net8.0/LoginAPI.GeneratedMSBuildEditorConfig.editorconfig
+LoginAPI/obj/LoginAPI.csproj.nuget.dgspec.json
+LoginAPI/obj/LoginAPI.csproj.nuget.g.props
+LoginAPI/obj/project.assets.json
+LoginAPI/obj/project.nuget.cache
+*.cache
+*.editorconfig
+*.json
+*.props

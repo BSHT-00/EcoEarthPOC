@@ -3,33 +3,45 @@
 @using EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
 @using EcoEarthPOC.Components.Pages.Scanner
 @inject EcoEarthPOC.Components.Services.OFFPackaging _offService
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.IsProductRecyclableService _isProductRecyclableService
 
 <!--- Displaying Product Info-->
 <div>
     @if (productInfo != null)
     {
-        <h3>@productInfo.ProductInfo.ProductName: @productInfo.ProductInfo.ProductName</h3>
+        <h3>@productInfo.ProductInfo.Brand: @productInfo.ProductInfo.ProductName</h3>
 
-        <!--- TODO: Add code which handles null cases-->
         <ul id="RecyclableProducts">
-            @foreach (var material in recylableMaterials)
+            @if (recyclableProductMaterials != null)
             {
-                @if (material.Recyclable)
+                @foreach (var material in recyclableProductMaterials)
                 {
-                    <li>Material: @material.Material - Shape: @material.Shape</li>
+                    @if (material.Recyclable)
+                    {
+                        <li>Material: @material.Material - Shape: @material.Shape</li>
+                    }
                 }
             }
+
         </ul>
 
-        <!--- TODO: Add code which handles null cases-->
         <ul id="NonRecyclableProducts">
-            @foreach (var material in recylableMaterials)
+            @if (recyclableProductMaterials != null)
             {
-                @if (!material.Recyclable)
+                @foreach (var material in recyclableProductMaterials)
                 {
-                    <li>Material: @material.Material - Shape: @material.Shape</li>
+                    @if (material.Recyclable == null)
+                    {
+                        break;
+                    }
+
+                    @if (!material.Recyclable)
+                    {
+                        <li>Material: @material.Material - Shape: @material.Shape</li>
+                    }
                 }
             }
+
         </ul>
 
         <img src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
@@ -45,14 +57,22 @@
     [Parameter]
     public string ProductId { get; set; }
 
+    // Holds info for product's packaging
     public GetMorePackagingInfoDTO productInfo;
 
-    public List<EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM> recylableMaterials { get; set; }
+    // Holds recyclable materials (plastic, paper etc)
+    public List<EcoEarthPOC.Components.Pages.Scanner.Data.DTOs.IsItRecyclableDTO> recylableMaterials { get; set; }
+
+    // Holds recyclable materials in a product's packaging and whether they can be recycled
+    public List<EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM> recyclableProductMaterials { get; set; } = new List<EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM>();
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            // Initialise recyclable materials
+            recylableMaterials = await _isProductRecyclableService.GetRecyclableMaterials();
+
             productInfo = await _offService.GetMorePackagingInformation(ProductId);
 
             if (productInfo.Status == 0)
@@ -73,10 +93,64 @@
             }
 
             material.Material = material.Material.Replace("en:", "").Replace("-", " ").Replace("_", " ");
+            material.Shape = material.Shape.Replace("en:", "").Replace("-", " ").Replace("_", " ");
         }
 
-        recylableMaterials = ScannerMoreInfoUtils.InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
-
-        Console.WriteLine("e");
+        recyclableProductMaterials = InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
     }
+
+    //TODO: Implement this method
+    public bool AssigningCurrency()
+    {
+        return false;
+    }
+
+    // Initialises a list with the recyclable materials inside a product and includes a bool detailing whether it can be recycled
+    public List<EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM> InitialiseRecycleList(List<EcoEarthPOC.Components.Pages.Scanner.Data.DTOs.GetMorePackagingInfoDTO.Packagings> packagings)
+    {
+        if (packagings == null)
+        {
+            return null;
+        }
+        try
+        {
+            foreach (var packaging in packagings)
+            {
+                string mats = packaging.Material;
+                string shapes = packaging.Shape;
+                bool recyc = DoItRecycle(packaging.Material);
+
+                recyclableProductMaterials.Add(new EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM
+                {
+                        Material = mats,
+                        Shape = shapes,
+                        Recyclable = recyc
+                });
+            }
+
+            if (recyclableProductMaterials.Count == 0)
+            {
+                return null;
+            }
+            else
+                return recyclableProductMaterials;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return null;
+        }
+    }
+
+    // Checks whether materials in a product can be recycled
+    protected bool DoItRecycle(string material)
+    {
+        if (recylableMaterials.Any(m => m.Material.ToLower() == material.ToLower()))
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
 }
