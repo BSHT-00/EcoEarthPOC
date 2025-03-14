@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "EcoEarthAppAPI.Controllers.RecyclableMaterialsController",
+    "Method": "GetRecyclableMaterials",
+    "RelativePath": "api/RecyclableMaterials",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

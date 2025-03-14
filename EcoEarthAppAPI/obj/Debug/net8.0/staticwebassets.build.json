@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "SHm/3wGzS2NXonOXAR1pB6zXJaZd3Bq/EYhZN4QLCJM=",
+  "Source": "EcoEarthAppAPI",
+  "BasePath": "_content/EcoEarthAppAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
