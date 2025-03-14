@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcoEarthAppAPI.Data.Tables
 {
@@ -11,7 +12,7 @@ namespace EcoEarthAppAPI.Data.Tables
 
         [Required]
         [Range(0, int.MaxValue)]
-        public int Currency;
+        public int Balance;
 
         public UserProfile userProfile;
     }

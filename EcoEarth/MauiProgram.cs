@@ -13,6 +13,7 @@ namespace EcoEarthPOC
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -28,7 +29,7 @@ namespace EcoEarthPOC
                 client.BaseAddress = new Uri("http://localhost:7111/api");
             });
 
-            builder.UseMauiApp<App>().UseBarcodeReader(); // Corrected method call
+            builder.UseMauiApp<App>().UseBarcodeReader(); 
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

@@ -17,3 +17,4 @@ LoginAPI/obj/project.nuget.cache
 *.editorconfig
 *.json
 *.props
+/.vs/EcoEarthPOCq/v17

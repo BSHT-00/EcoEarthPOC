@@ -39,23 +39,34 @@ namespace EcoEarthAppAPI.Data
             modelBuilder.Entity<RecyclableMaterials>().HasKey(x => x.MaterialId);
 
 
-            // Relationships
-
-            // CompositeKey relationship between UserProfile and UserCurrency
-            modelBuilder.Entity<UserCurrency>()
-            .HasKey(abc => new { abc.UserId, abc.Currency });
+            //UserProfile(1) <->UserCurrency(1)
+            modelBuilder.Entity<UserProfile>()
+                    .HasOne(up => up.userCurrency)
+                    .WithOne(uc => uc.userProfile)
+                    .HasForeignKey<UserCurrency>(uc => uc.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
             // UserProfile (1) <-> PastRecycledClassCount (1)
-            modelBuilder.Entity<PastRecycledClassCount>()
-                .HasOne(e => e.userProfile)
-                .WithOne(e => e.pastRecycledClassCount)
-                .HasForeignKey<PastRecycledClassCount>(e => e.UserId);
+            modelBuilder.Entity<UserProfile>()
+                .HasOne(up => up.pastRecycledClassCount)
+                .WithOne(prcc => prcc.userProfile)
+                .HasForeignKey<PastRecycledClassCount>(prcc => prcc.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // UserProfile (1) <-> UserCurrency (1)
             modelBuilder.Entity<UserCurrency>()
-                .HasOne(e => e.userProfile)
-                .WithOne(e => e.userCurrency)
-                .HasForeignKey<UserCurrency>(e => e.UserId);
+                .HasOne(uc => uc.userProfile)
+                .WithOne(up => up.userCurrency)
+                .HasForeignKey<UserProfile>(up => up.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PastRecycledClassCount>()
+                .HasOne(prcc => prcc.userProfile)
+                .WithOne(up => up.pastRecycledClassCount)
+                .HasForeignKey<UserProfile>(up => up.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
 
             // Seed Data
             modelBuilder.Entity<RecyclableMaterials>().HasData(
@@ -92,10 +103,10 @@ namespace EcoEarthAppAPI.Data
             );
 
             modelBuilder.Entity<UserCurrency>().HasData(
-                new UserCurrency { UserId = 1, Currency = 0 },
-                new UserCurrency { UserId = 2, Currency = 45 },
-                new UserCurrency { UserId = 3, Currency = 24 },
-                new UserCurrency { UserId = 4, Currency = 100 }
+                new UserCurrency { UserId = 1, Balance = 0 },
+                new UserCurrency { UserId = 2, Balance = 45 },
+                new UserCurrency { UserId = 3, Balance = 24 },
+                new UserCurrency { UserId = 4, Balance = 100 }
             );
 
             modelBuilder.Entity<UserProfile>().HasData(
