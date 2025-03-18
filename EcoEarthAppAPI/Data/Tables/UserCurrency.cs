@@ -6,14 +6,13 @@ namespace EcoEarthAppAPI.Data.Tables
 {
     public class UserCurrency
     {
-        [Required]
         [Key]
-        public int UserId;
+        public int UserId { get; set; }
 
         [Required]
         [Range(0, int.MaxValue)]
-        public int Balance;
+        public int Balance { get; set; }
 
-        public UserProfile userProfile;
+        public UserProfile UserProfile { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace EcoEarthAppAPI.Data.Tables
         [Key]
         public int UserId { get; set; }
 
-        public UserCurrency userCurrency { get; set; }
-        public PastRecycledClassCount pastRecycledClassCount { get; set; }
+        public UserCurrency UserCurrency { get; set; }
+        public PastRecycledClassCount PastRecycledClassCount { get; set; }
     }
 }

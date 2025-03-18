@@ -38,32 +38,31 @@ namespace EcoEarthAppAPI.Data
             // Not related with the rest of the tables
             modelBuilder.Entity<RecyclableMaterials>().HasKey(x => x.MaterialId);
 
+            modelBuilder.Entity<UserCurrency>().HasKey(x => x.UserId);
+            modelBuilder.Entity<PastRecycledClassCount>().HasKey(x => x.UserId);
 
-            //UserProfile(1) <->UserCurrency(1)
-            modelBuilder.Entity<UserProfile>()
-                    .HasOne(up => up.userCurrency)
-                    .WithOne(uc => uc.userProfile)
-                    .HasForeignKey<UserCurrency>(uc => uc.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-            // UserProfile (1) <-> PastRecycledClassCount (1)
-            modelBuilder.Entity<UserProfile>()
-                .HasOne(up => up.pastRecycledClassCount)
-                .WithOne(prcc => prcc.userProfile)
-                .HasForeignKey<PastRecycledClassCount>(prcc => prcc.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
+            // 1-1
             modelBuilder.Entity<UserCurrency>()
-                .HasOne(uc => uc.userProfile)
-                .WithOne(up => up.userCurrency)
-                .HasForeignKey<UserProfile>(up => up.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(uc => uc.UserProfile)
+                .WithOne(up => up.UserCurrency)
+                .HasForeignKey<UserProfile>(up => up.UserId);
 
+            // 1-1
             modelBuilder.Entity<PastRecycledClassCount>()
-                .HasOne(prcc => prcc.userProfile)
-                .WithOne(up => up.pastRecycledClassCount)
-                .HasForeignKey<UserProfile>(up => up.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(prcc => prcc.UserProfile)
+                .WithOne(up => up.PastRecycledClassCount)
+                .HasForeignKey<UserProfile>(up => up.UserId);
+
+
+            //modelBuilder.Entity<UserCurrency>()
+            //    .HasOne(uc => uc.userProfile)
+            //    .WithOne(up => up.userCurrency)
+            //    .HasForeignKey<UserProfile>(up => up.UserId);
+
+            //modelBuilder.Entity<PastRecycledClassCount>()
+            //    .HasOne(prcc => prcc.userProfile)
+            //    .WithOne(up => up.pastRecycledClassCount)
+            //    .HasForeignKey<UserProfile>(up => up.UserId);
 
 
 
