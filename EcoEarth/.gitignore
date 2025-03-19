@@ -607,5 +607,66 @@ obj/*
 
 bin/*
 
+# Ignore build and output directories
+**/bin/
+**/obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userprefs
+
+# Ignore NuGet packages directory
+**/packages/
+
+# Ignore local development files
+*.local
+*.local.*
+
+# Ignore logs and diagnostics
+*.log
+*.nlog
+*.etl
+*.dump
+
+# Ignore compiled files
+*.dll
+*.pdb
+*.exe
+*.cache
+*.json
+*.txt
+*.editorconfig
+
+# Ignore generated files
+**/GeneratedMSBuildEditorConfig.editorconfig
+**/AssemblyInfo.cs
+**/AssemblyInfoInputs.cache
+**/assets.cache
+**/csproj.AssemblyReference.cache
+**/csproj.CoreCompileInputs.cache
+**/csproj.FileListAbsolute.txt
+**/genruntimeconfig.cache
+**/sourcelink.json
+**/EndpointInfo/
+**/ref/
+**/refint/
+
+# Ignore NuGet files
+**/*.nuget.dgspec.json
+**/*.nuget.g.props
+**/*.nuget.g.targets
+**/project.assets.json
+**/project.nuget.cache
+
+# Ignore apphost files
+**/apphost.exe
+
+# Ignore IDE-specific files
+.vs/
+.idea/
+.vscode/
+*.swp
+*.sln.iml
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudio,csharp
