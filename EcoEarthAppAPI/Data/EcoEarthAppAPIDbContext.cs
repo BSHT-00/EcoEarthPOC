@@ -15,6 +15,7 @@ namespace EcoEarthAppAPI.Data
         public DbSet<UserCurrency> UserCurrency { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<PastRecycledClassCount> PastRecycledClassCount { get; set; }
+        public DbSet<UserTickets> UserTickets { get; set; }
 
 
         public EcoEarthAppAPIDbContext()
@@ -37,6 +38,7 @@ namespace EcoEarthAppAPI.Data
 
             // Not related with the rest of the tables
             modelBuilder.Entity<RecyclableMaterials>().HasKey(x => x.MaterialId);
+            modelBuilder.Entity<UserTickets>().HasKey(x => x.TicketId);
 
             modelBuilder.Entity<UserCurrency>().HasKey(x => x.UserId);
             modelBuilder.Entity<PastRecycledClassCount>().HasKey(x => x.UserId);

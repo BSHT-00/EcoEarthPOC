@@ -18,42 +18,42 @@ namespace EcoEarthAppAPI.Controllers
 
         // Gets user's balance by userId
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetUserBalance(int userId)
+        public async Task<ActionResult<int>> GetUserBalance(int userId)
         {
             var userBalance = await _context.UserCurrency.FindAsync(userId);
             if (userBalance == null)
             {
                 return NotFound();
             }
-            return Ok(userBalance.Balance);
+            return userBalance.Balance;
         }
 
         // Adds currency to user's balance
-        [HttpPost("{userId}")]
-        public async Task<IActionResult> AddCurrency(int userId, [FromBody] int currency)
+        [HttpPut("{userId}/{currencyToAdd}")]
+        public async Task<IActionResult> AddCurrency(int userId, int currencyToAdd)
         {
-            var userBalance = await _context.UserCurrency.FindAsync(userId);
-            if (userBalance == null)
+            var user = await _context.UserCurrency.FindAsync(userId);
+            if (user == null)
             {
                 return NotFound();
             }
-            userBalance.Balance += currency;
+            user.Balance += currencyToAdd;
             await _context.SaveChangesAsync();
-            return Ok(userBalance.Balance);
+            return Ok(user.Balance);
         }
 
-        // Removes currency from user's balance
-        [HttpDelete("{userId}")]
-        public async Task<IActionResult> RemoveCurrency(int userId, [FromBody] int currency)
+        // Removes currency to user's balance
+        [HttpDelete("{userId}/{currencyToAdd}")]
+        public async Task<IActionResult> RemoveCurrency(int userId, int currencyToRemove)
         {
-            var userBalance = await _context.UserCurrency.FindAsync(userId);
-            if (userBalance == null)
+            var user = await _context.UserCurrency.FindAsync(userId);
+            if (user == null)
             {
                 return NotFound();
             }
-            userBalance.Balance -= currency;
+            user.Balance -= currencyToRemove;
             await _context.SaveChangesAsync();
-            return Ok(userBalance.Balance);
+            return Ok(user.Balance);
         }
     }
 }

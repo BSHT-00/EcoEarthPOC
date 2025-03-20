@@ -31,6 +31,16 @@ namespace EcoEarthPOC
                 client.BaseAddress = new Uri("http://localhost:7111/api");
             });
 
+            builder.Services.AddHttpClient<UserCurrencyService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:7111/api");
+            });
+
+            builder.Services.AddHttpClient<UserTicketsService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:7111/api");
+            });
+
             builder.UseMauiApp<App>().UseBarcodeReader(); 
 
 #if DEBUG

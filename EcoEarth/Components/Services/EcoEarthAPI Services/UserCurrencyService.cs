@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 {
+    // TODO: Test
     public class UserCurrencyService
     {
         // https://localhost:7111/api/RecyclableMaterials

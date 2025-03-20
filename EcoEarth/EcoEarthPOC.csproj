@@ -60,6 +60,10 @@
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\css\ScannerSS.css" />
+    </ItemGroup>
+
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui.Core" Version="11.1.0" />
@@ -78,13 +82,6 @@
         <PackageReference Include="System.Text.Json" Version="9.0.3" />
         <PackageReference Include="ZXing.Net" Version="0.16.10" />
         <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <MauiXaml Update="Components\Pages\Scanner\BarcodeScanner.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </MauiXaml>
     </ItemGroup>
 
 </Project>
