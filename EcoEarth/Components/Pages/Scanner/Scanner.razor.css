@@ -1,0 +1,32 @@
+﻿body {
+    font-family: 'Minecraft', sans-serif;
+    background-attachment: fixed;
+    background-image: url('/Resources/Images/Background.png');
+    background-size: cover;
+    color: #00ff00; /* Green color */
+    border-color: #00cc00; /* Darker green border */
+    transition: transform 0.3s ease-in-out;
+    image-rendering: pixelated; /* Make it pixely */
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('/content/file.eot');
+    src: local('☺'), url('/content/file.woff') format('woff'), url('/content/file.ttf') format('truetype');
+}
+
+
+.btn1 {
+    font-family: 'Minecraft', sans-serif;
+    background-attachment: fixed;
+    background-image: url('/Resources/Images/Background.png');
+    background-size: cover;
+    color: #00ff00; /* Green color */
+    border-color: #00cc00; /* Darker green border */
+    transition: transform 0.3s ease-in-out;
+    image-rendering: pixelated; /* Make it pixely */
+}
+
+.btn1:hover {
+    transform:matrix(1.2);
+}

@@ -1,0 +1,45 @@
+﻿#RecyclableProducts li {
+    color: #4CAF50; /* Green color scheme */
+    font-weight: bold;
+}
+
+#NonRecyclableProducts li {
+    color: #FF5722; /* Contrasting color for non-recyclable items */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('/fonts/Minecraft.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Minecraft', sans-serif;
+    background-color: #E8F5E9; /* Light green background */
+    color: #2E7D32; /* Dark green text */
+}
+
+header, footer {
+    background-color: #388E3C; /* Darker green for header and footer */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45A049; /* Darker green on hover */
+}

@@ -3,6 +3,7 @@
 @using EcoEarthPOC.Components.Pages.Scanner
 @inject EcoEarthPOC.Components.Services.OFFPackaging _offService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.IsProductRecyclableService _isProductRecyclableService
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService _userCurrencyService
 
 <link href="css/Scanner.css" rel="stylesheet" />
 
@@ -67,6 +68,9 @@
     // Holds recyclable materials in a product's packaging and whether they can be recycled
     public List<EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM> recyclableProductMaterials { get; set; } = new List<EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM>();
 
+    // Holds the number of points to assign to a user
+    public int PointsToAssign { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -98,12 +102,18 @@
         }
 
         recyclableProductMaterials = InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
+        AssigningCurrency();
     }
 
     //TODO: Implement this method
     public bool AssigningCurrency()
     {
-        return false;
+        // Hardcoded for now, needs implementing later
+        int userId = 1;
+        var srvResponse = _userCurrencyService.AddCurrency(userId, PointsToAssign);
+
+        return true;
+
     }
 
     // Initialises a list with the recyclable materials inside a product and includes a bool detailing whether it can be recycled
@@ -120,6 +130,16 @@
                 string mats = packaging.Material;
                 string shapes = packaging.Shape;
                 bool recyc = DoItRecycle(packaging.Material);
+
+                switch (recyc)
+                {
+                    case true:
+                        PointsToAssign += 3;
+                        break;
+                    case false:
+                        PointsToAssign -= 1;
+                        break;
+                }
 
                 recyclableProductMaterials.Add(new EcoEarthPOC.Components.Pages.Scanner.Data.ViewModels.RecylableMaterialVM
                 {

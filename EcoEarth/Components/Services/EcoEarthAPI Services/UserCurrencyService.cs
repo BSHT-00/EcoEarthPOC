@@ -36,15 +36,15 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             return 0;
         }
 
-        public async Task<int> AddCurrency(int userId, int currency)
+        public async Task<bool> AddCurrency(int userId, int currency)
         {
-            var response = await _httpClient.PostAsync($"{ServiceBaseUrl}{Endpoint}/{userId}", new StringContent(JsonSerializer.Serialize(currency), Encoding.UTF8, "application/json"));
+            var requestContent = new StringContent(JsonSerializer.Serialize(new { currency }), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"{ServiceBaseUrl}{Endpoint}/{userId}", requestContent);
             if (response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<int>(content, jsonOptions);
+                return true;
             }
-            return 0;
+            return false;
         }
 
         public async Task<int> RemoveCurrency(int userId, int currency)
@@ -55,7 +55,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
                 var content = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<int>(content, jsonOptions);
             }
-            return 0;
+            return -1007;
         }
     }
 }
