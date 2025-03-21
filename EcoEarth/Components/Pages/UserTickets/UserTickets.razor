@@ -1,7 +1,8 @@
 ﻿@page "/usertickets"
-@using CommunityToolkit.Maui
 @using CommunityToolkit.Maui.Core
 @using EcoEarthPOC.Components.Services.EcoEarthAPI_Services
+@using CommunityToolkit.Maui.Views;
+@using CommunityToolkit.Maui.Alerts;
 
 @inject UserTicketsService _userTicketsService
 
@@ -9,6 +10,7 @@
 
 <label for="inputText">Ticket Title: </label>
 <input type="text" id="TickTitle" @bind="TickTitle" />
+
 <label for="inputText">Ticket Details: </label>
 <input type="text" id="TickDescription" @bind="TickDesc" />
 
@@ -31,14 +33,15 @@
     {
         if (string.IsNullOrWhiteSpace(TickTitle) || string.IsNullOrWhiteSpace(TickDesc))
         {
-            // popup
+            await ShowToast("Title and Description are required.");
+            return;
         }
-
-        if (!string.IsNullOrEmpty(TickEmail))
+        else if (!string.IsNullOrEmpty(TickEmail))
         {
             if (!validateEmail(TickEmail))
             {
-                // popup
+                await ShowToast("Invalid email address.");
+                return;
             }
         }
 
@@ -50,9 +53,8 @@
             Date = DateOnly.FromDateTime(DateTime.Now)
         };
 
-        // Add logic to submit the ticket using _userTicketsService
-
         await _userTicketsService.PostTicketAsync(ticket);
+        await ShowToast("Ticket submitted successfully.");
     }
 
     // Validates email using reg exp
@@ -60,5 +62,16 @@
     {
         var regex = new System.Text.RegularExpressions.Regex(@"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|""(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*"")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])");
         return regex.IsMatch(email);
+    }
+
+    private async Task ShowToast(string message)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(message, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
     }
 }

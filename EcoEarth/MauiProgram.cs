@@ -3,7 +3,8 @@ using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui;
 using ZXing.Net.Maui.Controls;
 using EcoEarthPOC.Components.Services.EcoEarthAPI_Services;
-using CommunityToolkit.Maui.Core;
+using Microsoft.Extensions.Options;
+using CommunityToolkit.Maui;
 
 namespace EcoEarthPOC
 {
@@ -14,6 +15,12 @@ namespace EcoEarthPOC
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit(
+                options =>
+                {
+                    options.SetShouldEnableSnackbarOnWindows(true);
+                })
+
                 .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
                 {
@@ -24,7 +31,7 @@ namespace EcoEarthPOC
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<OFFPackaging>();
             builder.Services.AddHttpClient();
-            builder.UseMauiApp<App>().UseMauiCommunityToolkitCore();
+
 
             builder.Services.AddHttpClient<IsProductRecyclableService>(client =>
             {
@@ -40,6 +47,8 @@ namespace EcoEarthPOC
             {
                 client.BaseAddress = new Uri("http://localhost:7111/api");
             });
+
+
 
             builder.UseMauiApp<App>().UseBarcodeReader(); 
 
