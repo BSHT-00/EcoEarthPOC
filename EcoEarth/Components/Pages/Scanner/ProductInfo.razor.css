@@ -62,3 +62,14 @@ button:hover {
         color: #155724;
     
     }
+
+.UserRewardsBox {
+    background-color: #006400;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    font-family: Minecraft;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

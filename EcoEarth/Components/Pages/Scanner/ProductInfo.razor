@@ -5,8 +5,6 @@
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.IsProductRecyclableService _isProductRecyclableService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService _userCurrencyService
 
-<link href="css/Scanner.css" rel="stylesheet" />
-
 <!--- Displaying Product Info-->
 <div>
     @if (productInfo != null)
@@ -47,6 +45,15 @@
         </ul>
 
         <img src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
+
+        <div class="UserRewardsBox">
+            <p>This product has earned you @PointsToAssign Ecoins!</p>
+        </div>
+
+        <div class="ContentWarning">
+            <p>Is any of this information incorrect? Write us a ticket!</p>
+            <button class="wide-button" @onclick="NavigateToTicket">Create a ticket</button>
+        </div>
 
     }
     else
@@ -177,6 +184,12 @@
         }
         else
             return false;
+    }
+
+    // Takes user to the ticket page
+    public void NavigateToTicket()
+    {
+        NavigationManager.NavigateTo("/usertickets");
     }
 
     [Inject]

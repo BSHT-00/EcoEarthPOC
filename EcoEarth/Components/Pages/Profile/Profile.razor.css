@@ -1,12 +1,6 @@
 ﻿body {
-    font-family: 'Minecraft', sans-serif;
-    background-attachment: fixed;
-    background-size: cover;
-    color: #00ff00; 
-    border-color: #00cc00; 
-    transition: transform 0.3s ease-in-out;
-    image-rendering: pixelated; 
 }
+
 button {
     font-family: 'Minecraft', sans-serif;
     font-size: 1rem;
@@ -20,14 +14,12 @@ button {
     outline: 1px solid black;
     padding-bottom: 5px;
     padding-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
     border-radius: 10px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
-button:hover {
-    background-color: #77a377;
-}
-
-
+    button:hover {
+        background-color: #77a377;
+    }

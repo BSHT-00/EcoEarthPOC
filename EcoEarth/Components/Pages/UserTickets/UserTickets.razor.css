@@ -67,8 +67,9 @@ label {
     cursor: pointer;
     margin-top: 10px;
     background-image: url('Backgrounds/NavBarBackground.jpg');
-    background-size:cover;
+    background-size: cover;
     image-rendering: pixelated;
+    width: 100%;
 }
 
 .text-input {
@@ -79,5 +80,5 @@ label {
 }
 
 .sub-btn:hover {
-    transform: scale(1.1);
+   
 }
