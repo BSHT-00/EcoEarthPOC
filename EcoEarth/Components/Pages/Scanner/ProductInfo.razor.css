@@ -1,20 +1,6 @@
-﻿#RecyclableProducts li {
-    color: #4CAF50; /* Green color scheme */
-    font-weight: bold;
-}
-
-#NonRecyclableProducts li {
-    color: #FF5722; /* Contrasting color for non-recyclable items */
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Minecraft';
-    src: url('/fonts/Minecraft.ttf') format('truetype');
-}
-
+﻿
 body {
-    font-family: 'Minecraft', sans-serif;
+    font-family: Minecraft, sans-serif;
     background-color: #E8F5E9; /* Light green background */
     color: #2E7D32; /* Dark green text */
 }
@@ -43,3 +29,36 @@ button {
 button:hover {
     background-color: #45A049; /* Darker green on hover */
 }
+
+#RecyclableProducts {
+    list-style-type: none;
+    padding: 0;
+}
+
+#RecyclableProducts li {
+    display: flex;
+    align-items: center;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #155724;
+}
+
+#NonRecyclableProducts {
+    list-style-type: none;
+    padding: 0;
+}
+
+    #NonRecyclableProducts li {
+        display: flex;
+        align-items: center;
+        background-color: #f8d7da;
+        border: 1px solid #c3e6cb;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        color: #155724;
+    
+    }

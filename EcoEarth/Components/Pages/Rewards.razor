@@ -1,7 +1,11 @@
 ﻿@page "/rewards"
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService _userCurrencyService
 
-Rewards
+<button @onclick="BtnPress">Press</button>
 
 @code {
-
+    public async Task BtnPress()
+    {
+        await _userCurrencyService.RemoveCurrency(2);
+    }
 }

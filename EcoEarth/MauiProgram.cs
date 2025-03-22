@@ -32,7 +32,6 @@ namespace EcoEarthPOC
             builder.Services.AddScoped<OFFPackaging>();
             builder.Services.AddHttpClient();
 
-
             builder.Services.AddHttpClient<IsProductRecyclableService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:7111/api");
@@ -48,9 +47,9 @@ namespace EcoEarthPOC
                 client.BaseAddress = new Uri("http://localhost:7111/api");
             });
 
+            builder.Services.AddSingleton<AppVariables>();
 
-
-            builder.UseMauiApp<App>().UseBarcodeReader(); 
+            builder.UseMauiApp<App>().UseBarcodeReader();
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

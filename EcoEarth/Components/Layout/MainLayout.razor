@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService userCurrencyService
+@using EcoEarthPOC.Components.Services
 
 <div class="page">
     <div class="sidebar">
@@ -7,7 +9,19 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+
+            @if (UserCurrency == -1)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>Service Unavailable</strong>
+                    <p>Sorry, the service is currently unavailable. Please try again later.</p>
+                </div>
+            }
+            <div class="user-balance">
+                <img src="Icons/icon_scanner.png" alt="Currency Icon" class="currency-icon" />
+                <span>@UserCurrency</span>
+            </div>
+
         </div>
 
         <article class="content px-4">
@@ -15,3 +29,42 @@
         </article>
     </main>
 </div>
+
+@code {
+    private int UserCurrency { get; set; }
+    private Timer _timer;
+
+    // Id is passed here, must be changed before deployment
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            AppVariables.UserId = 1;
+            UserCurrency = await userCurrencyService.GetUserBalance();
+        }
+        catch (Exception)
+        {
+            // Indicates service is not active
+            UserCurrency = -1;
+        }
+
+        _timer = new Timer(async _ => await UpdateUserCurrency(), null, 0, 1000);
+    }
+
+    public async Task UpdateUserCurrency()
+    {
+        try
+        {
+            UserCurrency = await userCurrencyService.GetUserBalance();
+        }
+        catch (Exception)
+        {
+            UserCurrency = -1;
+        }
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

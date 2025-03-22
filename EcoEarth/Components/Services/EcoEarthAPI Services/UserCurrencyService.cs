@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,9 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             PropertyNameCaseInsensitive = true
         };
 
-        public async Task<int> GetUserBalance(int userId)
+        public async Task<int> GetUserBalance()
         {
-            var response = await _httpClient.GetAsync($"{ServiceBaseUrl}{Endpoint}/{userId}");
+            var response = await _httpClient.GetAsync($"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -36,26 +37,26 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             return 0;
         }
 
-        public async Task<bool> AddCurrency(int userId, int currency)
+        public async Task AddCurrency(int currency)
         {
-            var requestContent = new StringContent(JsonSerializer.Serialize(new { currency }), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{ServiceBaseUrl}{Endpoint}/{userId}", requestContent);
-            if (response.IsSuccessStatusCode)
+            var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}/{currency}";
+
+            var response = await _httpClient.PutAsync(url, null);
+            if (!response.IsSuccessStatusCode)
             {
-                return true;
+                throw new Exception("Failed to add currency");
             }
-            return false;
         }
 
-        public async Task<int> RemoveCurrency(int userId, int currency)
+        public async Task RemoveCurrency(int currency)
         {
-            var response = await _httpClient.DeleteAsync($"{ServiceBaseUrl}{Endpoint}/{userId}");
-            if (response.IsSuccessStatusCode)
+            var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}/{currency}";
+
+            var response = await _httpClient.DeleteAsync(url);
+            if (!response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<int>(content, jsonOptions);
+                throw new Exception("Failed to add currency");
             }
-            return -1007;
         }
     }
 }

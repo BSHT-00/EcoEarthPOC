@@ -104,7 +104,7 @@ namespace EcoEarthAppAPI.Data
             );
 
             modelBuilder.Entity<UserCurrency>().HasData(
-                new UserCurrency { UserId = 1, Balance = 0 },
+                new UserCurrency { UserId = 1, Balance = 10 },
                 new UserCurrency { UserId = 2, Balance = 45 },
                 new UserCurrency { UserId = 3, Balance = 24 },
                 new UserCurrency { UserId = 4, Balance = 100 }
@@ -118,10 +118,10 @@ namespace EcoEarthAppAPI.Data
             );
 
             modelBuilder.Entity<PastRecycledClassCount>().HasData(
-                new PastRecycledClassCount { UserId = 1, Cat1 = 0, Cat2 = 0, Cat3 = 0, Cat4 = 0, Cat5 = 0 },
-                new PastRecycledClassCount { UserId = 2, Cat1 = 0, Cat2 = 0, Cat3 = 0, Cat4 = 0, Cat5 = 0 },
-                new PastRecycledClassCount { UserId = 3, Cat1 = 0, Cat2 = 0, Cat3 = 0, Cat4 = 0, Cat5 = 0 },
-                new PastRecycledClassCount { UserId = 4, Cat1 = 0, Cat2 = 0, Cat3 = 0, Cat4 = 0, Cat5 = 0 }
+                new PastRecycledClassCount { UserId = 1, Cat1 = 10, Cat2 = 0, Cat3 = 0, Cat4 = 0, Cat5 = 0 },
+                new PastRecycledClassCount { UserId = 2, Cat1 = 0, Cat2 = 7, Cat3 = 6, Cat4 = 0, Cat5 = 0 },
+                new PastRecycledClassCount { UserId = 3, Cat1 = 0, Cat2 = 0, Cat3 = 8, Cat4 = 0, Cat5 = 0 },
+                new PastRecycledClassCount { UserId = 4, Cat1 = 1, Cat2 = 0, Cat3 = 2, Cat4 = 0, Cat5 = 6 }
             );
 
 

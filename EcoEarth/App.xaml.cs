@@ -11,5 +11,6 @@
         {
             return new Window(new MainPage()) { Title = "EcoEarthPOC" };
         }
+
     }
 }

@@ -102,18 +102,20 @@
         }
 
         recyclableProductMaterials = InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
-        AssigningCurrency();
+        await AssigningCurrency();
     }
 
-    //TODO: Implement this method
-    public bool AssigningCurrency()
+    // Assigns currency to a user
+    public async Task AssigningCurrency()
     {
-        // Hardcoded for now, needs implementing later
-        int userId = 1;
-        var srvResponse = _userCurrencyService.AddCurrency(userId, PointsToAssign);
-
-        return true;
-
+        try
+        {
+            var srvResponse = _userCurrencyService.AddCurrency(PointsToAssign);
+        }
+        catch (Exception e)
+        {
+            return;
+        }
     }
 
     // Initialises a list with the recyclable materials inside a product and includes a bool detailing whether it can be recycled
@@ -169,12 +171,15 @@
         if (material == null)
             return false;
 
-        if (recylableMaterials.Any(m => m.Material.ToLower() == material.ToLower()))
+        if (recylableMaterials.Any(m => m.Material.ToLower().Contains(material.ToLower())))
         {
             return true;
         }
         else
             return false;
     }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
 
 }

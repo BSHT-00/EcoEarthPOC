@@ -29,29 +29,39 @@ namespace EcoEarthAppAPI.Controllers
         }
 
         // Adds currency to user's balance
-        [HttpPut("{userId}/{currencyToAdd}")]
-        public async Task<IActionResult> AddCurrency(int userId, int currencyToAdd)
+        [HttpPut("{userId}/{currency}")]
+        public async Task<IActionResult> AddCurrency(int userId, int currency)
         {
+            if(currency <= 0)
+            {
+                return BadRequest("Can't add a negative value");
+            }
+
             var user = await _context.UserCurrency.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
             }
-            user.Balance += currencyToAdd;
+            user.Balance += currency;
             await _context.SaveChangesAsync();
             return Ok(user.Balance);
         }
 
         // Removes currency to user's balance
-        [HttpDelete("{userId}/{currencyToAdd}")]
-        public async Task<IActionResult> RemoveCurrency(int userId, int currencyToRemove)
+        [HttpDelete("{userId}/{currency}")]
+        public async Task<IActionResult> RemoveCurrency(int userId, int currency)
         {
+            if (currency <= 0)
+            {
+                return BadRequest("Can't deduct a negative value");
+            }
+
             var user = await _context.UserCurrency.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
             }
-            user.Balance -= currencyToRemove;
+            user.Balance -= currency;
             await _context.SaveChangesAsync();
             return Ok(user.Balance);
         }

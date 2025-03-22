@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:EcoEarthPOC"
              x:Class="EcoEarthPOC.App">
+
+    <Routing.Route Host="MainPage" Builder="MainPage" />
+
     <Application.Resources>
         <ResourceDictionary>
 
@@ -15,3 +18,4 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+    
