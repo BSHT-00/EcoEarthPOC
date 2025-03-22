@@ -5,6 +5,8 @@
         public App()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute("barcodescantest", typeof(Components.Pages.Scanner.BarcodeScanTest));
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

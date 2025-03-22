@@ -86,4 +86,18 @@
       <Folder Include="Components\Pages\RecyclingInstructions\" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Compile Update="Components\Pages\Scanner\BarcodeScan.xaml.cs">
+        <DependentUpon>BarcodeScan.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <MauiXaml Update="Components\Pages\Scanner\BarcodeScan.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+    </ItemGroup>
+
 </Project>

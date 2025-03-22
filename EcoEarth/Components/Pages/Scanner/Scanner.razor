@@ -11,9 +11,9 @@
 <button @onclick="NavigateToManualInp" class="button">Manual input</button>
 
 @code {
-    private void NavigateToBarcodeS()
+    private async Task NavigateToBarcodeS()
     {
-        NavigationManager.NavigateTo("/scanner/barcode");
+        App.Current.MainPage = new NavigationPage(new BarcodeScanTest());
     }
     private void NavigateToImageRec()
     {

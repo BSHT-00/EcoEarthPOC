@@ -1,0 +1,23 @@
+﻿
+ContentPage {
+    background-color: #f0f0f0;
+}
+
+VerticalStackLayout {
+    spacing: 25px;
+    padding: 30px 0;
+    vertical-align: center;
+}
+
+zxing|CameraBarcodeReaderView {
+    width: 300px;
+    height: 300px;
+    border: 2px solid #0078d7;
+    border-radius: 10px;
+}
+
+Label {
+    font-size: 32px;
+    text-align: center;
+    color: #333333;
+}
