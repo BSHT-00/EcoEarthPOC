@@ -36,7 +36,7 @@ namespace EcoEarthAppAPI.Controllers
         }
 
         // Gets incomplete tickets
-        [HttpGet]
+        [HttpGet("incomplete")]
         public async Task<ActionResult<IEnumerable<UserTickets>>> GetIncompleteTickets()
         {
             return await _context.UserTickets
