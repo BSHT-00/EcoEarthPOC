@@ -8,20 +8,63 @@
 
 <p>Having issues? Create a ticket! Please enter any details you are able to provide below:</p>
 
-<label for="inputText">Ticket Title: </label>
-<input type="text" id="TickTitle" @bind="TickTitle" />
+<h5 class="tick-prompt">Ticket Title (Briefly describe your issue)</h5>
+<label for="inputText"> </label>
+<input type="text" class="text-input" id="TickTitle" @bind="TickTitle" rows="8" />
 
-<label for="inputText">Ticket Details: </label>
-<input type="text" id="TickDescription" @bind="TickDesc" />
+
+<h5 class="tick-prompt">Ticket Details (Explain the issue in detail) </h5>
+<label for="inputText"></label>
+<textarea id="TickDescription" class="text-input" @bind="TickDesc" rows="8" cols="40"></textarea>
+
 
 <p>So we can contact you directly, leave your email here. This is not required though </p>
 
-<label for="inputText">Email Address </label>
+<h5 class="tick-prompt">Email Address (Optional)</h5>
+<label for="inputText"></label>
 <input type="text" id="TickEmail" @bind="TickEmail" />
 
-<button @onclick="Submit">Submit</button>
+<br />
+<button @onclick="Submit" class="sub-btn">Submit</button>
 
 <p>If you are having issues and would prefer to contact us directly, our team are available by email:</p>
+
+<div class="email-box">
+    <div class="avatar">
+        <img src="Avatars/con4.png" alt="Avatar" />
+    </div>
+    <div class="email">d3330384@live.tees.ac.uk</div>
+</div>
+
+<div class="email-box">
+    <div class="avatar">
+        <img src="Avatars/con6.png" alt="Avatar" />
+    </div>
+    <div class="email">q2043246@live.tees.ac.uk</div>
+</div>
+
+<div class="email-box">
+    <div class="avatar">
+        <img src="Avatars/con9.png" alt="Avatar" />
+    </div>
+    <div class="email">d3266548@live.tees.ac.uk</div>
+</div>
+
+<div class="email-box">
+    <div class="avatar">
+        <img src="Avatars/con7.png" alt="Avatar" />
+    </div>
+    <div class="email">d3158960@live.tees.ac.uk</div>
+</div>
+
+<div class="email-box">
+    <div class="avatar">
+        <img src="Avatars/con34.png" alt="Avatar" />
+    </div>
+    <div class="email">s3028837@live.tees.ac.uk</div>
+</div>
+
+
 
 @code 
 {

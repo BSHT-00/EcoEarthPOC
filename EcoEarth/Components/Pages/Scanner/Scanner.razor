@@ -1,12 +1,14 @@
 ﻿@page "/scanner/scanner"
 
-<HeadContent>
-    <link href="Scanner/ScannerSS.css" rel="stylesheet" />
-</HeadContent>
+<h5>Scan a product and earn points!</h5>
 
-<button @onclick="NavigateToBarcodeS" class="btn1">Scan a Barcode</button>
-<button @onclick="NavigateToImageRec">AI Image Recognition</button>
-<button @onclick="NavigateToManualInp">Manual input</button>
+<p>Ensure you are in a well lit area and prepare your packaging</p>
+
+<button @onclick="NavigateToBarcodeS" class="button">Barcode Scanner</button>
+<br style="padding: 10px;" />
+<button @onclick="NavigateToImageRec" class="button">AI Image Recognition</button>
+<br style="padding: 10px;" />
+<button @onclick="NavigateToManualInp" class="button">Manual input</button>
 
 @code {
     private void NavigateToBarcodeS()

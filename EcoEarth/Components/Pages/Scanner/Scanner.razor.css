@@ -8,25 +8,20 @@
     transition: transform 0.3s ease-in-out;
     image-rendering: pixelated; /* Make it pixely */
 }
-
-@font-face {
-    font-family: 'Minecraft';
-    src: url('/content/file.eot');
-    src: local('☺'), url('/content/file.woff') format('woff'), url('/content/file.ttf') format('truetype');
-}
-
-
-.btn1 {
+button {
     font-family: 'Minecraft', sans-serif;
-    background-attachment: fixed;
-    background-image: url('/Resources/Images/Background.png');
+    font-size: 1rem;
+    width: 95%;
+    height: 95%;
+    color: white;
     background-size: cover;
-    color: #00ff00; /* Green color */
-    border-color: #00cc00; /* Darker green border */
-    transition: transform 0.3s ease-in-out;
-    image-rendering: pixelated; /* Make it pixely */
+    background-position: center;
+    border: none;
+    outline: 1px solid black;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-bottom: 10px; /* Add margin to create gap between buttons */
 }
 
-.btn1:hover {
-    transform:matrix(1.2);
-}
+

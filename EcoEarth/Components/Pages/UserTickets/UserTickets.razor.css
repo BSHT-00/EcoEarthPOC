@@ -1,0 +1,83 @@
+﻿body {
+    font-family: Minecraft, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-size: 1.2rem;
+    font-family: Minecraft, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 1em;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.email-box {
+    display: flex;
+    align-items: center;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+    .email-box .icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        background-image: url('wwwroot/Sprites/MiniShieldMan.png'); /* Update with the correct path to your sprite image */
+        background-size: cover;
+    }
+
+    .email-box .email {
+        font-size: 1rem;
+        color: #155724;
+    }
+
+.avatar {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.tick-prompt {
+    line-height: 1.6;
+    font-size: 1.2rem;
+    font-family: Minecraft, Helvetica, Arial, sans-serif;
+    color: black;
+}
+
+.sub-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #006400;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size:cover;
+    image-rendering: pixelated;
+}
+
+.text-input {
+    padding-bottom: 5px;
+    padding-left:10px;
+    padding-right:10px;
+    
+}
+
+.sub-btn:hover {
+    transform: scale(1.1);
+}
