@@ -3,27 +3,32 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"  
             x:Class="EcoEarthPOC.Components.Pages.Scanner.BarcodeScanTest"  
-            Title="barcodescantest">  
-   <ScrollView>  
-       <VerticalStackLayout  
-           Spacing="25"  
-           Padding="30,0"  
-           VerticalOptions="Center">  
+            Title="Barcode Scanner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-           <Border BackgroundColor="PaleGreen" Padding="10">  
-               <Label Text="Place the barcode within the box to scan it"  
-                      HorizontalOptions="Center"  
-                      VerticalOptions="Center"  
-                      TextColor="Black" />  
-           </Border>  
-          
-           <zxing:CameraBarcodeReaderView x:Name="barcodeReader"  
-                                          WidthRequest="400" HeightRequest="250"  
-                                          IsDetecting="True" IsTorchOn="False"  
-                                          BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
+        <Border BackgroundColor="PaleGreen" Padding="10" Grid.Row="0">
+            <Label Text="Place the barcode within the box to scan it"  
+                  HorizontalOptions="Center"  
+                  VerticalOptions="Center"  
+                  TextColor="Black" />
+        </Border>
 
-            <Button Text="Back" Clicked="Button_Clicked"/>
+        <BoxView HeightRequest="20" Grid.Row="1" />
 
-       </VerticalStackLayout>  
-   </ScrollView>  
+        <zxing:CameraBarcodeReaderView x:Name="barcodeReader"  
+                                      WidthRequest="400" HeightRequest="250"  
+                                      IsDetecting="True" IsTorchOn="False"  
+                                      BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" 
+                                      Grid.Row="2" />
+
+        <BoxView HeightRequest="20" Grid.Row="3" />
+
+        <Button Text="Back" Clicked="Button_Clicked" Grid.Row="4" />
+    </Grid>
 </ContentPage>
