@@ -12,13 +12,15 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
     public class IsProductRecyclableService
     {
         // https://localhost:7111/api/RecyclableMaterials
-        const string ServiceBaseUrl = "https://localhost:7111/api";
+        public static string ServiceBaseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7111/api" : "https://localhost:7111/api";
         const string Endpoint = "/RecyclableMaterials";
         private readonly HttpClient _httpClient;
 
         public IsProductRecyclableService(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            _httpClient = new HttpClient(handler);
         }
 
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions

@@ -1,13 +1,17 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using ZXing.Net.Maui;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace EcoEarthPOC.Components.Pages.Scanner;
 
 public partial class BarcodeScanTest : ContentPage
 {
     [Inject]
-    public NavigationManager? NavigationManager { get; set; }
+    private NavigationManager _NavigationManager { get; set; }
 
     public BarcodeScanTest()
     {
@@ -21,24 +25,30 @@ public partial class BarcodeScanTest : ContentPage
         };
     }
 
+    //TODO: Fix nav manager null issue
     private void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
         // Ensure the event is handled on the main thread
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            if (e.Results == null)
+            var result = e.Results[0].Value.ToString();
+
+            if (result == null || _NavigationManager == null)
                 return;
-            if (validateBarcodeNumber(e.Results.ToString()))
+            // Validating that the barcode is in the valid format
+            if (validateBarcodeNumber(result))
             {
-                NavigationManager.NavigateTo("/scanner/productinfo/" + e.Results.ToString());
+
+                // If so, take user to product info page
+                _NavigationManager.NavigateTo("/scanner/productinfo/" + e.Results[0].Value.ToString());
             }
         });
     }
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-        if (NavigationManager != null)
-            NavigationManager.NavigateTo("scanner/scanner");
+        if (_NavigationManager != null)
+            _NavigationManager.NavigateTo("scanner/scanner");
     }
 
     protected bool validateBarcodeNumber(string barcode)

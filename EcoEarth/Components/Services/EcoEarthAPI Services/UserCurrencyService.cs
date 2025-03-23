@@ -11,14 +11,20 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
     // TODO: Test
     public class UserCurrencyService
     {
-        // https://localhost:7111/api/RecyclableMaterials
-        const string ServiceBaseUrl = "https://localhost:7111/api";
-        const string Endpoint = "/UserCurrency";
+        // https://localhost:7111/api/RecyclableMaterials (windows)
+        // https://10.0.2.2:7111/api/UserCurrency/1 (android)
+
+        // Base URL that changes based on platform. Android uses 10.0.2.2:<port> to access localhost api
+        public static string ServiceBaseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7111/api" : "https://localhost:7111/api";
+        const string Endpoint = "/UserCurrency"; 
         private readonly HttpClient _httpClient;
 
+        // Http Client injected and handler bypasses SSL (which was preventing the API from working)
         public UserCurrencyService(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            _httpClient = new HttpClient(handler);
         }
 
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions

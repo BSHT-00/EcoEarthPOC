@@ -5,6 +5,7 @@ using ZXing.Net.Maui.Controls;
 using EcoEarthPOC.Components.Services.EcoEarthAPI_Services;
 using Microsoft.Extensions.Options;
 using CommunityToolkit.Maui;
+using EcoEarthPOC.Components.Pages.Scanner;
 
 namespace EcoEarthPOC
 {

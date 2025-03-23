@@ -22,7 +22,7 @@
 
 <h5 class="tick-prompt">Email Address (Optional)</h5>
 <label for="inputText"></label>
-<input type="text" id="TickEmail" @bind="TickEmail" />
+<input type="text" id="TickEmail" @bind="TickEmail" class="text-input"/>
 
 <br />
 <button @onclick="Submit" class="sub-btn">Submit</button>
@@ -74,6 +74,7 @@
 
     private async Task Submit()
     {
+        // Validating and displaying popups when input is not valid
         if (string.IsNullOrWhiteSpace(TickTitle) || string.IsNullOrWhiteSpace(TickDesc))
         {
             await ShowToast("Title and Description are required.");
@@ -88,6 +89,7 @@
             }
         }
 
+        // Creating and Posting ticket
         var ticket = new EcoEarthPOC.Components.Pages.UserTickets.DTOs.UserTicketsDTO
         {
             Title = TickTitle,
@@ -107,6 +109,7 @@
         return regex.IsMatch(email);
     }
 
+    // Displays a toast message (popup)
     private async Task ShowToast(string message)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();

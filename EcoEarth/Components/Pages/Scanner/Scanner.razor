@@ -13,7 +13,11 @@
 @code {
     private async Task NavigateToBarcodeS()
     {
-        App.Current.MainPage = new NavigationPage(new BarcodeScanTest());
+        var window = Application.Current?.Windows.FirstOrDefault();
+        if (window != null)
+        {
+            window.Page = new NavigationPage(new BarcodeScanTest());
+        }
     }
     private void NavigateToImageRec()
     {
