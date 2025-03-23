@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
-             x:Class="EcoEarthPOC.Components.Pages.Scanner.BarcodeScanTest"
-             Title="barcodescantest">
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"  
+            x:Class="EcoEarthPOC.Components.Pages.Scanner.BarcodeScanTest"  
+            Title="barcodescantest">  
+   <ScrollView>  
+       <VerticalStackLayout  
+           Spacing="25"  
+           Padding="30,0"  
+           VerticalOptions="Center">  
 
-            <zxing:CameraBarcodeReaderView x:Name="barcodeReader"
-                                           WidthRequest="300" HeightRequest="300"
-                                           
-                                           
-                IsDetecting="True" IsTorchOn="False" BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
+           <Border BackgroundColor="PaleGreen" Padding="10">  
+               <Label Text="Place the barcode within the box to scan it"  
+                      HorizontalOptions="Center"  
+                      VerticalOptions="Center"  
+                      TextColor="Black" />  
+           </Border>  
+          
+           <zxing:CameraBarcodeReaderView x:Name="barcodeReader"  
+                                          WidthRequest="400" HeightRequest="300"  
+                                          IsDetecting="True" IsTorchOn="False"  
+                                          BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" />
 
-            <Label
-                x:Name="barcodeResult"
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <Button Text="Back" Clicked="Button_Clicked"/>
 
-
-        </VerticalStackLayout>
-    </ScrollView>
+       </VerticalStackLayout>  
+   </ScrollView>  
 </ContentPage>

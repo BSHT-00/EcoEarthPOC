@@ -88,6 +88,12 @@
 
 
     <ItemGroup>
+      <MauiAsset Include="Resources\AppIcon\appicon.svg" />
+      <MauiAsset Include="Resources\AppIcon\appiconfg.svg" />
+    </ItemGroup>
+
+
+    <ItemGroup>
       <Compile Update="Components\Pages\Scanner\BarcodeScan.xaml.cs">
         <DependentUpon>BarcodeScan.xaml</DependentUpon>
       </Compile>
