@@ -79,6 +79,7 @@ namespace EcoEarthAppAPI.Data
                 new RecyclableMaterials { MaterialId = 5, Material = "pp", CategoryId = 1 },
                 new RecyclableMaterials { MaterialId = 6, Material = "ps", CategoryId = 1 },
                 new RecyclableMaterials { MaterialId = 7, Material = "plastic", CategoryId = 1 },
+                new RecyclableMaterials { MaterialId = 22, Material = "paper and plastic", CategoryId = 1 },
 
                 // Glass (2)
                 new RecyclableMaterials { MaterialId = 8, Material = "clear glass", CategoryId = 2 },

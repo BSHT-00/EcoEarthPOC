@@ -9,7 +9,7 @@
 <div>
     @if (productInfo != null)
     {
-        <h3>@productInfo.ProductInfo.Brand: @productInfo.ProductInfo.ProductName</h3>
+        <h3 class="product-title">@productInfo.ProductInfo.Brand: @productInfo.ProductInfo.ProductName</h3>
 
         <ul id="RecyclableProducts">
             @if (recyclableProductMaterials != null)
@@ -44,7 +44,7 @@
 
         </ul>
 
-        <img src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
+        <img class="product-image" src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
 
         <div class="UserRewardsBox">
             <p>This product has earned you @PointsToAssign Ecoins!</p>
@@ -54,6 +54,8 @@
             <button @onclick="() => NavigationWithCurrency(1)">Claim Points And Scan Again</button>
             <button @onclick="() => NavigationWithCurrency(2)">Claim Points And Go To Shop</button>
         </div>
+
+        <br/>
 
         <div class="ContentWarning">
             <p>Is any of this information incorrect? Write us a ticket!</p>
