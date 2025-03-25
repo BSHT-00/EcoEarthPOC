@@ -104,7 +104,7 @@ namespace EcoEarthAppAPI.Data
             );
 
             modelBuilder.Entity<UserCurrency>().HasData(
-                new UserCurrency { UserId = 1, Balance = 10 },
+                new UserCurrency { UserId = 1, Balance = 1000 },
                 new UserCurrency { UserId = 2, Balance = 45 },
                 new UserCurrency { UserId = 3, Balance = 24 },
                 new UserCurrency { UserId = 4, Balance = 100 }

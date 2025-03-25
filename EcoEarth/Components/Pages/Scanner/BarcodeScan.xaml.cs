@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http.Extensions;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Mvc;
+using EcoEarthPOC.Components.Pages;
 
 namespace EcoEarthPOC.Components.Pages.Scanner;
 
+// https://pavlodatsiuk.hashnode.dev/implementing-maui-blazor-with-zxing-qr-barcode-scanner
 public partial class BarcodeScanTest : ContentPage
 {
     public BarcodeScanTest()
@@ -25,27 +27,26 @@ public partial class BarcodeScanTest : ContentPage
         };
     }
 
+    private TaskCompletionSource<BarcodeResult[]> scanTask = new TaskCompletionSource<BarcodeResult[]>();
+
     //TODO: Fix nav manager null issue
-    private void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
+    public void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
-        // Ensure the event is handled on the main thread
-        MainThread.BeginInvokeOnMainThread(async () =>
-        {
-            var result = e.Results[0].Value.ToString();
+        Application.Current.MainPage.Navigation.PopModalAsync();
 
-            if (result == null)
-                return;
-            // Validating that the barcode is in the valid format
-            if (validateBarcodeNumber(result))
-            {
+        scanTask.SetResult(e.Results);
 
-                // If so, take user to product info page (scanner/scanner/productinfo/{result})
-            }
-        });
     }
-    private async void Button_Clicked(object sender, EventArgs e)
+
+    public async Task<string> WaitForResultAsync()
     {
-        // redirect back to scanner page
+        var results = await scanTask.Task;
+
+        if (results.Length == 0)
+            return "No barcode detected";
+        
+
+        return results.FirstOrDefault().Value;
     }
 
     protected bool validateBarcodeNumber(string barcode)
@@ -54,5 +55,4 @@ public partial class BarcodeScanTest : ContentPage
         var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
         return regex.IsMatch(barcode);
     }
-
 }
