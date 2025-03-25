@@ -56,11 +56,14 @@
     <h2>Select Your Avatar</h2>
 
     <div class="avatar-container" id="avatars">
-        <img src="https://i.pravatar.cc/100?img=1" class="avatar" onclick="selectAvatar(this)">
-        <img src="https://i.pravatar.cc/100?img=2" class="avatar" onclick="selectAvatar(this)">
-        <img src="https://i.pravatar.cc/100?img=3" class="avatar" onclick="selectAvatar(this)">
-        <img src="https://i.pravatar.cc/100?img=4" class="avatar" onclick="selectAvatar(this)">
-        <img src="https://i.pravatar.cc/100?img=5" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con1.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con2.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con3.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con4.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con8.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con9.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con12.png" class="avatar" onclick="selectAvatar(this)">
+        <img src="Avatars/con5.png" class="avatar" onclick="selectAvatar(this)">
     </div>
 
     <button id="confirm-btn" disabled onclick="confirmSelection()">Confirm</button>
@@ -84,7 +87,7 @@
 
         function confirmSelection() {
             if (selectedAvatar) {
-                alert("You selected: " + selectedAvatar.src);
+                alert("You sure you want this avatar? ");
             }
         }
     </script>
