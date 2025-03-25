@@ -1,4 +1,5 @@
 ﻿body {
+
 }
 
 button {
@@ -15,8 +16,13 @@ button {
     background-size: cover;
     image-rendering: pixelated;
     width: 100%;
+    font-family: 'Minecraft', sans-serif;
 }
 
-    button:hover {
-        background-color: #77a377;
-    }
+.artwork {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    image-rendering: pixelated;
+}

@@ -4,22 +4,12 @@
 
 <p>Ensure you are in a well lit area and prepare your packaging</p>
 
-<button @onclick="NavigateToBarcodeS" class="button">Barcode Scanner</button>
-<br style="padding: 10px;" />
-<button @onclick="NavigateToImageRec" class="button">AI Image Recognition</button>
+<button @onclick="NavigateToBarcodeScanner" class="button">Barcode Scanner</button>
 <br style="padding: 10px;" />
 <button @onclick="NavigateToManualInp" class="button">Manual input</button>
 
 @code {
-    private async Task NavigateToBarcodeS()
-    {
-        var window = Application.Current?.Windows.FirstOrDefault();
-        if (window != null)
-        {
-            window.Page = new NavigationPage(new BarcodeScanTest());
-        }
-    }
-    private void NavigateToImageRec()
+    private void NavigateToBarcodeScanner()
     {
         NavigationManager.NavigateTo("/scanner/scanner/Barcoding");
     }

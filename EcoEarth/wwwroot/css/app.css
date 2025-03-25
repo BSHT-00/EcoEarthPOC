@@ -26,6 +26,22 @@ h1:focus {
     outline: none;
 }
 
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    image-rendering: pixelated;
+    width: 100%;
+    font-family: Minecraft, Helvetica, Arial, sans-serif;
+}
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }

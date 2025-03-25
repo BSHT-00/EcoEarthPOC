@@ -25,29 +25,33 @@ public partial class BarcodeScanTest : ContentPage
             Formats = BarcodeFormat.Ean13 | BarcodeFormat.UpcA | BarcodeFormat.Ean8 | BarcodeFormat.UpcE,
             Multiple = false
         };
+
+        if (barcodeReader == null)
+            return;
     }
 
-    private TaskCompletionSource<BarcodeResult[]> scanTask = new TaskCompletionSource<BarcodeResult[]>();
+    private TaskCompletionSource<string> scanTask = new TaskCompletionSource<string>();
 
-    //TODO: Fix nav manager null issue
     public void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
+        barcodeReader.IsDetecting = false;
+
+        if (!validateBarcodeNumber(e.Results.FirstOrDefault().Value))
+        {
+            barcodeReader.IsDetecting = true;
+            return;
+        }
+
         Application.Current.MainPage.Navigation.PopModalAsync();
-
-        scanTask.SetResult(e.Results);
-
+        var barcode = e.Results.FirstOrDefault()?.Value;
+        scanTask.TrySetResult(barcode);
     }
 
     public async Task<string> WaitForResultAsync()
     {
-        var results = await scanTask.Task;
-
-        if (results.Length == 0)
-            return "No barcode detected";
-        
-
-        return results.FirstOrDefault().Value;
+        return await scanTask.Task;
     }
+
 
     protected bool validateBarcodeNumber(string barcode)
     {

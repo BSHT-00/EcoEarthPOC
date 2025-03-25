@@ -6,28 +6,23 @@
     border-color: #00cc00; 
     transition: transform 0.3s ease-in-out;
     image-rendering: pixelated; 
+    text-align: center;
 }
 button {
-    font-family: 'Minecraft', sans-serif;
+    display: inline-block;
+    padding: 10px 20px;
     font-size: 1rem;
-    width: 95%;
-    height: 95%;
-    color: white;
-    background: linear-gradient(45deg, #006400, #6da96d); 
-    background-size: cover;
-    background-position: center;
+    color: #fff;
+    background-color: #006400;
     border: none;
-    outline: 1px solid black;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    margin-bottom: 10px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-button:hover {
-    background-color: #77a377;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    image-rendering: pixelated;
+    width: 100%;
+    font-family: 'Minecraft', sans-serif;
 }
 
 

@@ -1,28 +1,109 @@
 ﻿@page "/scanner/scanner/Barcoding"
 @using ZXing.Net.Maui;
+@using EcoEarthPOC.Components.Pages.Scanner.Data.DTOs;
+@using CommunityToolkit.Maui.Views;
+@inject EcoEarthPOC.Components.Services.OFFPackaging _offService
 
-<button @onclick="DoScanAsync">Scan</button>
-
-<br />
-
-Scan Result: @scanResultLabel
+@if (_getMorePackagingInfoDTO != null)
+{
+    <p>Bin dive complete! We found your @_getMorePackagingInfoDTO.ProductInfo.ProductName 🗑️</p>
+    <img src="Artwork/BinDiving.png" alt="Sample Image" class="artwork"  />
+    <button @onclick="() => NavigateToProductInfo(scanResult)">Claim your Points!</button>
+    <button @onclick="() => RefreshPage()">Try Scanning Again</button>
+    <button @onclick="() => NavigateToScanner()">Return To Scanner Menu</button>
+}
+else
+{
+    
+}
 
 @code 
 {
-    private string scanResultLabel;
+    [Inject]
+    NavigationManager navigationManager { get; set; }
+
+    private string? scanResult;
+    public GetMorePackagingInfoDTO _getMorePackagingInfoDTO { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await DoScanAsync();
+    }
 
     public async Task DoScanAsync()
     {
-        scanResultLabel = await GetScanResultAsync();
+        scanResult = await GetScanResultAsync();
     }
 
     public async Task<string> GetScanResultAsync()
     {
         var cameraPage = new BarcodeScanTest();
         await Application.Current.MainPage.Navigation.PushModalAsync(cameraPage);
-
-        var scanResults = await cameraPage.WaitForResultAsync();
-        var barcode = scanResults.FirstOrDefault().ToString();
+        var barcode = await cameraPage.WaitForResultAsync();
+        _getMorePackagingInfoDTO = await GetProductInformation(barcode);
         return barcode;
+    }
+
+    private async Task LoadScanner()
+    {
+        await DoScanAsync();
+    }
+
+    protected bool validateBarcodeNumber(string barcode)
+    {
+        var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
+        return regex.IsMatch(barcode);
+    }
+
+    protected async Task<GetMorePackagingInfoDTO> GetProductInformation(string barcode)
+    {
+        try
+        {
+            var productInfo = await _offService.GetMorePackagingInformation(barcode);
+
+            if (productInfo.Status == 0)
+            {
+                throw new Exception("Product not found");
+            }
+
+            foreach (var material in productInfo.ProductInfo.DetailedPackaging)
+            {
+                if (material.Material == null)
+                {
+                    break;
+                }
+
+                material.Material = material.Material.Replace("en:", "").Replace("-", " ").Replace("_", " ");
+                material.Shape = material.Shape.Replace("en:", "").Replace("-", " ").Replace("_", " ");
+            }
+
+            return productInfo;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public void RefreshPage()
+    {
+        navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
+    }
+
+    public void NavigateToProductInfo(string barcode)
+    {
+        if (validateBarcodeNumber(barcode))
+        {
+            navigationManager.NavigateTo($"/scanner/ProductInfo/{barcode}");
+        }
+        else
+        {
+            scanResult = "Invalid barcode number";
+        }
+    }
+
+    public void NavigateToScanner()
+    {
+        navigationManager.NavigateTo("/scanner/scanner");
     }
 }
