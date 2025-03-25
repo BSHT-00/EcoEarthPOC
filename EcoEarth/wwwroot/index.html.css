@@ -1,0 +1,27 @@
+﻿body {
+}
+
+.p {
+    color: white;
+    font-size: 20px;
+    font-family: Minecraft;
+    text-align: center;
+    margin-top: 100px;
+
+}
+
+.h5 {
+    color: white;
+    font-size: 30px;
+    font-family: Minecraft;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.loading-image 
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

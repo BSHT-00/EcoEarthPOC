@@ -1,0 +1,54 @@
+﻿body {
+}
+.big-box {
+    font-family: Minecraft;
+    width: 90%;
+    height: 100px;
+    background-color: lightgreen;
+    border: 2px solid green;
+    padding: 10px;
+    margin: 10px;
+    align-self: center;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 15px;
+}
+
+.sub-box {
+    font-family: Minecraft;
+    width: 90%;
+    height: 100px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid darkgreen;
+    padding: 10px;
+    margin: 10px;
+    align-self: center;
+    text-align: center;
+    border-radius: 15px; 
+}
+
+.quest-p {
+    font-size: 16px;
+    color: darkgreen;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    font-family: Minecraft;
+    align-self: center;
+}
+
+.quest-box {
+    font-family: Minecraft;
+    width: 90%;
+    height: 150px;
+    background-color: lightgreen;
+    border: 2px solid green;
+    padding: 10px;
+    align-self: center;
+    text-align: center;
+    margin: 10px;
+    border-radius: 15px;
+}

@@ -13,17 +13,20 @@ header, footer {
 }
 
 button {
-    background-color: #4CAF50; /* Green button */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #006400;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    border-radius: 4px;
+    margin-top: 10px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    image-rendering: pixelated;
+    width: 100%;
+    font-family: 'Minecraft', sans-serif;
 }
 
 button:hover {

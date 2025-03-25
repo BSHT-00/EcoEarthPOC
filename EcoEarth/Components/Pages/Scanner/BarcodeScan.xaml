@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
-            xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"  
-            x:Class="EcoEarthPOC.Components.Pages.Scanner.BarcodeScanTest"  
-            Title="Barcode Scanner">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+           xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"  
+           x:Class="EcoEarthPOC.Components.Pages.Scanner.BarcodeScanTest"  
+           Title="Barcode Scanner">  
+   <Grid>  
+       <Grid.RowDefinitions>  
+           <RowDefinition Height="Auto" />  
+           <RowDefinition Height="Auto" />  
+           <RowDefinition Height="*" />  
+           <RowDefinition Height="Auto" />  
+           <RowDefinition Height="Auto" />  
+       </Grid.RowDefinitions>  
 
-        <Border BackgroundColor="PaleGreen" Padding="10" Grid.Row="0">
-            <Label Text="Place the barcode within the box to scan it"  
-                  HorizontalOptions="Center"  
-                  VerticalOptions="Center"  
-                  TextColor="Black" />
-        </Border>
+       <Border BackgroundColor="PaleGreen" Padding="10" Grid.Row="0">  
+           <Label Text="Place the barcode within the box to scan it"  
+                 HorizontalOptions="Center"  
+                 VerticalOptions="Center"  
+                 TextColor="Black" />  
+       </Border>  
 
-        <BoxView HeightRequest="20" Grid.Row="1" />
+       <BoxView HeightRequest="20" Grid.Row="1" />  
 
-        <zxing:CameraBarcodeReaderView x:Name="barcodeReader"  
-                                      WidthRequest="400" HeightRequest="250"  
-                                      IsDetecting="True" IsTorchOn="False"  
-                                      BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected" 
-                                      Grid.Row="2" />
+       <zxing:CameraBarcodeReaderView x:Name="barcodeReader"  
+                                     WidthRequest="400" HeightRequest="250"  
+                                     IsDetecting="True" IsTorchOn="False"  
+                                     BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected"  
+                                     Grid.Row="2" />  
 
-        <BoxView HeightRequest="20" Grid.Row="3" />
-    </Grid>
+       <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Row="3" Spacing="10">  
+           <Button Text="Switch Camera" Clicked="OnSwitchCameraClicked" />  
+           <Button Text="Toggle Torch" Clicked="OnToggleTorchClicked" />  
+       </StackLayout>  
+
+       <Button Text="Back to Scanner Menu" Grid.Row="4" Clicked="OnBackToScannerMenuClicked" />  
+   </Grid>  
 </ContentPage>

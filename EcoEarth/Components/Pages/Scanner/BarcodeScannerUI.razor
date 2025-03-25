@@ -14,7 +14,7 @@
 }
 else
 {
-    
+
 }
 
 @code 
@@ -33,6 +33,11 @@ else
     public async Task DoScanAsync()
     {
         scanResult = await GetScanResultAsync();
+
+        if (scanResult == "null")
+        {
+            NavigateToScanner();
+        }
     }
 
     public async Task<string> GetScanResultAsync()

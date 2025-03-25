@@ -50,9 +50,14 @@
             <p>This product has earned you @PointsToAssign Ecoins!</p>
         </div>
 
+        <div>
+            <button @onclick="() => NavigationWithCurrency(1)">Claim Points And Scan Again</button>
+            <button @onclick="() => NavigationWithCurrency(2)">Claim Points And Go To Shop</button>
+        </div>
+
         <div class="ContentWarning">
             <p>Is any of this information incorrect? Write us a ticket!</p>
-            <button class="wide-button" @onclick="NavigateToTicket">Create a ticket</button>
+            <button @onclick="NavigateToTicket">Create a ticket</button>
         </div>
 
     }
@@ -109,7 +114,6 @@
         }
 
         recyclableProductMaterials = InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
-        await AssigningCurrency();
     }
 
     // Assigns currency to a user
@@ -190,6 +194,20 @@
     public void NavigateToTicket()
     {
         NavigationManager.NavigateTo("/usertickets");
+    }
+
+    public void NavigationWithCurrency(int page)
+    {
+        AssigningCurrency();
+        switch (page)
+        {
+            case 1:
+                NavigationManager.NavigateTo("/scanner/scanner");
+                break;
+            case 2:
+                NavigationManager.NavigateTo("/rewards");
+                break;
+        }
     }
 
     [Inject]

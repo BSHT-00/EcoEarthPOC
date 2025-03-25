@@ -1,62 +1,70 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+// File: Components/Pages/Scanner/BarcodeScan.xaml.cs
 using ZXing.Net.Maui;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using Microsoft.AspNetCore.Http.Extensions;
-using System.Threading.Tasks;
-using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Mvc;
-using EcoEarthPOC.Components.Pages;
 
-namespace EcoEarthPOC.Components.Pages.Scanner;
-
-// https://pavlodatsiuk.hashnode.dev/implementing-maui-blazor-with-zxing-qr-barcode-scanner
-public partial class BarcodeScanTest : ContentPage
+namespace EcoEarthPOC.Components.Pages.Scanner
 {
-    public BarcodeScanTest()
+    public partial class BarcodeScanTest : ContentPage
     {
-        InitializeComponent();
-
-        barcodeReader.Options = new BarcodeReaderOptions()
+        public BarcodeScanTest()
         {
-            AutoRotate = true,
-            Formats = BarcodeFormat.Ean13 | BarcodeFormat.UpcA | BarcodeFormat.Ean8 | BarcodeFormat.UpcE,
-            Multiple = false
-        };
+            InitializeComponent();
 
-        if (barcodeReader == null)
-            return;
-    }
+            barcodeReader.Options = new BarcodeReaderOptions()
+            {
+                AutoRotate = true,
+                Formats = BarcodeFormat.Ean13 | BarcodeFormat.UpcA | BarcodeFormat.Ean8 | BarcodeFormat.UpcE,
+                Multiple = false
+            };
 
-    private TaskCompletionSource<string> scanTask = new TaskCompletionSource<string>();
-
-    public void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
-    {
-        barcodeReader.IsDetecting = false;
-
-        if (!validateBarcodeNumber(e.Results.FirstOrDefault().Value))
-        {
-            barcodeReader.IsDetecting = true;
-            return;
+            if (barcodeReader == null)
+                return;
         }
 
-        Application.Current.MainPage.Navigation.PopModalAsync();
-        var barcode = e.Results.FirstOrDefault()?.Value;
-        scanTask.TrySetResult(barcode);
-    }
+        private TaskCompletionSource<string> scanTask = new TaskCompletionSource<string>();
 
-    public async Task<string> WaitForResultAsync()
-    {
-        return await scanTask.Task;
-    }
+        public void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
+        {
+            barcodeReader.IsDetecting = false;
+
+            if (!validateBarcodeNumber(e.Results.FirstOrDefault().Value))
+            {
+                barcodeReader.IsDetecting = true;
+                return;
+            }
+
+            Application.Current.MainPage.Navigation.PopModalAsync();
+            var barcode = e.Results.FirstOrDefault()?.Value;
+            scanTask.TrySetResult(barcode);
+        }
+
+        public async Task<string> WaitForResultAsync()
+        {
+            return await scanTask.Task;
+        }
+
+        public void OnToggleTorchClicked(object sender, EventArgs e)
+        {
+            barcodeReader.IsTorchOn = !barcodeReader.IsTorchOn;
+        }
+
+        public void OnSwitchCameraClicked(object sender, EventArgs e)
+        {
+            barcodeReader.CameraLocation = barcodeReader.CameraLocation == CameraLocation.Front ? CameraLocation.Rear : CameraLocation.Front;
+        }
+
+        public async void OnBackToScannerMenuClicked(object sender, EventArgs e)
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
 
 
-    protected bool validateBarcodeNumber(string barcode)
-    {
-        // Validate barcode using reg exp
-        var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
-        return regex.IsMatch(barcode);
+
+
+        protected bool validateBarcodeNumber(string barcode)
+        {
+            // Validate barcode using reg exp
+            var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
+            return regex.IsMatch(barcode);
+        }
     }
 }
