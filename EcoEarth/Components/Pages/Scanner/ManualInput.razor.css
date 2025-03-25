@@ -1,0 +1,30 @@
+﻿body {
+    font-family: Minecraft, sans-serif;
+    background-color: #E8F5E9;
+    color: #2E7D32; 
+    margin: 10px;
+}
+
+header, footer {
+    background-color: #388E3C; 
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    display: inline-block;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #006400;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    image-rendering: pixelated;
+    width: 100%;
+    font-family: 'Minecraft', sans-serif;
+}

@@ -1,20 +1,19 @@
 ﻿@page "/scanner/manualinput"
 @inject EcoEarthPOC.Components.Services.OFFPackaging _offService
+@using CommunityToolkit.Maui.Core
+@using CommunityToolkit.Maui.Alerts
+
+<p>Prefer typing over scanning? Enter the barcode manually below. Ensure each digit is correct to keep your records accurate. Simple and efficient—just like it should be.</p>
 
 <div>
-    <label for="inputText">Enter Text:</label>
+    <label for="inputText">Enter Barcode here:</label>
     <input type="text" id="inputText" @bind="inputText" />
     <button @onclick="Submit">Submit</button>
+    <button @onclick="NavigateBack">Back</button>
 </div>
-
-<button @onclick="NavigateToMoreInfo">More Info</button>
-
-<label for="outputText">Output:</label>
-<div>@outputText</div>
 
 @code {
     private string inputText;
-    private string outputText;
 
     [Inject]
     NavigationManager navigationManager { get; set; }
@@ -25,7 +24,7 @@
         {
             if (!validateBarcodeNumber(inputText))
             {
-                outputText = "Invalid barcode number, please try again";
+                await ShowToast("Invalid barcode, please try again");
             }
             else
             {
@@ -33,16 +32,19 @@
 
                 if (result.Status == 0)
                 {
-                    throw new Exception("Product Not Found :(");
+                    await ShowToast("Product not found, please try again");
                 }
-
-                // Navigates to the more info page after this page has checked whether product exists
-                NavigateToMoreInfo();
+                else
+                    // Navigates to the more info page after this page has checked whether product exists
+                    NavigateToMoreInfo();
             }
         }
         catch (Exception ex)
         {
-            outputText = "Invalid input, please try again";
+            if(inputText == null)
+                await ShowToast("Please enter a barcode number");
+            else
+                await ShowToast("An error occurred, please try again");
         }
     }
 
@@ -60,5 +62,21 @@
     private void NavigateToMoreInfo()
     {
         navigationManager.NavigateTo("/scanner/productinfo/" + inputText);
+    }
+
+    private void NavigateBack()
+    {
+        navigationManager.NavigateTo("/scanner/scanner");
+    }
+
+    private async Task ShowToast(string message)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(message, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
     }
 }
