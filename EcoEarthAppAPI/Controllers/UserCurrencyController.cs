@@ -65,5 +65,25 @@ namespace EcoEarthAppAPI.Controllers
             await _context.SaveChangesAsync();
             return Ok(user.Balance);
         }
+
+        // Creates blank record under userId
+        [HttpPost("{userId}")]
+        public void CreateBlankRecord(int userId)
+        {
+            if (_context.UserCurrency.Find(userId) != null)
+            {
+                return;
+            }
+            else
+            {
+                var userCurrency = new UserCurrency
+                {
+                    UserId = userId,
+                    Balance = 0
+                };
+                _context.UserCurrency.Add(userCurrency);
+                _context.SaveChanges();
+            }
+        }
     }
 }
