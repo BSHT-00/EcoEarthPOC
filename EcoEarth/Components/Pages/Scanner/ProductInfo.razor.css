@@ -70,18 +70,19 @@ button:hover {
         text-align: center;
     }
 
-.UserRewardsBox {  
-   background-image: url('Backgrounds/NBBackgroundEdit.jpg');  
-   background-size: cover;  
-   background-repeat: no-repeat;  
-   background-position: center;  
-   padding: 10px;  
-   margin: 10px 0;  
-   text-align: center;  
-   font-family: Minecraft;  
-   color: white;  
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
-   border-radius: 10px; }
+.UserRewardsBox {
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    font-family: Minecraft;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
 
 .UserRewardsBox :hover
 {

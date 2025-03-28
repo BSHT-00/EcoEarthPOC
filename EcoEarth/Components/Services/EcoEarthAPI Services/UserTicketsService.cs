@@ -13,7 +13,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 {
     public class UserTicketsService
     {
-        const string ServiceBaseUrl = "https://localhost:7111/api";
+        public static string ServiceBaseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7111/api" : "https://localhost:7111/api";
         const string Endpoint = "/UserTickets";
         private readonly HttpClient _httpClient;
 
