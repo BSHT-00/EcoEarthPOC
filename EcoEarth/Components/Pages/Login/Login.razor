@@ -1,6 +1,9 @@
 ﻿@page "/Login"
 @using EcoEarthPOC.Models
 @using EcoEarthPOC.Components.Services
+@using System.IdentityModel.Tokens.Jwt
+@using Newtonsoft.Json
+@using System.Text.Json
 @inject IAppService AppService;
 @inject NavigationManager NavigationManager
 <h3 class="text-center text-primary">Login</h3>
@@ -46,23 +49,38 @@
     {
         _spinnerClass = "spinner-border spinner-border-sm";
         var response = await AppService.AuthenticateUser(loginModel);
-        var mainPage = App.Current?.Windows[0]?.Page;
-        if (mainPage != null)
+        if (!string.IsNullOrWhiteSpace(response))
         {
-            if (!string.IsNullOrWhiteSpace(response))
-            {
-                await mainPage.DisplayAlert("Success", "Valid credentials", "OK");
-            }
-            else
-            {
-                await mainPage.DisplayAlert("Error", "Invalid credentials", "OK");
-            }
-        }
+            var jsonResponse = JsonDocument.Parse(response);
+            var accessToken = jsonResponse.RootElement.GetProperty("content").GetProperty("accessToken").GetString();
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(accessToken) as JwtSecurityToken;
 
-        await Task.Delay(500);
+            string userID = jsonToken.Claims.FirstOrDefault(f => f.Type == JwtRegisteredClaimNames.NameId)?.Value;
+            var nameClaim = jsonToken.Claims.FirstOrDefault(f => f.Type == JwtRegisteredClaimNames.GivenName);
+            string name = nameClaim?.Value;
+            string email = loginModel.Email;
+
+            var userBasicDetail = new UserBasicDetail
+                {
+                    UserID = userID,
+                    Name = name,
+                    Email = email,
+                    Token = response
+                };
+
+            string userBasicDetailJson = JsonConvert.SerializeObject(userBasicDetail);
+
+            await SecureStorage.SetAsync(nameof(Setting.UserBasicDetail), userBasicDetailJson);
+            Setting.UserBasicDetail = userBasicDetail;
+
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            await App.Current.MainPage.DisplayAlert("Error", "Invalid email or password", "OK");
+        }
         _spinnerClass = "";
         this.StateHasChanged();
-
-        NavigationManager.NavigateTo("/");
     }
 }

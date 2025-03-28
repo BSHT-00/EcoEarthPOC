@@ -1,10 +1,12 @@
 ﻿using LoginAPI.Data;
 using LoginAPI.DTOs;
+using LoginAPI.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -20,61 +22,91 @@ namespace LoginAPI.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IEmailService _emailServcie;
         public UsersController(UserManager<Users> userManager,
-            IConfiguration configuration, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
+            IConfiguration configuration, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment, IEmailService emailService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _webHostEnvironment = webHostEnvironment;
+            _emailServcie = emailService;
         }
 
-
-        [HttpPost("CreateRole")]
-        public async Task<IActionResult> CreateRole(CreateRoleDTO roleDTO)
+        [AllowAnonymous]
+        [HttpPost("SendTestEmail")]
+        public async Task<IActionResult> SendTestEmail()
         {
+            await _emailServcie.SendConfirmationEmailAsync(
+                "test@example.com",
+                "https://yourapp.com/confirm?token=test123"
+            );
+            return Ok("Test email sent!");
+        }
 
-            var response = await _roleManager.CreateAsync(new IdentityRole
+        [AllowAnonymous]
+        [HttpPost("RegisterUser")]
+        public async Task<IActionResult> RegisterUser(RegisterUserDTO registerUserDTO)
+        {
+            var userToBeCreated = new Users
             {
-                Name = roleDTO.RoleName
-            });
+                Email = registerUserDTO.Email,
+                FirstName = registerUserDTO.FirstName,
+                LastName = registerUserDTO.LastName,
+                UserName = registerUserDTO.Email
+            };
+
+            var response = await _userManager.CreateAsync(userToBeCreated, registerUserDTO.Password);
 
             if (response.Succeeded)
             {
-                return Ok("New Role Created");
+                // Generate email confirmation token
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(userToBeCreated);
+                var confirmationLink = $"yourapp://confirmemail?userId={userToBeCreated.Id}&token={WebUtility.UrlEncode(token)}";
+
+                // Send email
+                await _emailServcie.SendConfirmationEmailAsync(userToBeCreated.Email, confirmationLink);
+
+                return Ok(new { isSuccess = true, errorMessage = string.Empty, content = userToBeCreated });
             }
-            else
-            {
-                return BadRequest(response.Errors);
-            }
+
+            var errors = response.Errors.Select(e => e.Description).ToList();
+            return BadRequest(new { isSuccess = false, errorMessage = errors, content = (object)null });
         }
 
 
-        [HttpPost("AssignRoleToUser")]
-        public async Task<IActionResult> AssignRoleToUser(AssignRoleToUserDTO assignRoleToUserDTO)
+        [AllowAnonymous]
+        [HttpPost("AuthenticateUser")]
+        public async Task<IActionResult> AuthenticateUser(AuthenticateUser authenticateUser)
         {
+            var user = await _userManager.FindByNameAsync(authenticateUser.Email);
+            if (user == null) return Unauthorized();
 
-            var userDetails = await _userManager.FindByEmailAsync(assignRoleToUserDTO.Email);
+            bool isValidUser = await _userManager.CheckPasswordAsync(user, authenticateUser.Password);
 
-            if (userDetails != null)
+            if (isValidUser)
             {
+                string accessToken = GenerateAccessToken(user);
+                var refreshToken = GenerateRefreshToken();
+                user.RefreshToken = refreshToken;
+                await _userManager.UpdateAsync(user);
 
-                var userRoleAssignResponse = await _userManager.AddToRoleAsync(userDetails, assignRoleToUserDTO.RoleName);
-
-                if (userRoleAssignResponse.Succeeded)
+                var response = new MainResponse
                 {
-                    return Ok("Role Assigned to User: " + assignRoleToUserDTO.RoleName);
-                }
-                else
-                {
-                    return BadRequest(userRoleAssignResponse.Errors);
-                }
+                    Content = new AuthenticationResponse
+                    {
+                        RefreshToken = refreshToken,
+                        AccessToken = accessToken
+                    },
+                    IsSuccess = true,
+                    ErrorMessage = ""
+                };
+                return Ok(response);
             }
             else
             {
-                return BadRequest("There are no user exist with this email");
+                return Unauthorized();
             }
-
 
         }
 
@@ -125,43 +157,6 @@ namespace LoginAPI.Controllers
             else
             {
                 return ErrorResponse.ReturnErrorResponse("Invalid Token Found");
-            }
-
-        }
-
-
-
-        [AllowAnonymous]
-        [HttpPost("AuthenticateUser")]
-        public async Task<IActionResult> AuthenticateUser(AuthenticateUser authenticateUser)
-        {
-            var user = await _userManager.FindByNameAsync(authenticateUser.Email);
-            if (user == null) return Unauthorized();
-
-            bool isValidUser = await _userManager.CheckPasswordAsync(user, authenticateUser.Password);
-
-            if (isValidUser)
-            {
-                string accessToken = GenerateAccessToken(user);
-                var refreshToken = GenerateRefreshToken();
-                user.RefreshToken = refreshToken;
-                await _userManager.UpdateAsync(user);
-
-                var response = new MainResponse
-                {
-                    Content = new AuthenticationResponse
-                    {
-                        RefreshToken = refreshToken,
-                        AccessToken = accessToken
-                    },
-                    IsSuccess = true,
-                    ErrorMessage = ""
-                };
-                return Ok(response);
-            }
-            else
-            {
-                return Unauthorized();
             }
 
         }
@@ -227,55 +222,67 @@ namespace LoginAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("RegisterUser")]
-        public async Task<IActionResult> RegisterUser(RegisterUserDTO registerUserDTO)
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO model)
         {
-
-            var userToBeCreated = new Users
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
             {
-                Email = registerUserDTO.Email,
-                FirstName = registerUserDTO.FirstName,
-                LastName = registerUserDTO.LastName,
-                UserName = registerUserDTO.Email
-            };
-
-            var response = await _userManager.CreateAsync(userToBeCreated, registerUserDTO.Password);
-
-            if (response.Succeeded)
-            {
-                return Ok(new { isSuccess = true, errorMessage = string.Empty, content = userToBeCreated });
+                // Don't reveal that the user does not exist or is not confirmed
+                return Ok(new { Message = "If your email exists, you'll receive a password reset link" });
             }
 
-            var errors = response.Errors.Select(e => e.Description).ToList();
-            return BadRequest(new { isSuccess = false, errorMessage = errors, content = (object)null });
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = $"yourapp://resetpassword?email={model.Email}&token={WebUtility.UrlEncode(token)}";
+
+            // Send email with the callback URL
+            await _emailServcie.SendPasswordResetEmailAsync(user.Email, callbackUrl);
+
+            return Ok(new { Message = "Password reset link has been sent" });
         }
 
-
-        [HttpDelete("DeleteUser")]
-        public async Task<IActionResult> DeleteUser(DeleteUserDTO userDetails)
+        [AllowAnonymous]
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDTO model)
         {
-
-            var existingUser = await _userManager.FindByEmailAsync(userDetails.Email);
-            if (existingUser != null)
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
             {
-                var response = await _userManager.DeleteAsync(existingUser);
+                // Don't reveal that the user does not exist
+                return Ok(new { Message = "Password reset successfully" });
+            }
 
-                if (response.Succeeded)
-                {
-                    return Ok(new MainResponse
-                    {
-                        IsSuccess = true,
-                    });
-                }
-                else
-                {
-                    return ErrorResponse.ReturnErrorResponse(response.Errors?.ToString() ?? "");
-                }
-            }
-            else
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+            if (result.Succeeded)
             {
-                return ErrorResponse.ReturnErrorResponse("No User found with this email");
+                return Ok(new { Message = "Password reset successfully" });
             }
+
+            return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
+        }
+
+        [AllowAnonymous]
+        [HttpGet("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return BadRequest("Invalid parameters");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return Ok("Email confirmed successfully");
+            }
+
+            return BadRequest("Email confirmation failed");
         }
     }
 }

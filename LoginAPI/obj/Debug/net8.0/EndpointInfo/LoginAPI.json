@@ -6,30 +6,11 @@
     "version": "V1"
   },
   "paths": {
-    "/api/Users/CreateRole": {
+    "/api/Users/SendTestEmail": {
       "post": {
         "tags": [
           "Users"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoleDTO"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -37,7 +18,7 @@
         }
       }
     },
-    "/api/Users/AssignRoleToUser": {
+    "/api/Users/RegisterUser": {
       "post": {
         "tags": [
           "Users"
@@ -46,48 +27,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssignRoleToUserDTO"
+                "$ref": "#/components/schemas/RegisterUserDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AssignRoleToUserDTO"
+                "$ref": "#/components/schemas/RegisterUserDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AssignRoleToUserDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Users/RefreshToken": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefreshTokenRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefreshTokenRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefreshTokenRequest"
+                "$ref": "#/components/schemas/RegisterUserDTO"
               }
             }
           }
@@ -130,7 +80,7 @@
         }
       }
     },
-    "/api/Users/RegisterUser": {
+    "/api/Users/RefreshToken": {
       "post": {
         "tags": [
           "Users"
@@ -139,17 +89,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterUserDTO"
+                "$ref": "#/components/schemas/RefreshTokenRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterUserDTO"
+                "$ref": "#/components/schemas/RefreshTokenRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterUserDTO"
+                "$ref": "#/components/schemas/RefreshTokenRequest"
               }
             }
           }
@@ -161,8 +111,8 @@
         }
       }
     },
-    "/api/Users/DeleteUser": {
-      "delete": {
+    "/api/Users/ForgotPassword": {
+      "post": {
         "tags": [
           "Users"
         ],
@@ -170,17 +120,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteUserDTO"
+                "$ref": "#/components/schemas/ForgotPasswordDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteUserDTO"
+                "$ref": "#/components/schemas/ForgotPasswordDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteUserDTO"
+                "$ref": "#/components/schemas/ForgotPasswordDTO"
               }
             }
           }
@@ -191,28 +141,69 @@
           }
         }
       }
+    },
+    "/api/Users/ResetPassword": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Users/ConfirmEmail": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "AssignRoleToUserDTO": {
-        "required": [
-          "email",
-          "roleName"
-        ],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "roleName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "AuthenticateUser": {
         "required": [
           "email",
@@ -231,28 +222,16 @@
         },
         "additionalProperties": false
       },
-      "CreateRoleDTO": {
-        "required": [
-          "roleName"
-        ],
-        "type": "object",
-        "properties": {
-          "roleName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "DeleteUserDTO": {
+      "ForgotPasswordDTO": {
         "required": [
           "email"
         ],
         "type": "object",
         "properties": {
           "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
           }
         },
         "additionalProperties": false
@@ -298,6 +277,36 @@
           },
           "email": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetPasswordDTO": {
+        "required": [
+          "email",
+          "newPassword",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "newPassword": {
+            "minLength": 1,
+            "type": "string",
+            "format": "password"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "format": "password",
             "nullable": true
           }
         },

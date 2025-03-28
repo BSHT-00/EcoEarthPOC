@@ -1,5 +1,6 @@
 using LoginAPI.Context;
 using LoginAPI.Data;
+using LoginAPI.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,13 @@ builder.Services.AddSwaggerGen(swagger =>
         {securitySchema,Array.Empty<string>() }
     });
 });
+
+builder.Services.AddFluentEmail(builder.Configuration["SendGrid:FromAddress"])
+    .AddRazorRenderer() 
+    .AddSendGridSender(builder.Configuration["SendGrid:ApiKey"]);
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services.AddAuthentication(f =>
 {
     f.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

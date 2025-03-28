@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\d3330384\\Source\\Repos\\EcoEarthPOCKY\\LoginAPI\\LoginAPI.csproj": {}
+    "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\LoginAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\d3330384\\Source\\Repos\\EcoEarthPOCKY\\LoginAPI\\LoginAPI.csproj": {
+    "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\LoginAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\d3330384\\Source\\Repos\\EcoEarthPOCKY\\LoginAPI\\LoginAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\LoginAPI.csproj",
         "projectName": "LoginAPI",
-        "projectPath": "C:\\Users\\d3330384\\Source\\Repos\\EcoEarthPOCKY\\LoginAPI\\LoginAPI.csproj",
-        "packagesPath": "C:\\Users\\d3330384\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\d3330384\\Source\\Repos\\EcoEarthPOCKY\\LoginAPI\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\LoginAPI.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\d3330384\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,12 +45,28 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FluentEmail.Core": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "FluentEmail.Razor": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "FluentEmail.SendGrid": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "FluentEmail.Smtp": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.13, )"
@@ -97,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
