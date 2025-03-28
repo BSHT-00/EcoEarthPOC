@@ -3,6 +3,7 @@ using EcoEarthAppAPI.Data.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using EcoEarthAppAPI.Data.Tables;
 
 namespace EcoEarthAppAPI.Controllers
 {
@@ -46,7 +47,7 @@ namespace EcoEarthAppAPI.Controllers
         }
 
         // Increments value of a category count for a user using categoryId
-        [HttpPost("{userId}/{categoryId}")]
+        [HttpPut("{userId}/{categoryId}")]
         public void IncrementCategory(int userId, int categoryId)
         {
             var recycleCount = _context.PastRecycledClassCount
@@ -78,6 +79,37 @@ namespace EcoEarthAppAPI.Controllers
             }
 
             _context.SaveChanges();
+        }
+
+        // Creates a blank record for a user if it does not exist
+        [HttpPost("{userId}")]
+        public void CreateBlankRecord(int userId)
+        {
+            try
+            {
+                var recycleCount = _context.PastRecycledClassCount
+                    .Where(x => x.UserId == userId)
+                    .FirstOrDefault();
+                if (recycleCount != null)
+                    throw new Exception("User Already Exists");
+                else
+                {
+                    _context.PastRecycledClassCount.Add(new PastRecycledClassCount
+                    {
+                        UserId = userId,
+                        Cat1 = 0,
+                        Cat2 = 0,
+                        Cat3 = 0,
+                        Cat4 = 0,
+                        Cat5 = 0
+                    });
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
 
