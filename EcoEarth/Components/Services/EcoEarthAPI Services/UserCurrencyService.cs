@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 {
-    // TODO: Test
+    // This service handles currency calls
     public class UserCurrencyService
     {
         // https://localhost:7111/api/RecyclableMaterials (windows)
@@ -19,6 +19,9 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
         const string Endpoint = "/UserCurrency"; 
         private readonly HttpClient _httpClient;
 
+        // During development, I faced an issue with the emulator and it was saying connection failure
+        // I found out that the issue was with the SSL certificate. The emulator was not able to trust the certificate
+        // So, I had to bypass the SSL certificate validation. This will not be in the finished product 
         // Http Client injected and handler bypasses SSL (which was preventing the API from working)
         public UserCurrencyService(HttpClient httpClient)
         {
@@ -32,6 +35,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             PropertyNameCaseInsensitive = true
         };
 
+        // Get the user's balance
         public async Task<int> GetUserBalance()
         {
             var response = await _httpClient.GetAsync($"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}");
@@ -43,6 +47,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             return 0;
         }
 
+        // Add currency to the user's balance
         public async Task AddCurrency(int currency)
         {
             var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}/{currency}";
@@ -54,6 +59,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             }
         }
 
+        // Remove currency from the user's balance
         public async Task RemoveCurrency(int currency)
         {
             var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}/{currency}";

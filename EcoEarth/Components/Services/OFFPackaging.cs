@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 // Service which handles requests to and from the open food facts api
 namespace EcoEarthPOC.Components.Services
 {
+    // This service handles calls to the OpenFoodFacts API
     public class OFFPackaging
     {
         // Attatch Barcode number to the end of this for details about product.
@@ -45,7 +46,7 @@ namespace EcoEarthPOC.Components.Services
             return item;
         }
 
-
+        // Retrieves more detailed info about a product (used for product info page)
         public async Task<GetMorePackagingInfoDTO> GetMorePackagingInformation(string productCode)
         {
             var url = string.Format(API_URL_MoreInfo, productCode);

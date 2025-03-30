@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using EcoEarthPOC.Components.Pages.Scanner.Data.DTOs;
 
+
+// This class communicates with the recyclable materials table
 namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 {
     public class IsProductRecyclableService
@@ -28,6 +30,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             PropertyNameCaseInsensitive = true
         };
 
+        // Returns a list of recycable materials
         public async Task<List<IsItRecyclableDTO>> GetRecyclableMaterials()
         {
             try

@@ -89,7 +89,7 @@
             }
         }
 
-        // Creating and Posting ticket
+        // Creating ticket
         var ticket = new EcoEarthPOC.Components.Pages.UserTickets.DTOs.UserTicketsDTO
         {
             Title = TickTitle,
@@ -98,6 +98,7 @@
             Date = DateOnly.FromDateTime(DateTime.Now)
         };
 
+        // Posting and providing confimation
         await _userTicketsService.PostTicketAsync(ticket);
         await ShowToast("Ticket submitted successfully.");
     }
@@ -109,7 +110,8 @@
         return regex.IsMatch(email);
     }
 
-    // Displays a toast message (popup)
+    // Displays a toast (popup)
+    // Part of the CommunityToolkit
     private async Task ShowToast(string message)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();

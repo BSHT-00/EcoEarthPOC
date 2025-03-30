@@ -22,10 +22,12 @@ namespace EcoEarthPOC.Components.Pages.Scanner
 
         private TaskCompletionSource<string> scanTask = new TaskCompletionSource<string>();
 
+        // Triggered when a barcode i sdetected
         public void CameraBarcodeReaderView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
         {
             barcodeReader.IsDetecting = false;
 
+            // If it is not a valid barcode, try scanning again
             if (!validateBarcodeNumber(e.Results.FirstOrDefault().Value))
             {
                 barcodeReader.IsDetecting = true;
@@ -42,16 +44,15 @@ namespace EcoEarthPOC.Components.Pages.Scanner
             return await scanTask.Task;
         }
 
+        // --- Navigation Methods ---
         public void OnToggleTorchClicked(object sender, EventArgs e)
         {
             barcodeReader.IsTorchOn = !barcodeReader.IsTorchOn;
         }
-
         public void OnSwitchCameraClicked(object sender, EventArgs e)
         {
             barcodeReader.CameraLocation = barcodeReader.CameraLocation == CameraLocation.Front ? CameraLocation.Rear : CameraLocation.Front;
         }
-
         public async void OnBackToScannerMenuClicked(object sender, EventArgs e)
         {
             await Application.Current.MainPage.Navigation.PopModalAsync();

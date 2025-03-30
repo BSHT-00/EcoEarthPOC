@@ -18,14 +18,17 @@
     [Inject]
     NavigationManager navigationManager { get; set; }
 
+    // Executed on submit button click
     private async Task Submit()
     {
         try
         {
+            // If barcode isn't valid, show a popup
             if (!validateBarcodeNumber(inputText))
             {
                 await ShowToast("Invalid barcode, please try again");
             }
+            // Otherwise, check if it exists.
             else
             {
                 var result = await _offService.GetPackagingInformation(inputText);
@@ -35,7 +38,7 @@
                     await ShowToast("Product not found, please try again");
                 }
                 else
-                    // Navigates to the more info page after this page has checked whether product exists
+                    // If it does, take the user to the product info page
                     NavigateToMoreInfo();
             }
         }
@@ -64,11 +67,14 @@
         navigationManager.NavigateTo("/scanner/productinfo/" + inputText);
     }
 
+    // Takes user back to scanner menu
     private void NavigateBack()
     {
         navigationManager.NavigateTo("/scanner/scanner");
     }
 
+    // Method which shows a popup with a message passed as a parameter
+    // This element is part of the CommunityToolkit
     private async Task ShowToast(string message)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();

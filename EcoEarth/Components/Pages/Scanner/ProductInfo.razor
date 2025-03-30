@@ -165,6 +165,10 @@
                         Shape = shapes,
                         Recyclable = recyc
                 });
+
+                // Was having a negative value shown to the user, this resolves that
+                if (PointsToAssign < 0)
+                    PointsToAssign = 0;
             }
 
             if (recyclableProductMaterials.Count == 0)
