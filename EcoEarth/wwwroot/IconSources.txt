@@ -1,0 +1,7 @@
+﻿﻿Social Media Icons: https://reffpixels.itch.io/appicons
+
+Avatar Icons: https://free-game-assets.itch.io/free-fantasy-avatar-icons-pixel-art
+
+GUI Icons: https://pixel-boy.itch.io/icon-godot-node
+
+Art featuring the little knight is generated using DallE for a POC. 

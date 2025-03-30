@@ -20,7 +20,9 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 
         public UserTicketsService(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            _httpClient = new HttpClient(handler);
         }
 
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions
