@@ -1,11 +1,70 @@
 ﻿@page "/aboutus"
 
-<h5>Who are we?</h5>
+<!-- Page Content  -->
+<h5 class="question-box">Who are we?</h5>
+<div class="reply-box">
+    <div class="icon">
+        <img class="icon" src="Artwork/ThumbsUp.png" alt="Icon" />
+    </div>
+    <div class="content">We are a team of 5 University Students attempting to make the world greener with our programming skills. This project was our way of learning mobile development and expanding our skills.</div>
+</div>
 
+<h5 class="question-box">What are our aims?</h5>
+<div class="reply-box">
+    <div class="icon">
+        <img class="icon" src="Artwork/HoldingBottle.png" alt="Icon" />
+    </div>
+    <div class="content">Our aim is to make more people recycle. Our hope is that our app motivates you to adopt greener purchasing habits and learn more about the waste we use on a daily basis</div>
+</div>
 
-<h5>What are our aims?</h5>
+<h5 class="question-box">Where can I make suggestions?</h5>
+<div class="reply-box">
+    <div class="icon">
+        <img class="icon" src="Artwork/KnightShout.png" alt="Icon" />
+    </div>
+    <div class="content">You are able to make suggestions using our support ticket system</div>
+</div>
 
-    <!-- Social media buttons  -->
+<h5 class="question-box">Where can I find you on social media?</h5>
+<div class="reply-box">
+    <div class="icon">
+        <img class="icon" src="Artwork/KnightScrolling.png" alt="Icon" />
+    </div>
+    <div class="content">Our socials are available below!</div>
+</div>
+
+<br/>
+
+<!-- Social media buttons  -->
+<button id="Instagram" @onclick="() => SocialsNavigation(1)">
+    <img src="SocialIcons/Instagram.png" />
+</button>
+<button id="Facebook" @onclick="() => SocialsNavigation(2)">
+    <img src="SocialIcons/Facebook.png" />
+</button>
+<button id="Discord" @onclick="() => SocialsNavigation(3)">
+    <img src="SocialIcons/Discord.png" />
+</button>
+
 @code {
+    [Inject]
+    public NavigationManager NavManager { get; set; }
 
+    public void SocialsNavigation(int SocialId)
+    {
+        switch (SocialId)
+        {
+            case 1:
+                NavManager.NavigateTo("https://www.instagram.com/");
+                break;
+            case 2:
+                NavManager.NavigateTo("https://www.facebook.com/");
+                break;
+            case 3:
+                NavManager.NavigateTo("https://www.Discord.com/");
+                break;
+            default:
+                break;
+        }
+    }
 }
