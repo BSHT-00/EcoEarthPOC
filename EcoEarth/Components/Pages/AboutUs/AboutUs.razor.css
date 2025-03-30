@@ -5,17 +5,18 @@
     font-family: Minecraft;
     display: flex;
     align-items: center;
-    background-color: #006400;
-    border: 1px solid #006400;
+    background-image: url('Backgrounds/NBBackgroundEdit.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid black;
     border-radius: 10px;
-    margin-left:10px;
-
+    margin-left: 10px;
 }
 
     .reply-box .icon {
         width: 40px;
         height: 40px;
-        margin-right: 10px;
+        margin-left: 10px;
         background-size: cover;
         border-radius: 50%; 
     }
@@ -24,7 +25,8 @@
         font-size: 1rem;
         font-family: Minecraft;
         color: white;
-        padding-bottom:10px;
+        padding-bottom: 10px;
+        margin-left: 20px;
     }
 
 .question-box {
