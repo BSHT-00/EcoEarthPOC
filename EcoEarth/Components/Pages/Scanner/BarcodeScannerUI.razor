@@ -28,6 +28,7 @@ else
     private string? scanResult;
     public GetMorePackagingInfoDTO _getMorePackagingInfoDTO { get; set; }
 
+    // Initiates a Scan on page load
     protected override async Task OnInitializedAsync()
     {
         await DoScanAsync();
@@ -43,6 +44,7 @@ else
         }
     }
 
+    // Initiates a scan and returns the barcode number
     public async Task<string> GetScanResultAsync()
     {
         var cameraPage = new BarcodeScanTest();
@@ -57,12 +59,14 @@ else
         await DoScanAsync();
     }
 
+    // Validates barcode number using a regular expression
     protected bool validateBarcodeNumber(string barcode)
     {
         var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
         return regex.IsMatch(barcode);
     }
 
+    // Retrives product information so that the name can be displayed prior to navigating to the product info page
     protected async Task<GetMorePackagingInfoDTO> GetProductInformation(string barcode)
     {
         try
@@ -93,6 +97,7 @@ else
         }
     }
 
+    // Refreshes the page
     public void RefreshPage()
     {
         navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
@@ -110,6 +115,7 @@ else
         }
     }
 
+    // Takes user back to scanner menu
     public void NavigateToScanner()
     {
         navigationManager.NavigateTo("/scanner/scanner");

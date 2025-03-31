@@ -1,0 +1,46 @@
+﻿body {
+}
+
+.reply-box {
+    font-family: Minecraft;
+    display: flex;
+    align-items: center;
+    background-image: url('Backgrounds/NBBackgroundEdit.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+    .reply-box .icon {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        background-size: cover;
+        border-radius: 50%; 
+    }
+
+    .reply-box .content {
+        font-size: 1rem;
+        font-family: Minecraft;
+        color: white;
+        padding-bottom: 10px;
+        margin-left: 20px;
+    }
+
+.question-box {
+    font-family: Minecraft;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    color: #333;
+    text-align: center;
+    font-style: italic;
+    padding-top: 20px
+}
+
+.social-button {
+    padding-top:20px;
+    height: 15%;
+    width: 15%;
+}

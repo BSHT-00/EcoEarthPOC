@@ -28,16 +28,15 @@ label {
     border: 1px solid #c3e6cb;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 10px; /* Rounded edges */
+    border-radius: 10px; 
 }
 
     .email-box .icon {
         width: 24px;
         height: 24px;
         margin-right: 10px;
-        background-image: url('wwwroot/Sprites/MiniShieldMan.png'); /* Update with the correct path to your sprite image */
         background-size: cover;
-        border-radius: 50%; /* Rounded edges */
+        border-radius: 50%; 
     }
 
     .email-box .email {
@@ -48,7 +47,7 @@ label {
 .avatar {
     padding-left: 10px;
     padding-right: 10px;
-    border-radius: 50%; /* Rounded edges */
+    border-radius: 50%; 
 }
 
 .tick-prompt {

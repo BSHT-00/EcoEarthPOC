@@ -17,7 +17,8 @@
            <Label Text="Place the barcode within the box to scan it"  
                  HorizontalOptions="Center"  
                  VerticalOptions="Center"  
-                 TextColor="Black" />  
+                 TextColor="Black" 
+                 FontFamily="Minecraft"/>  
        </Border>  
 
        <BoxView HeightRequest="20" Grid.Row="1" />  
@@ -26,13 +27,13 @@
                                      WidthRequest="400" HeightRequest="250"  
                                      IsDetecting="True" IsTorchOn="False"  
                                      BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected"  
-                                     Grid.Row="2" />  
+                                     Grid.Row="2" />
 
-       <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Row="3" Spacing="10">  
-           <Button Text="Switch Camera" Clicked="OnSwitchCameraClicked" />  
-           <Button Text="Toggle Torch" Clicked="OnToggleTorchClicked" />  
-       </StackLayout>  
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Row="3" Spacing="10" >
+            <Button Text="Switch Camera" Clicked="OnSwitchCameraClicked" FontFamily="Minecraft"/>
+            <Button Text="Toggle Torch" Clicked="OnToggleTorchClicked" FontFamily="Minecraft"/>  
+       </StackLayout>
 
-       <Button Text="Back to Scanner Menu" Grid.Row="4" Clicked="OnBackToScannerMenuClicked" />  
+        <Button Text="Back to Scanner Menu" Grid.Row="4" Clicked="OnBackToScannerMenuClicked" FontFamily="Minecraft"/>  
    </Grid>  
 </ContentPage>

@@ -80,6 +80,7 @@ namespace EcoEarthAppAPI.Data
                 new RecyclableMaterials { MaterialId = 6, Material = "ps", CategoryId = 1 },
                 new RecyclableMaterials { MaterialId = 7, Material = "plastic", CategoryId = 1 },
                 new RecyclableMaterials { MaterialId = 22, Material = "paper and plastic", CategoryId = 1 },
+                new RecyclableMaterials { MaterialId = 23, Material = "ldpe 4 low density polyethylene", CategoryId = 1},
 
                 // Glass (2)
                 new RecyclableMaterials { MaterialId = 8, Material = "clear glass", CategoryId = 2 },
@@ -88,7 +89,7 @@ namespace EcoEarthAppAPI.Data
                 new RecyclableMaterials { MaterialId = 11, Material = "glass", CategoryId = 2 },
 
                 // Metal (3)
-                new RecyclableMaterials { MaterialId = 12, Material = "aluminum", CategoryId = 3 },
+                new RecyclableMaterials { MaterialId = 12, Material = "aluminium", CategoryId = 3 },
                 new RecyclableMaterials { MaterialId = 13, Material = "steel", CategoryId = 3 },
                 new RecyclableMaterials { MaterialId = 14, Material = "metal", CategoryId = 3 },
 

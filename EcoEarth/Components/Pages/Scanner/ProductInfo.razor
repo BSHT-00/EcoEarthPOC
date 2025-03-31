@@ -46,9 +46,12 @@
 
         <img class="product-image" src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
 
+
         <div class="UserRewardsBox">
             <p>This product has earned you @PointsToAssign Ecoins!</p>
         </div>
+
+        
 
         <div>
             <button @onclick="() => NavigationWithCurrency(1)">Claim Points And Scan Again</button>
@@ -61,6 +64,8 @@
             <p>Is any of this information incorrect? Write us a ticket!</p>
             <button @onclick="NavigateToTicket">Create a ticket</button>
         </div>
+
+        <br />
 
     }
     else
@@ -162,6 +167,10 @@
                         Shape = shapes,
                         Recyclable = recyc
                 });
+
+                // Was having a negative value shown to the user, this resolves that
+                if (PointsToAssign < 0)
+                    PointsToAssign = 0;
             }
 
             if (recyclableProductMaterials.Count == 0)

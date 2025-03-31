@@ -72,6 +72,9 @@
     private string TickDesc { get; set; }
     private string TickEmail { get; set; }
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
     private async Task Submit()
     {
         // Validating and displaying popups when input is not valid
@@ -89,7 +92,7 @@
             }
         }
 
-        // Creating and Posting ticket
+        // Creating ticket
         var ticket = new EcoEarthPOC.Components.Pages.UserTickets.DTOs.UserTicketsDTO
         {
             Title = TickTitle,
@@ -98,8 +101,10 @@
             Date = DateOnly.FromDateTime(DateTime.Now)
         };
 
+        // Posting and providing confimation
         await _userTicketsService.PostTicketAsync(ticket);
         await ShowToast("Ticket submitted successfully.");
+        RefreshPage();
     }
 
     // Validates email using reg exp
@@ -109,7 +114,13 @@
         return regex.IsMatch(email);
     }
 
-    // Displays a toast message (popup)
+    public void RefreshPage()
+    {
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
+    // Displays a toast (popup)
+    // Part of the CommunityToolkit
     private async Task ShowToast(string message)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();

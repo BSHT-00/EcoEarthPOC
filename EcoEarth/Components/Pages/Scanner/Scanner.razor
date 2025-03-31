@@ -1,4 +1,8 @@
 ﻿@page "/scanner/scanner"
+@using CommunityToolkit.Maui.Core
+@using CommunityToolkit.Maui.Views;
+@using CommunityToolkit.Maui.Alerts;
+@using Microsoft.Maui.Devices;
 
 <h5>Scan a product and earn points!</h5>
 
@@ -9,13 +13,33 @@
 <button @onclick="NavigateToManualInp" class="button">Manual input</button>
 
 @code {
-    private void NavigateToBarcodeScanner()
+    // This page is just a basic navigation page
+
+    private async void NavigateToBarcodeScanner()
     {
-        NavigationManager.NavigateTo("/scanner/scanner/Barcoding");
+        if (DeviceInfo.Platform != DevicePlatform.Android)
+        {
+            await ShowToast("Barcode scanning is only available on Android devices");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/scanner/scanner/Barcoding");
+        }
     }
     private void NavigateToManualInp()
     {
         NavigationManager.NavigateTo("/scanner/manualinput");
+    }
+
+    private async Task ShowToast(string message)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(message, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
     }
 
     [Inject]

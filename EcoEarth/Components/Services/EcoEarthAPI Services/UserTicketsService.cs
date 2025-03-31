@@ -11,15 +11,18 @@ using System.Drawing;
 
 namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 {
+    // This service handles ticket calls
     public class UserTicketsService
     {
-        const string ServiceBaseUrl = "https://localhost:7111/api";
+        public static string ServiceBaseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7111/api" : "https://localhost:7111/api";
         const string Endpoint = "/UserTickets";
         private readonly HttpClient _httpClient;
 
         public UserTicketsService(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+            var handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            _httpClient = new HttpClient(handler);
         }
 
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions
