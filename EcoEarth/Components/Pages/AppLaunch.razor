@@ -1,0 +1,39 @@
+﻿@page "/"
+@using EcoEarthPOC.Models
+@using Newtonsoft.Json
+@using System.IdentityModel.Tokens.Jwt
+@inject NavigationManager NavigationManager
+<h3>App Launched</h3>
+
+Loading...
+
+@code {
+
+    protected async override Task OnInitializedAsync()
+    {
+        string? userDetails = await SecureStorage.GetAsync(nameof(Setting.UserBasicDetail));
+
+        Setting.UserBasicDetail = null;
+
+        if (!string.IsNullOrWhiteSpace(userDetails))
+        {
+            var userBasicDetail = JsonConvert.DeserializeObject<UserBasicDetail>(userDetails);
+
+            if (userBasicDetail != null)
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(userBasicDetail.Token) as JwtSecurityToken;
+
+                if (jsonToken != null)
+                {
+                    Setting.UserBasicDetail = userBasicDetail;
+                    NavigationManager.NavigateTo("/home");
+                    return;
+                }
+            }
+        }
+
+        NavigationManager.NavigateTo("/Login");
+    }
+
+}

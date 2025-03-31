@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EcoEarthPOC.Models
 {
-    public class Setting
+    internal class Setting
     {
-        public static UserBasicDetail UserBasicDetail { get; set; }
+        public static UserBasicDetail UserBasicDetail { get; set; } = new UserBasicDetail();
     }
 }

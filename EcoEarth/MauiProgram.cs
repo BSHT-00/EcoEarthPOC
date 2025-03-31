@@ -6,6 +6,7 @@ using EcoEarthPOC.Components.Services.EcoEarthAPI_Services;
 using Microsoft.Extensions.Options;
 using CommunityToolkit.Maui;
 using EcoEarthPOC.Components.Pages.Scanner;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace EcoEarthPOC
 {
@@ -32,6 +33,9 @@ namespace EcoEarthPOC
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<OFFPackaging>();
             builder.Services.AddHttpClient();
+
+            builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+            builder.Services.AddAuthorizationCore();
 
             builder.Services.AddHttpClient<IsProductRecyclableService>(client =>
             {

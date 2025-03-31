@@ -2,6 +2,7 @@ using LoginAPI.Context;
 using LoginAPI.Data;
 using LoginAPI.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -11,11 +12,31 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to listen on all interfaces
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(44371, listenOptions =>
+    {
+        listenOptions.UseHttps();
+    });
+});
+
 builder.Services.AddDbContext<UserDBContext>();
 
 builder.Services.AddIdentity<Users, IdentityRole>()
     .AddEntityFrameworkStores<UserDBContext>()
     .AddDefaultTokenProviders();
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddSwaggerGen(swagger =>
 {
@@ -82,6 +103,19 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+//Middleware pipeline
+app.UseCors("AllowAll");
+
+// Host header rewrite middleware for Android emulator
+app.Use(async (context, next) =>
+{
+    if (context.Request.Host.Host == "10.0.2.2")
+    {
+        context.Request.Host = new HostString("localhost", 44371);
+    }
+    await next();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

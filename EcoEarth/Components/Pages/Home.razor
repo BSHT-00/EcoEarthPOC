@@ -1,13 +1,26 @@
-﻿@page "/"
+﻿@page "/home"
 @using EcoEarthPOC.Components.Services;
 @using EcoEarthPOC.Models;
 
-<h1>Welcome to EcoEarth</h1>
+<h1>
+    Welcome to EcoEarth!
+</h1>
 
-@* Welcome @Setting.UserBasicDetail.Name *@
+@if (Setting.UserBasicDetail?.Name != null)
+{
+    <p>
+        Great to see you, @Setting.UserBasicDetail.Name 😊
+        Keep recycling and making Earth greener!
+    </p>
+}
+else
+{
+    <p>
+        Great to see you 😊! Please log in or register to continue.
+    </p>
+}
 
-
- <!-- Show some key user insight here-->
+<!-- Show some key user insight here-->
 <div class="big-box">
     <label>Loren Ipsum</label>
 </div>
@@ -24,5 +37,6 @@
 
 @code
 {
+
 
 }

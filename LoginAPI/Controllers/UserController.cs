@@ -86,22 +86,27 @@ namespace LoginAPI.Controllers
 
             if (isValidUser)
             {
-                string accessToken = GenerateAccessToken(user);
-                var refreshToken = GenerateRefreshToken();
-                user.RefreshToken = refreshToken;
-                await _userManager.UpdateAsync(user);
+               var tokenHandler = new JwtSecurityTokenHandler();
 
-                var response = new MainResponse
+                var keyDetail = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
+
+                var claims = new List<Claim>
                 {
-                    Content = new AuthenticationResponse
-                    {
-                        RefreshToken = refreshToken,
-                        AccessToken = accessToken
-                    },
-                    IsSuccess = true,
-                    ErrorMessage = ""
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(ClaimTypes.Name, $"{user.FirstName} { user.LastName}"),
                 };
-                return Ok(response);
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Audience = _configuration["JWT:Audience"],
+                    Issuer = _configuration["JWT:Issuer"],
+                    Expires = DateTime.UtcNow.AddMinutes(5),
+                    Subject = new ClaimsIdentity(claims),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyDetail), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                return Ok(tokenHandler.WriteToken(token));
             }
             else
             {

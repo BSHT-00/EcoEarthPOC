@@ -1,0 +1,252 @@
+﻿.eco-login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e6f7ed, #c1e8d5);
+    position: relative;
+    overflow: hidden;
+    eco-login-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background-color: #f8fff5;
+}
+
+.eco-login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fff5;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.eco-login-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
+    z-index: 2;
+    position: relative;
+    border: 1px solid #e0f7e0;
+}
+
+.eco-brand-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.eco-logo-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+}
+
+.eco-logo-icon {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.eco-brand-title {
+    color: #2E7D32;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.eco-brand-subtitle {
+    color: #689F38;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.eco-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.eco-form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2E7D32;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.eco-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.eco-input-icon {
+    position: absolute;
+    left: 12px;
+    color: #4CAF50;
+    z-index: 2;
+}
+
+.eco-form-control {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #C8E6C9;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+    .eco-form-control:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        outline: none;
+    }
+
+.eco-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.eco-form-check {
+    display: flex;
+    align-items: center;
+}
+
+.eco-form-check-input {
+    margin-right: 0.5rem;
+    accent-color: #4CAF50;
+}
+
+.eco-form-check-label {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.eco-forgot-password {
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+    .eco-forgot-password:hover {
+        color: #2E7D32;
+        text-decoration: underline;
+    }
+
+.eco-login-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+    .eco-login-btn:hover {
+        background: linear-gradient(135deg, #43A047, #4CAF50);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+    }
+
+.eco-register-link {
+    text-align: center;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.eco-nav-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+    .eco-nav-link:hover {
+        color: #2E7D32;
+        text-decoration: underline;
+    }
+
+.eco-validation-message {
+    color: #f44336;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+.eco-background-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.eco-bg-leaf, .eco-bg-recycle, .eco-bg-seedling {
+    position: absolute;
+    font-size: 8rem;
+    color: #4CAF50;
+}
+
+.eco-bg-leaf {
+    top: 10%;
+    left: 10%;
+    transform: rotate(15deg);
+}
+
+.eco-bg-recycle {
+    bottom: 15%;
+    right: 10%;
+    transform: rotate(-10deg);
+}
+
+.eco-bg-seedling {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(5deg);
+}
+
+@media (max-width: 576px) {
+    .eco-login-card {
+        padding: 1.5rem;
+    }
+
+    .eco-logo-circle {
+        width: 70px;
+        height: 70px;
+    }
+
+    .eco-brand-title {
+        font-size: 1.5rem;
+    }
+
+    .eco-bg-leaf, .eco-bg-recycle, .eco-bg-seedling {
+        font-size: 6rem;
+    }
+}
+
+
