@@ -17,59 +17,6 @@
   },
   {
     "ContainingType": "LoginAPI.Controllers.UsersController",
-    "Method": "ConfirmEmail",
-    "RelativePath": "api/Users/ConfirmEmail",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoginAPI.Controllers.UsersController",
-    "Method": "ForgotPassword",
-    "RelativePath": "api/Users/ForgotPassword",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "LoginAPI.DTOs.ForgotPasswordDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoginAPI.Controllers.UsersController",
-    "Method": "RefreshToken",
-    "RelativePath": "api/Users/RefreshToken",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "refreshTokenRequest",
-        "Type": "LoginAPI.DTOs.RefreshTokenRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoginAPI.Controllers.UsersController",
     "Method": "RegisterUser",
     "RelativePath": "api/Users/RegisterUser",
     "HttpMethod": "POST",
@@ -82,32 +29,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoginAPI.Controllers.UsersController",
-    "Method": "ResetPassword",
-    "RelativePath": "api/Users/ResetPassword",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "LoginAPI.DTOs.ResetPasswordDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoginAPI.Controllers.UsersController",
-    "Method": "SendTestEmail",
-    "RelativePath": "api/Users/SendTestEmail",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   }
 ]

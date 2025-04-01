@@ -43,23 +43,20 @@ namespace EcoEarthPOC.Components.Services
         {
             string errorMessage = string.Empty;
             bool isSuccess = false;
-            using (var client = new HttpClient())
+
+            var serializedData = JsonConvert.SerializeObject(registerModel);
+
+            var response = await _httpClient.PostAsync($"{_baseUrl}{APIs.RegisterUser}", new StringContent(serializedData, Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
             {
-                var url = $"{_baseUrl}{APIs.RegisterUser}";
-
-                var serializedData = JsonConvert.SerializeObject(registerModel);
-
-                var response = await client.PostAsync(url, new StringContent(serializedData, Encoding.UTF8, "application/json"));
-
-                if (response.IsSuccessStatusCode)
-                {
-                    isSuccess = true;
-                }
-                else
-                {
-                    errorMessage = await response.Content.ReadAsStringAsync();
-                }
+                isSuccess = true;
             }
+            else
+            {
+                errorMessage = await response.Content.ReadAsStringAsync();
+            }
+
             return (isSuccess, errorMessage);
         }
     }

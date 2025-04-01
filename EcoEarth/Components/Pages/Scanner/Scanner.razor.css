@@ -18,7 +18,7 @@ button {
     border-radius: 10px;
     cursor: pointer;
     margin-top: 10px;
-    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-image: wwwroot/Backgrounds/NavBarBackground.jpg;
     background-size: cover;
     image-rendering: pixelated;
     width: 100%;

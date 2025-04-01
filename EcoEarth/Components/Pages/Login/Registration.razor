@@ -4,44 +4,74 @@
 @inject IAppService AppService;
 @inject NavigationManager NavigationManager
 
-<h3 class="text-center mt-4">Registration</h3>
+<div class="eco-registration-header">
+    <h2 class="eco-registration-title">
+        <span class="eco-title-main">Join EcoEarth</span>
+        <span class="eco-title-underline"></span>
+    </h2>
+    <p class="eco-registration-subtitle">
+        <i class="fas fa-seedling subtitle-icon"></i>
+        Start your sustainability journey today
+        <i class="fas fa-recycle subtitle-icon"></i>
+    </p>
+</div>
 
 <EditForm Model="registrationModel" OnValidSubmit="Submit" class="container mt-4">
     <DataAnnotationsValidator />
     <div class="form-group mb-3">
-        <label class="form-label">First Name</label>
-        <input type="text" class="form-control" @bind-value="registrationModel.FirstName" placeholder="Enter your first name" />
+        <label class="form-label text-success">
+            <i class="fas fa-user me-2"></i>First Name
+        </label>
+        <input type="text" class="form-control border-success"
+               @bind-value="registrationModel.FirstName"
+               placeholder="Enter your first name" />
         <ValidationMessage For="@(() => registrationModel.FirstName)" class="text-danger" />
     </div>
 
     <div class="form-group mb-3">
-        <label class="form-label">Last Name</label>
-        <input type="text" class="form-control" @bind-value="registrationModel.LastName" placeholder="Enter your last name" />
+        <label class="form-label text-success">
+            <i class="fas fa-user me-2"></i>Last Name
+        </label>
+        <input type="text" class="form-control border-success"
+               @bind-value="registrationModel.LastName"
+               placeholder="Enter your last name" />
         <ValidationMessage For="@(() => registrationModel.LastName)" class="text-danger" />
     </div>
 
     <div class="form-group mb-3">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-control" @bind-value="registrationModel.Email" placeholder="Enter your email" />
+        <label class="form-label text-success">
+            <i class="fas fa-envelope me-2"></i>Email Address
+        </label>
+        <input type="email" class="form-control border-success"
+               @bind-value="registrationModel.Email"
+               placeholder="Enter your email" />
         <ValidationMessage For="@(() => registrationModel.Email)" class="text-danger" />
     </div>
 
     <div class="form-group mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" @bind-value="registrationModel.Password" placeholder="Enter your password" />
+        <label class="form-label text-success">
+            <i class="fas fa-lock me-2"></i>Password
+        </label>
+        <input type="password" class="form-control border-success"
+               @bind-value="registrationModel.Password"
+               placeholder="Enter your password" />
         <ValidationMessage For="@(() => registrationModel.Password)" class="text-danger" />
+        <small class="text-muted">
+            <i class="fas fa-leaf me-1"></i>Use 8+ characters for a greener account
+        </small>
     </div>
 
     <div class="text-end mb-3">
-        <NavLink class="nav-link" href="login">
+        <NavLink class="nav-link text-success" href="login">
+            <i class="fas fa-recycle me-1"></i>
             <span>Already have an account?</span>
         </NavLink>
     </div>
 
     <div class="text-center">
-        <button class="btn btn-primary btn-lg" type="submit">
+        <button class="btn btn-success btn-lg" type="submit">
             <span class="@_spinnerClass" role="status" aria-hidden="true"></span>
-            Register
+            <i class="fas fa-seedling me-2"></i>Register
         </button>
     </div>
 </EditForm>
@@ -56,7 +86,7 @@
         var response = await AppService.RegisterUser(registrationModel);
         if (response.IsSuccess)
         {
-            await App.Current.MainPage.DisplayAlert("Success", "You have been registered.", "OK");
+            await App.Current.MainPage.DisplayAlert("Success", "You have been registered. Please log in to continue.", "OK");
         }
         else
         {

@@ -1,0 +1,37 @@
+﻿@page "/signout"
+@using EcoEarthPOC.Models
+@inject NavigationManager NavigationManager
+
+<div class="logout-container">
+    <div class="logout-card">
+        <div class="logout-header">
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+            <h3>Sign Out</h3>
+            <p>Are you sure you want to log out of your account?</p>
+        </div>
+
+        <div class="logout-actions">
+            <button class="btn btn-logout-confirm" @onclick="ConfirmLogout">
+                Yes
+            </button>
+            <button class="btn btn-logout-cancel" @onclick="CancelLogout">
+                No
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private async Task ConfirmLogout()
+    {
+        SecureStorage.RemoveAll();
+        Setting.UserBasicDetail = null;
+        NavigationManager.NavigateTo("/login");
+    }
+
+    private void CancelLogout()
+    {
+        // Return to previous page or home
+        NavigationManager.NavigateTo("/");
+    }
+}
