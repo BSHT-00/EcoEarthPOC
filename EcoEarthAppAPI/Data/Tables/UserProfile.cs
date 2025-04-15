@@ -10,5 +10,6 @@ namespace EcoEarthAppAPI.Data.Tables
 
         public UserCurrency UserCurrency { get; set; }
         public PastRecycledClassCount PastRecycledClassCount { get; set; }
+        public DailyStreak DailyStreak { get; set; }
     }
 }

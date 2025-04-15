@@ -16,6 +16,7 @@ namespace EcoEarthAppAPI.Data
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<PastRecycledClassCount> PastRecycledClassCount { get; set; }
         public DbSet<UserTickets> UserTickets { get; set; }
+        public DbSet<DailyStreak> DailyStreak { get; set; }
 
 
         public EcoEarthAppAPIDbContext()
@@ -42,6 +43,7 @@ namespace EcoEarthAppAPI.Data
 
             modelBuilder.Entity<UserCurrency>().HasKey(x => x.UserId);
             modelBuilder.Entity<PastRecycledClassCount>().HasKey(x => x.UserId);
+            modelBuilder.Entity<DailyStreak>().HasKey(x => x.UserId);
 
             // 1-1
             modelBuilder.Entity<UserCurrency>()
@@ -53,6 +55,12 @@ namespace EcoEarthAppAPI.Data
             modelBuilder.Entity<PastRecycledClassCount>()
                 .HasOne(prcc => prcc.UserProfile)
                 .WithOne(up => up.PastRecycledClassCount)
+                .HasForeignKey<UserProfile>(up => up.UserId);
+
+            // 1-1
+            modelBuilder.Entity<DailyStreak>()
+                .HasOne(prcc => prcc.UserProfile)
+                .WithOne(up => up.DailyStreak)
                 .HasForeignKey<UserProfile>(up => up.UserId);
 
 
@@ -126,6 +134,12 @@ namespace EcoEarthAppAPI.Data
                 new PastRecycledClassCount { UserId = 4, Cat1 = 1, Cat2 = 0, Cat3 = 2, Cat4 = 0, Cat5 = 6 }
             );
 
+            modelBuilder.Entity<DailyStreak>().HasData(
+                new DailyStreak { UserId = 1, Streak = 5 },
+                new DailyStreak { UserId = 2, Streak = 3 },
+                new DailyStreak { UserId = 3, Streak = 6 },
+                new DailyStreak { UserId = 4, Streak = 2 }
+            );
 
         }
     }
