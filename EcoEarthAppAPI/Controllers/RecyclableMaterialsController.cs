@@ -30,6 +30,11 @@ namespace EcoEarthAppAPI.Controllers
         public async Task<IActionResult> GetRecyclableMaterials(int id)
         {
             var recyclableMaterials = await _context.RecyclableMaterials.FindAsync(id);
+            if (recyclableMaterials == null)
+            {
+                return NotFound();
+            }
+
             return Ok(recyclableMaterials);
         }
 
@@ -37,6 +42,12 @@ namespace EcoEarthAppAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostRecyclableMaterials([FromBody] RecyclableMaterials recyclableMaterials)
         {
+            // Added during testing, check documentation for reasoning
+            if (recyclableMaterials.CategoryId <= 0)
+                return BadRequest("CategoryId must be greater than 0");
+            if (await _context.RecyclableMaterials.FindAsync(recyclableMaterials.MaterialId) != null)
+                return BadRequest("Item already exists at this Material Id");
+
             _context.RecyclableMaterials.Add(recyclableMaterials);
             await _context.SaveChangesAsync();
             return Ok(recyclableMaterials);

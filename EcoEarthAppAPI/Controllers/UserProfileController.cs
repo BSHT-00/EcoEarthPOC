@@ -33,8 +33,9 @@ namespace EcoEarthAppAPI.Controllers
                 };
 
                 await _context.UserProfile.AddAsync(userProfile);
+                _context.SaveChanges();
 
-                return Ok();
+                return Ok(userProfile);
             }
             catch (Exception ex)
             {

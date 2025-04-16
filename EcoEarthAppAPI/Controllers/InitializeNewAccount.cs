@@ -21,9 +21,15 @@ namespace EcoEarthAppAPI.Controllers
 
         // Initialize a new account with default values
         [HttpPost]
-        public async Task<IActionResult> CreateNewAccount()
+        public async Task<IActionResult> CreateNewAccount(int loginId)
         {
+            // Get next id in EEAPI
             int userId = GetNextId();
+
+            // Create a new record in the login table which links login tableid to EEAPI table id
+            //LoginController login = new LoginController(_context);
+            //await login.CreateNewRecord(userId, loginId);
+
 
             // If account already exists, return bad request
             if (await _context.UserProfile.FindAsync(userId) != null)
