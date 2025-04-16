@@ -83,15 +83,14 @@ namespace EcoEarthAppAPI.Controllers
 
         // Creates a blank record for a user if it does not exist
         [HttpPost("{userId}")]
-        public void CreateBlankRecord(int userId)
+        public async Task<IActionResult> CreateBlankRecord(int userId)
         {
             try
             {
-                var recycleCount = _context.PastRecycledClassCount
-                    .Where(x => x.UserId == userId)
-                    .FirstOrDefault();
-                if (recycleCount != null)
-                    throw new Exception("User Already Exists");
+                if (await _context.PastRecycledClassCount.AnyAsync(x => x.UserId == userId))
+                {
+                    return BadRequest("Record already exists");
+                }
                 else
                 {
                     _context.PastRecycledClassCount.Add(new PastRecycledClassCount
@@ -104,11 +103,12 @@ namespace EcoEarthAppAPI.Controllers
                         Cat5 = 0
                     });
                     _context.SaveChanges();
+                    return Ok("New record created successfully");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
             }
         }
 

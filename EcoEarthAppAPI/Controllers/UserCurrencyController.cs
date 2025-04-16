@@ -66,23 +66,24 @@ namespace EcoEarthAppAPI.Controllers
             return Ok(user.Balance);
         }
 
-        // Creates blank record under userId
+        // Creates blank record under userId with a starting balance of 50
         [HttpPost("{userId}")]
-        public void CreateBlankRecord(int userId)
+        public async Task<IActionResult> CreateBlankRecord(int userId)
         {
             if (_context.UserCurrency.Find(userId) != null)
             {
-                return;
+                return BadRequest("account under user id already exists");
             }
             else
             {
                 var userCurrency = new UserCurrency
                 {
                     UserId = userId,
-                    Balance = 0
+                    Balance = 50,
                 };
                 _context.UserCurrency.Add(userCurrency);
                 _context.SaveChanges();
+                return Ok();
             }
         }
     }
