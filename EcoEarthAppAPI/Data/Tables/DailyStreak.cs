@@ -11,6 +11,8 @@ namespace EcoEarthAppAPI.Data.Tables
         [Range(0, int.MaxValue)]
         public int TotalStreak { get; set; }
 
+        public DateTime LastScanDate { get; set; }
+
         public UserProfile UserProfile { get; set; }
     }
 }

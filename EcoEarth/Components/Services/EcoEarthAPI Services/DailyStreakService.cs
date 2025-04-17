@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
 {
@@ -42,18 +43,6 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             return 0;
         }
 
-        //adds to users streak
-        public async Task AddToStreak(int day)
-        {
-            var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}/{day}";
-
-            var response = await _httpClient.PutAsync(url, null);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Failed to add day to daily streak");
-            }
-        }
-
         //remove users streak
         public async Task RemoveStreak()
         {
@@ -63,6 +52,40 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Failed to remove daily streak");
+            }
+        }
+
+        //updates users streak
+        public async Task UpdateStreak()
+        {
+            var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}";
+
+            var response = await _httpClient.GetAsync($"{url}/LastScanDate");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var lastScanDate = JsonSerializer.Deserialize<DateTime>(content, jsonOptions);
+
+                if (lastScanDate == DateTime.UtcNow.Date)
+                {
+                    //nothing
+                }
+                else if (lastScanDate.Date == DateTime.UtcNow.Date.AddDays(-1))
+                {
+                    var update = await _httpClient.PutAsync(url, null);
+                    if (!update.IsSuccessStatusCode)
+                    {
+                        throw new Exception("Failed to add day to daily streak");
+                    }
+                }
+                else
+                {
+                    await RemoveStreak();
+                }
+            }
+            else
+            {
+                throw new Exception("Failed to check last scan date");
             }
         }
     }

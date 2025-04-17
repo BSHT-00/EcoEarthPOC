@@ -71,6 +71,7 @@ namespace EcoEarthAppAPI.Controllers
                 {
                     UserId = userId,
                     TotalStreak = 0,
+                    LastScanDate = DateTime.UtcNow.AddDays(-1),
                 };
                 _context.DailyStreak.Add(dailyStreak);
                 _context.SaveChanges();

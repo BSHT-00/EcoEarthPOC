@@ -62,6 +62,7 @@ else
     {
         try
         {
+            await dailyStreakService.UpdateStreak();
             DailyStreak = await dailyStreakService.GetUserStreak();
             await InvokeAsync(StateHasChanged);
         }
