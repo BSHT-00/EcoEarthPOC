@@ -135,10 +135,10 @@ namespace EcoEarthAppAPI.Data
             );
 
             modelBuilder.Entity<DailyStreak>().HasData(
-                new DailyStreak { UserId = 1, Streak = 5 },
-                new DailyStreak { UserId = 2, Streak = 3 },
-                new DailyStreak { UserId = 3, Streak = 6 },
-                new DailyStreak { UserId = 4, Streak = 2 }
+                new DailyStreak { UserId = 1, TotalStreak = 5 },
+                new DailyStreak { UserId = 2, TotalStreak = 3 },
+                new DailyStreak { UserId = 3, TotalStreak = 6 },
+                new DailyStreak { UserId = 4, TotalStreak = 2 }
             );
 
         }
