@@ -1,6 +1,7 @@
 ﻿@page "/home"
 @using EcoEarthPOC.Components.Services;
 @using EcoEarthPOC.Models;
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.DailyStreakService dailyStreakService
 
 <h1>
     Welcome to EcoEarth!
@@ -28,6 +29,7 @@ else
 <!-- Show the user's daily streak-->
 <div class="sub-box">
     <label>Daily streak</label>
+    <p>@DailyStreak</p>
 </div>
 
 <!-- Show user's daily quests here-->
@@ -37,6 +39,42 @@ else
 
 @code
 {
+    private int DailyStreak;
+    private Timer? _timer;
 
+    // Id is passed here, must be changed before deployment
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            AppVariables.UserId = 1;
+            DailyStreak = await dailyStreakService.GetUserStreak();
+        }
+        catch (Exception)
+        {
+            DailyStreak = -1;
+        }
+
+        _timer = new Timer(async _ => await UpdateDailyStreak(), null, 0, 1000);
+    }
+
+    public async Task UpdateDailyStreak()
+    {
+        try
+        {
+            await dailyStreakService.UpdateStreak();
+            DailyStreak = await dailyStreakService.GetUserStreak();
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception)
+        {
+            DailyStreak = -1;
+        }
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
 
 }

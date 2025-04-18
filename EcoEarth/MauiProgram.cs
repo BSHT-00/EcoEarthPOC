@@ -52,6 +52,11 @@ namespace EcoEarthPOC
                 client.BaseAddress = new Uri("http://localhost:7111/api");
             });
 
+            builder.Services.AddHttpClient<DailyStreakService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:7111/api");
+            });
+
             builder.Services.AddSingleton<AppVariables>();
 
             builder.UseMauiApp<App>().UseBarcodeReader();
