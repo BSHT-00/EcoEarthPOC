@@ -1,15 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace EcoEarthAppAPI.Data.Tables
 {
     public class UserProfile
     {
         [Required]
-        [Key]
         public int UserId { get; set; }
 
+        [JsonIgnore]
         public UserCurrency UserCurrency { get; set; }
+
+        [JsonIgnore]
         public PastRecycledClassCount PastRecycledClassCount { get; set; }
-        public DailyStreak DailyStreak { get; set; }
+        //public Login Login { get; set; }
+        //public DailyStreak DailyStreak { get; set; }
     }
 }
