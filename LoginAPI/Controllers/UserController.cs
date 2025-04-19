@@ -104,49 +104,69 @@ namespace LoginAPI.Controllers
 
         }
 
-    //    [AllowAnonymous]
-    //    [HttpPost("ResetPassword")]
-    //    public async Task<IActionResult> ResetPassword(ResetPasswordDTO model)
-    //    {
-    //        var user = await _userManager.FindByEmailAsync(model.Email);
-    //        if (user == null)
-    //        {
-    //            // Don't reveal that the user does not exist
-    //            return Ok(new { Message = "Password reset successfully" });
-    //        }
+        
+        // Returns a UserIdDTO, which only contains the userId currently using email
+        [AllowAnonymous]
+        [HttpGet("GetUser/{Email}")]
+        public async Task<IActionResult> GetUser(string Email)
+        {
+            var user = await _userManager.FindByNameAsync(Email);
 
-    //        var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
-    //        if (result.Succeeded)
-    //        {
-    //            return Ok(new { Message = "Password reset successfully" });
-    //        }
+            if (user == null) 
+                return NotFound();
 
-    //        return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
-    //    }
+            var userIdDTO = new userIdDTO
+            {
+                UserId = user.Id
+            };
 
-    //    [AllowAnonymous]
-    //    [HttpGet("ConfirmEmail")]
-    //    public async Task<IActionResult> ConfirmEmail(string userId, string token)
-    //    {
-    //        if (userId == null || token == null)
-    //        {
-    //            return BadRequest("Invalid parameters");
-    //        }
+            return Ok(userIdDTO);
+        }
 
-    //        var user = await _userManager.FindByIdAsync(userId);
-    //        if (user == null)
-    //        {
-    //            return BadRequest("User not found");
-    //        }
 
-    //        var result = await _userManager.ConfirmEmailAsync(user, token);
-    //        if (result.Succeeded)
-    //        {
-    //            return Ok("Email confirmed successfully");
-    //        }
+        //    [AllowAnonymous]
+        //    [HttpPost("ResetPassword")]
+        //    public async Task<IActionResult> ResetPassword(ResetPasswordDTO model)
+        //    {
+        //        var user = await _userManager.FindByEmailAsync(model.Email);
+        //        if (user == null)
+        //        {
+        //            // Don't reveal that the user does not exist
+        //            return Ok(new { Message = "Password reset successfully" });
+        //        }
 
-    //        return BadRequest("Email confirmation failed");
-    //    }
+        //        var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+        //        if (result.Succeeded)
+        //        {
+        //            return Ok(new { Message = "Password reset successfully" });
+        //        }
+
+        //        return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
+        //    }
+
+        //    [AllowAnonymous]
+        //    [HttpGet("ConfirmEmail")]
+        //    public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        //    {
+        //        if (userId == null || token == null)
+        //        {
+        //            return BadRequest("Invalid parameters");
+        //        }
+
+        //        var user = await _userManager.FindByIdAsync(userId);
+        //        if (user == null)
+        //        {
+        //            return BadRequest("User not found");
+        //        }
+
+        //        var result = await _userManager.ConfirmEmailAsync(user, token);
+        //        if (result.Succeeded)
+        //        {
+        //            return Ok("Email confirmed successfully");
+        //        }
+
+        //        return BadRequest("Email confirmation failed");
+        //    }
     }
 }
 

@@ -83,7 +83,7 @@ namespace EcoEarthAppAPI.Controllers
                 };
                 _context.UserCurrency.Add(userCurrency);
                 _context.SaveChanges();
-                return Ok();
+                return Ok(userId);
             }
         }
     }

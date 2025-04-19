@@ -10,5 +10,6 @@ namespace EcoEarthPOC.Components.Services
     public class AppVariables
     {
         public static int UserId { get; set; }
+        public static bool IsLoggedIn = false;
     }
 }

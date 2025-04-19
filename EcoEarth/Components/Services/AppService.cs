@@ -7,6 +7,8 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using EcoEarthPOC.Components.Services.EcoEarthAPI_Services;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace EcoEarthPOC.Components.Services
 {
@@ -50,6 +52,19 @@ namespace EcoEarthPOC.Components.Services
 
             if (response.IsSuccessStatusCode)
             {
+                // Get account hash
+                var email = registerModel.Email;
+                var loginId = await GetUserId(email);
+
+                if (loginId == "Not Found" || loginId == null)
+                {
+                    throw new Exception("Something went wrong registering your account");
+                }
+
+                // Use LoginEEService to register user in other db (implementation not provided)
+                LoginEEService loginEEService = new LoginEEService(_httpClient);
+                var loginResponse = await loginEEService.CreateNewAccount(loginId);
+
                 isSuccess = true;
             }
             else
@@ -58,6 +73,23 @@ namespace EcoEarthPOC.Components.Services
             }
 
             return (isSuccess, errorMessage);
+        }
+
+        // https://localhost:44371/api/Users/GetUser/b%40t.com
+        //{"userId":"6ff8b9a7-adbc-402a-b53a-f7d6fd071aee"}
+        // Gets a user's loginId using email
+        public async Task<string> GetUserId(string email)
+        {
+            email = email.Replace("@", "%40");
+
+            var response = await _httpClient.GetAsync($"{_baseUrl}/api/Users/GetUser/{email}");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                content.Split('"');
+                return content.Split('"')[3];
+            }
+            return "Not Found";
         }
     }
 }

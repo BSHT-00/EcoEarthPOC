@@ -6,6 +6,7 @@
 @using System.Text.Json
 @inject IAppService AppService
 @inject NavigationManager NavigationManager
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.LoginEEService loginEEService
 
 <div class="eco-login-container">
     <div class="eco-login-card">
@@ -95,6 +96,10 @@
             string userBasicDetailJson = JsonConvert.SerializeObject(userBasicDetail);
             await SecureStorage.SetAsync(nameof(Setting.UserBasicDetail), userBasicDetailJson);
             Setting.UserBasicDetail = userBasicDetail;
+
+            // using EEAPI to log user in
+            AppVariables.UserId = await loginEEService.Login(userBasicDetail.UserID);
+            AppVariables.IsLoggedIn = true;
 
             NavigationManager.NavigateTo("/");
         }

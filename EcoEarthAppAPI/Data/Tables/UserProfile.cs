@@ -13,7 +13,9 @@ namespace EcoEarthAppAPI.Data.Tables
 
         [JsonIgnore]
         public PastRecycledClassCount PastRecycledClassCount { get; set; }
-        //public Login Login { get; set; }
+
+        [JsonIgnore]
+        public Login Login { get; set; }
         //public DailyStreak DailyStreak { get; set; }
     }
 }

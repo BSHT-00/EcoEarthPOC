@@ -4,7 +4,6 @@
 @implements IDisposable
 
 <uses-permission android:name="android.permission.INTERNET" />
-
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -12,18 +11,21 @@
 
     <main>
         <div class="top-row px-4">
-
-            @if (@UserCurrency == -1)
+            @if (AppVariables.IsLoggedIn == true)
             {
-                <div class="alert alert-danger" role="alert">
-                    <strong>Service Unavailable</strong>
-                    <p>Sorry, the service is currently unavailable. Please try again later.</p>
+                @if (@UserCurrency == -1)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Service Unavailable</strong>
+                        <p>Sorry, the service is currently unavailable. Please try again later.</p>
+                    </div>
+                }
+                <div class="user-balance">
+                    <img src="Icons/icon_scanner.png" alt="Currency Icon" class="currency-icon" />
+                    <span>@UserCurrency</span>
                 </div>
             }
-            <div class="user-balance">
-                <img src="Icons/icon_scanner.png" alt="Currency Icon" class="currency-icon" />
-                <span>@UserCurrency</span>
-            </div>
+
 
         </div>
 
@@ -32,6 +34,7 @@
         </article>
     </main>
 </div>
+
 
 @code {
     private int UserCurrency;
@@ -42,7 +45,6 @@
     {
         try
         {
-            AppVariables.UserId = 1;
             UserCurrency = await userCurrencyService.GetUserBalance();
         }
         catch (Exception)
