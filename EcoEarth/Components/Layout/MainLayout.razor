@@ -2,6 +2,11 @@
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService userCurrencyService
 @using EcoEarthPOC.Components.Services
 @implements IDisposable
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components
+@using EcoEarthPOC.Models
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.LoginEEService loginEEService
+
 
 <uses-permission android:name="android.permission.INTERNET" />
 <div class="page">
@@ -52,6 +57,11 @@
             UserCurrency = -1;
         }
 
+        AppVariables.IsLoggedIn = Setting.UserBasicDetail != null;
+
+        // using EEAPI to log user in
+        AppVariables.UserId = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+
         _timer = new Timer(async _ => await UpdateUserCurrency(), null, 0, 1000);
     }
 
@@ -59,6 +69,8 @@
     {
         try
         {
+
+
             UserCurrency = await userCurrencyService.GetUserBalance();
             await InvokeAsync(StateHasChanged);
         }
@@ -67,6 +79,8 @@
             UserCurrency = -1;
         }
     }
+
+
 
     public void Dispose()
     {

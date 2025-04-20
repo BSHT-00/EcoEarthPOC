@@ -92,6 +92,16 @@
                 return;
             }
         }
+        else if(TickTitle.Length < 10)
+        {
+            await ShowToast("Title must be more than 10 characters");
+            return;
+        }
+        else if (TickDesc.Length < 40)
+        {
+            await ShowToast("Description must be more than 40 characters");
+            return;
+        }
 
         // Creating ticket
         var ticket = new EcoEarthPOC.Components.Pages.UserTickets.DTOs.UserTicketsDTO
@@ -108,10 +118,10 @@
         RefreshPage();
     }
 
-    // Checks Email (if provided) is in valid format using a reg expression found here: https://uibakery.io/regex-library/email-regex-csharp
+    // Checks Email (if provided) is in valid format using a reg expression found here: https://mailtrap.io/blog/validate-email-address-c/
     public bool validateEmail(string email)
     {
-        Regex regex = new Regex(@"^\\S+@\\S+\\.\\S+$");
+        Regex regex = new Regex(@"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$");
         return regex.IsMatch(email);
     }
 

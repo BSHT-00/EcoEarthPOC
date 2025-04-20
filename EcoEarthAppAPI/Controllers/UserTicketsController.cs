@@ -85,10 +85,10 @@ namespace EcoEarthAppAPI.Controllers
             if (userTickets.Description.Length < 40)
                 return BadRequest("Description must be more than 40 characters");
 
-            // Checks Email (if provided) is in valid format using a reg expression found here: https://uibakery.io/regex-library/email-regex-csharp
+            // Checks Email (if provided) is in valid format using a reg expression found here: https://mailtrap.io/blog/validate-email-address-c/
             if (userTickets.UserEmail != null)
             {
-                Regex regex = new Regex(@"^\\S+@\\S+\\.\\S+$");
+                Regex regex = new Regex(@"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$");
                 var validation = regex.Match(userTickets.UserEmail);
 
                 if (!validation.Success)
