@@ -18,7 +18,7 @@ namespace EcoEarthAppAPI.Data
         public DbSet<UserTickets> UserTickets { get; set; }
         public DbSet<Login> Login { get; set; }
 
-        //public DbSet<DailyStreak> DailyStreak { get; set; }
+        public DbSet<DailyStreak> DailyStreak { get; set; }
 
 
         public EcoEarthAppAPIDbContext()
@@ -45,7 +45,7 @@ namespace EcoEarthAppAPI.Data
             modelBuilder.Entity<UserProfile>().HasKey(x => x.UserId);
             modelBuilder.Entity<UserCurrency>().HasKey(x => x.UserId);
             modelBuilder.Entity<PastRecycledClassCount>().HasKey(x => x.UserId);
-            //modelBuilder.Entity<DailyStreak>().HasKey(x => x.UserId);
+            modelBuilder.Entity<DailyStreak>().HasKey(x => x.UserId);
 
             // Defining composite relationship in Login table
             modelBuilder.Entity<Login>()
@@ -70,10 +70,10 @@ namespace EcoEarthAppAPI.Data
                 .HasForeignKey<UserProfile>(up => up.UserId);
 
             // 1-1
-            //modelBuilder.Entity<DailyStreak>()
-            //    .HasOne(prcc => prcc.UserProfile)
-            //    .WithOne(up => up.DailyStreak)
-            //    .HasForeignKey<UserProfile>(up => up.UserId);
+            modelBuilder.Entity<DailyStreak>()
+                .HasOne(prcc => prcc.UserProfile)
+                .WithOne(up => up.DailyStreak)
+                .HasForeignKey<UserProfile>(up => up.UserId);
 
 
             //modelBuilder.Entity<UserCurrency>()
@@ -146,12 +146,12 @@ namespace EcoEarthAppAPI.Data
                 new PastRecycledClassCount { UserId = 4, Cat1 = 1, Cat2 = 0, Cat3 = 2, Cat4 = 0, Cat5 = 6 }
             );
 
-            //modelBuilder.Entity<DailyStreak>().HasData(
-            //    new DailyStreak { UserId = 1, TotalStreak = 5, LastScanDate = new DateTime(2025, 4, 16) },
-            //    new DailyStreak { UserId = 2, TotalStreak = 3 },
-            //    new DailyStreak { UserId = 3, TotalStreak = 6 },
-            //    new DailyStreak { UserId = 4, TotalStreak = 2 }
-            //);
+            modelBuilder.Entity<DailyStreak>().HasData(
+                new DailyStreak { UserId = 1, TotalStreak = 5, LastScanDate = new DateTime(2025, 4, 19) },
+                new DailyStreak { UserId = 2, TotalStreak = 3 },
+                new DailyStreak { UserId = 3, TotalStreak = 6 },
+                new DailyStreak { UserId = 4, TotalStreak = 2 }
+            );
 
         }
     }

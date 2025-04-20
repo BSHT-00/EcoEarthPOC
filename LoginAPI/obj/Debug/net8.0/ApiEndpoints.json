@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "LoginAPI.Controllers.UsersController",
+    "Method": "GetUser",
+    "RelativePath": "api/Users/GetUser/{Email}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoginAPI.Controllers.UsersController",
     "Method": "RegisterUser",
     "RelativePath": "api/Users/RegisterUser",
     "HttpMethod": "POST",

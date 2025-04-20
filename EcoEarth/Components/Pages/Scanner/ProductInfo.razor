@@ -4,6 +4,7 @@
 @inject EcoEarthPOC.Components.Services.OFFPackaging _offService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.IsProductRecyclableService _isProductRecyclableService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService _userCurrencyService
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.DailyStreakService _dailyStreakService
 
 <!--- Displaying Product Info-->
 <div>
@@ -51,7 +52,7 @@
             <p>This product has earned you @PointsToAssign Ecoins!</p>
         </div>
 
-        
+
 
         <div>
             <button @onclick="() => NavigationWithCurrency(1)">Claim Points And Scan Again</button>
@@ -210,6 +211,7 @@
     public void NavigationWithCurrency(int page)
     {
         AssigningCurrency();
+        UpdateStreak();
         switch (page)
         {
             case 1:
@@ -220,6 +222,20 @@
                 break;
         }
     }
+
+    //updates users daily streak
+    public async Task UpdateStreak()
+    {
+        try
+        {
+            await _dailyStreakService.UpdateStreak();
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+    }
+
 
     [Inject]
     private NavigationManager NavigationManager { get; set; }

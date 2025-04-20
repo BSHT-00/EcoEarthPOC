@@ -54,14 +54,14 @@ else
             DailyStreak = -1;
         }
 
-        _timer = new Timer(async _ => await UpdateDailyStreak(), null, 0, 1000);
+        _timer = new Timer(async _ => await CheckDailyStreak(), null, 0, 1000);
     }
 
-    public async Task UpdateDailyStreak()
+    public async Task CheckDailyStreak()
     {
         try
         {
-            await dailyStreakService.UpdateStreak();
+            await dailyStreakService.CheckStreak();
             DailyStreak = await dailyStreakService.GetUserStreak();
             await InvokeAsync(StateHasChanged);
         }

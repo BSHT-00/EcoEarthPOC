@@ -57,11 +57,18 @@ namespace EcoEarthAppAPI.Controllers
                     Cat4 = 0,
                     Cat5 = 0,
                 };
+                var dailyStreak = new DailyStreak
+                {
+                    UserId = userId,
+                    TotalStreak = 1,
+                    LastScanDate = DateTime.UtcNow.AddDays(-1),
+                };
 
                 // Adding the new records from other tables
                 await _context.UserCurrency.AddAsync(userCurrency);
                 await _context.UserProfile.AddAsync(userProfile);
                 await _context.PastRecycledClassCount.AddAsync(pastRecycledClassCount);
+                await _context.DailyStreak.AddAsync(dailyStreak);
 
                 _context.SaveChanges();
 
