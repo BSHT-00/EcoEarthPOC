@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcoEarthAppAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+693d780b14ad30062a8f9ca222c784054a3ee0a0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78b248da4fb9dffabd6b492918f40df38161f0a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcoEarthAppAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcoEarthAppAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

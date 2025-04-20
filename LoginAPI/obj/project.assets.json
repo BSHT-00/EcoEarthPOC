@@ -8511,23 +8511,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Users\\S3028837\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\LoginAPI.csproj",
+      "projectUniqueName": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
       "projectName": "LoginAPI",
-      "projectPath": "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\LoginAPI.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Source\\Repos\\EcoEarthPOC4\\LoginAPI\\obj\\",
+      "projectPath": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
+      "packagesPath": "C:\\Users\\S3028837\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\S3028837\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8623,7 +8623,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

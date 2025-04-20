@@ -1,10 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\q2043246\\Source\\repos\\EcoEarthPOC\\",
+  "WorkspaceRootPath": "C:\\Users\\S3028837\\Source\\repos\\BSHT-00\\EcoEarthPOC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F0889E3E-A567-4D2A-8097-B4721435E8EE}|EcoEarthPOC.csproj|c:\\users\\q2043246\\source\\repos\\ecoearthpoc\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F0889E3E-A567-4D2A-8097-B4721435E8EE}|EcoEarthPOC.csproj|solutionrelative:mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\q2043246\\Source\\repos\\EcoEarthPOC\\MauiProgram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +13,22 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MauiProgram.cs",
               "DocumentMoniker": "C:\\Users\\q2043246\\Source\\repos\\EcoEarthPOC\\MauiProgram.cs",
-              "RelativeDocumentMoniker": "MauiProgram.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\q2043246\\Source\\repos\\EcoEarthPOC\\MauiProgram.cs",
               "ToolTip": "C:\\Users\\q2043246\\Source\\repos\\EcoEarthPOC\\MauiProgram.cs",
-              "RelativeToolTip": "MauiProgram.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\q2043246\\Source\\repos\\EcoEarthPOC\\MauiProgram.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T11:41:56.868Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-07T11:41:56.868Z"
             }
           ]
         }
