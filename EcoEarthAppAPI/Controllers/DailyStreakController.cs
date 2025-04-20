@@ -57,6 +57,47 @@ namespace EcoEarthAppAPI.Controllers
             return Ok(user.TotalStreak);
         }
 
+        //gets last scan date
+        [HttpGet("{userId}/LastScanDate")]
+        public async Task<ActionResult<DateTime>> GetScanDate(int userId)
+        {
+            var lastScanDate = await _context.DailyStreak.FindAsync(userId);
+            if (lastScanDate == null)
+            {
+                return NotFound();
+            }
+            return lastScanDate.LastScanDate;
+        }
+
+        //decreases last scan date
+        [HttpPut("{userId}/LastScanDate")]
+        public async Task<IActionResult> DecreaseScannedDate(int userId)
+        {
+            var user = await _context.DailyStreak.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.LastScanDate = user.LastScanDate.AddDays(-1);
+            await _context.SaveChangesAsync();
+            return Ok(user.LastScanDate);
+        }
+
+        //updates scanDate to current date
+        [HttpPut("{userId}/UpdateScanDate")]
+        public async Task<IActionResult> UpdateScanDate(int userId)
+        {
+            var user = await _context.DailyStreak.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.LastScanDate = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+            return Ok(user.LastScanDate);
+        }
+
+
         // Creates blank streak under userId 
         [HttpPost("{userId}")]
         public async Task<IActionResult> CreateBlankStreak(int userId)
@@ -75,7 +116,7 @@ namespace EcoEarthAppAPI.Controllers
                 };
                 _context.DailyStreak.Add(dailyStreak);
                 _context.SaveChanges();
-                return Ok();
+                return Ok(userId);
             }
         }
     }
