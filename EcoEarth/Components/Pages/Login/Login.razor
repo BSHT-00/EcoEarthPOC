@@ -97,7 +97,7 @@
             await SecureStorage.SetAsync(nameof(Setting.UserBasicDetail), userBasicDetailJson);
             Setting.UserBasicDetail = userBasicDetail;
 
-            // using EEAPI to log user in
+            // using EEAPI to log user in using LoginId
             AppVariables.UserId = await loginEEService.Login(userBasicDetail.UserID);
             AppVariables.IsLoggedIn = true;
 
