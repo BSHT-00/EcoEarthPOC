@@ -55,7 +55,30 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
             }
         }
 
-        //updates users streak
+        //check users streak
+        //removes streak if not updated in over a day
+        public async Task CheckStreak()
+        {
+            var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}";
+
+            var response = await _httpClient.GetAsync($"{url}/LastScanDate");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var lastScanDate = JsonSerializer.Deserialize<DateTime>(content, jsonOptions);
+
+                if (lastScanDate < DateTime.UtcNow.Date.AddDays(-1))
+                {
+                    await RemoveStreak();
+                }
+            }
+            else
+            {
+                throw new Exception("Failed to check last scan date");
+            }
+        }
+
+        //updates users streak and LastScanDate
         public async Task UpdateStreak()
         {
             var url = $"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}";
@@ -66,21 +89,19 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
                 var content = await response.Content.ReadAsStringAsync();
                 var lastScanDate = JsonSerializer.Deserialize<DateTime>(content, jsonOptions);
 
-                if (lastScanDate == DateTime.UtcNow.Date)
-                {
-                    //nothing
-                }
-                else if (lastScanDate.Date == DateTime.UtcNow.Date.AddDays(-1))
+                if (lastScanDate.Date < DateTime.UtcNow.Date)
                 {
                     var update = await _httpClient.PutAsync(url, null);
                     if (!update.IsSuccessStatusCode)
                     {
                         throw new Exception("Failed to add day to daily streak");
                     }
-                }
-                else
-                {
-                    await RemoveStreak();
+
+                    var updateLastScan = await _httpClient.PutAsync($"{url}/UpdateScanDate", null); 
+                    if (!update.IsSuccessStatusCode)
+                    {
+                        throw new Exception("Failed to update lastScanDate");
+                    }
                 }
             }
             else
