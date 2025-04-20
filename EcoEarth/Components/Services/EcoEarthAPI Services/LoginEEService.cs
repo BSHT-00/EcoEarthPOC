@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EcoEarthPOC.Models;
+using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,7 +53,16 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
         public async Task<int> Login(string loginId)
         {
             var response = await _httpClient.GetAsync($"{ServiceBaseUrl}{Endpoint}/{loginId}");
-            response.EnsureSuccessStatusCode();
+
+            // Means record doesn't exist
+            if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                // Log the user out
+                SecureStorage.RemoveAll();
+                Setting.UserBasicDetail = null;
+                return -1;
+            }
+
             // Read the response content as a string
             var responseContent = await response.Content.ReadAsStringAsync();
             return int.Parse(responseContent);

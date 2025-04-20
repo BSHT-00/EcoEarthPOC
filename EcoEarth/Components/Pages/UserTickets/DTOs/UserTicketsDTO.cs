@@ -12,10 +12,11 @@ namespace EcoEarthPOC.Components.Pages.UserTickets.DTOs
     public class UserTicketsDTO
     {
         public int TicketId { get; set; }
-        public string Title { get; set; }        
-        public string Description { get; set; }
+        public required string Title { get; set; }        
+        public required string Description { get; set; }
         public DateOnly Date { get; set; }
         public bool IsCompleted { get; set; }
-        public string? UserEmail { get; set; }
+        public required string Platform { get; set; }
+        public required string UserEmail { get; set; }
     }
 }

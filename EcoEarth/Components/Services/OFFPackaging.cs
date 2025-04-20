@@ -58,7 +58,7 @@ namespace EcoEarthPOC.Components.Services
 
             if (item == null)
             {
-                throw new ArgumentNullException(nameof(url), "The EventType response is null");
+                throw new Exception("Product could not be found");
             }
 
             return item;

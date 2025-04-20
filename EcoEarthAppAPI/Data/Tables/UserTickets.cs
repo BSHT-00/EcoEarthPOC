@@ -6,21 +6,13 @@ namespace EcoEarthAppAPI.Data.Tables
 {
     public class UserTickets
     {
-        [Required]
         public int TicketId { get; set; }
-
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string Description { get; set; }
-
-        [Required]
+        public required string Title { get; set; }
+        public required string Description { get; set; }
         public DateOnly Date { get; set; }
-
-        [DefaultValue(false)]
         public bool IsCompleted { get; set; }
-
-        public string? UserEmail { get; set; }
+        public required string Platform { get; set; }
+        public required string UserEmail { get; set; }
 
         // Will implement in future
         [DefaultValue(null)]

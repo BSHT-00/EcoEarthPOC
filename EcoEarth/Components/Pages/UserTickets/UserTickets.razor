@@ -4,6 +4,7 @@
 @using CommunityToolkit.Maui.Views;
 @using CommunityToolkit.Maui.Alerts;
 @using System.Text.RegularExpressions
+@using EcoEarthPOC.Models;
 
 @inject UserTicketsService _userTicketsService
 
@@ -17,13 +18,6 @@
 <h5 class="tick-prompt">Ticket Details (Explain the issue in detail) </h5>
 <label for="inputText"></label>
 <textarea id="TickDescription" class="text-input" @bind="TickDesc" rows="8" cols="40"></textarea>
-
-
-<p>So we can contact you directly, leave your email here. This is not required though </p>
-
-<h5 class="tick-prompt">Email Address (Optional)</h5>
-<label for="inputText"></label>
-<input type="text" id="TickEmail" @bind="TickEmail" class="text-input"/>
 
 <br />
 <button @onclick="Submit" class="sub-btn">Submit</button>
@@ -71,7 +65,6 @@
 {
     private string TickTitle { get; set; }
     private string TickDesc { get; set; }
-    private string TickEmail { get; set; }
 
     [Inject]
     private NavigationManager NavigationManager { get; set; }
@@ -83,14 +76,6 @@
         {
             await ShowToast("Title and Description are required.");
             return;
-        }
-        else if (!string.IsNullOrEmpty(TickEmail))
-        {
-            if (!validateEmail(TickEmail))
-            {
-                await ShowToast("Invalid email address.");
-                return;
-            }
         }
         else if(TickTitle.Length < 10)
         {
@@ -108,8 +93,9 @@
         {
             Title = TickTitle,
             Description = TickDesc,
-            UserEmail = TickEmail,
-            Date = DateOnly.FromDateTime(DateTime.Now)
+            Date = DateOnly.FromDateTime(DateTime.Now),
+            Platform = DeviceInfo.Platform.ToString(),
+            UserEmail = Setting.UserBasicDetail.Email,
         };
 
         // Posting and providing confimation

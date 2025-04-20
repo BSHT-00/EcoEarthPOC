@@ -6,6 +6,7 @@
 @using Microsoft.AspNetCore.Components
 @using EcoEarthPOC.Models
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.LoginEEService loginEEService
+@inject NavigationManager NavigationManager
 
 
 <uses-permission android:name="android.permission.INTERNET" />
@@ -60,7 +61,15 @@
         AppVariables.IsLoggedIn = Setting.UserBasicDetail != null;
 
         // using EEAPI to log user in
-        AppVariables.UserId = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+        var id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+
+        // Means user record has not been found
+        if (id == -1)
+        {
+            NavigationManager.NavigateTo("/Login");
+        }
+
+        AppVariables.UserId = id;
 
         _timer = new Timer(async _ => await UpdateUserCurrency(), null, 0, 1000);
     }
