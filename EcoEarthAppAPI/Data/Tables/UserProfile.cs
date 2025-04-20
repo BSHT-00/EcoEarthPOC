@@ -16,6 +16,8 @@ namespace EcoEarthAppAPI.Data.Tables
 
         [JsonIgnore]
         public Login Login { get; set; }
-        //public DailyStreak DailyStreak { get; set; }
+
+        [JsonIgnore]
+        public DailyStreak DailyStreak { get; set; }
     }
 }
