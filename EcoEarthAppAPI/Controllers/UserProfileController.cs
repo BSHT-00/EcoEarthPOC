@@ -60,7 +60,7 @@ namespace EcoEarthAppAPI.Controllers
                 var dailyStreak = new DailyStreak
                 {
                     UserId = userId,
-                    TotalStreak = 1,
+                    TotalStreak = 0,
                     LastScanDate = DateTime.UtcNow.AddDays(-1),
                 };
 
