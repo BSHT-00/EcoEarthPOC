@@ -61,7 +61,12 @@
         AppVariables.IsLoggedIn = Setting.UserBasicDetail != null;
 
         // using EEAPI to log user in
-        var id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+        var id = -1;
+        try
+        {
+            id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+        }
+        catch { }
 
         // Means user record has not been found
         if (id == -1)
