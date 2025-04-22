@@ -21,6 +21,6 @@ namespace EcoEarthAppAPI.Data.Tables
         public DailyStreak DailyStreak { get; set; }
 
         [JsonIgnore]
-        public List<DailyQuests> DailyQuests { get; set; }
+        public List<Quest> Quests { get; set; }
     }
 }

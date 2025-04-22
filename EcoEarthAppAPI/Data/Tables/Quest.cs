@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EcoEarthAppAPI.Data.Tables
 {
-    //Holds quest details 
     public class Quest
     {
         [Key]
@@ -11,21 +11,24 @@ namespace EcoEarthAppAPI.Data.Tables
         public int QuestId { get; set; }
 
         [Required]
+        public int UserId { get; set; } //to assign quests to a user
+
         public string QuestType { get; set; }   //Major/Minor
 
-        [Required]
         public string QuestInstruction {  get; set; }  //Recycle/Scan
 
-        [Required]
         public int QuestGoal {  get; set; } //3/5
 
-        [Required]
         public int QuestReward { get; set; }    //5/10
 
+        public int CategoryId { get; set; } //1/2/3/4/5/6
+                                            //plastic/glass/paper/metal/cardboard/[blank]
+        public int Progress { get; set; }
 
-        public int CategoryId { get; set; } //1/2/3/4/5
+        public bool isDone { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public RecyclableMaterials RecyclableMaterials { get; set; } //plastic/glass/paper/metal/cardboard
+        public DateTime LastLoginDate { get; set; } //to set daily quests
+
+        public UserProfile UserProfile { get; set; }
     }
 }
