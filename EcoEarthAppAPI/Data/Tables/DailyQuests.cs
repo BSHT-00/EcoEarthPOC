@@ -1,14 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EcoEarthAppAPI.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcoEarthAppAPI.Data.Tables
 {
     //composite table Assigns and holds quests to a user
     public class DailyQuests
     {
-        [Key]
+        [Required]
         public int UserId { get; set; }
 
-        [Key]
+        [Required]
         public int QuestId { get; set; }
 
         public int Progress { get; set; }
@@ -18,8 +21,8 @@ namespace EcoEarthAppAPI.Data.Tables
         //one to one
         public UserProfile userProfile { get; set; }
 
-        //one to many
-        public List<Quest>? Quests { get; set; }
+        //1-1
+        public Quest Quest { get; set; }
 
     }
 }
