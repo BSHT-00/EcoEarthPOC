@@ -36,23 +36,27 @@ else
 
 <!-- Show user's daily quests here-->
 <div class="quest-box">
-
-    <table>
-        <tr>
-            <td>
-                @foreach (var quest in quests)
-                {
-                    <p class="quest-p">@($"{quest.QuestInstruction} {quest.QuestGoal} {GetCategoryName(quest.CategoryId)} items")</p>
-                }
-            </td>
-            <td>
-                @foreach (var quest in quests)
-                {
-                    <p class="quest-p">@($"{quest.Progress}/{quest.QuestGoal}")</p>
-                }
-            </td>
-        </tr>
+    @if(quests != null)
+    {
+        <table>
+            <tr>
+                <td>
+                    @foreach (var quest in quests)
+                    {
+                        <p class="quest-p">@($"{quest.QuestInstruction} {quest.QuestGoal} {GetCategoryName(quest.CategoryId)} items")</p>
+                    }
+                </td>
+                <td>
+                    @foreach (var quest in quests)
+                    {
+                        <p class="quest-p">@($"{quest.Progress}/{quest.QuestGoal}")</p>
+                    }
+                </td>
+            </tr>
     </table>
+    }
+    else
+    {}
 
 
     <p class="quest-p">Ecoin Rewards Await!</p>
@@ -87,7 +91,7 @@ else
 
 
         _timer = new Timer(async _ => await CheckDailyStreak(), null, 0, 1000);
-        _timer = new Timer(async _ => await CheckDailyStreak(), null, 0, 1000);
+        _timer = new Timer(async _ => await AssignQuests(), null, 0, 1000);
     }
 
     public async Task CheckDailyStreak()

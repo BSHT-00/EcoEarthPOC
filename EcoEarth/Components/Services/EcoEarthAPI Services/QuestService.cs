@@ -77,7 +77,7 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
         {
             var url = ($"{ServiceBaseUrl}{Endpoint}/{AppVariables.UserId}");
             var quests = await GetAllQuests();
-            var questDate = quests.FirstOrDefault()?.LastLoginDate;
+            var questDate = quests.FirstOrDefault()?.LastLoginDate.Date;
 
             //deletes quests every new day
             if (questDate != DateTime.UtcNow.Date && questDate != null)
@@ -87,20 +87,24 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
                 {
                     throw new Exception("Failed to remove quests");
                 }
+
             }
-            //assigns 1 major quest
-            var majorQuest = await _httpClient.PostAsync(($"{url}/AssignMajorQuest"), null);
-            if (!majorQuest.IsSuccessStatusCode)
+            if (questDate == null)
             {
-                throw new Exception("Failed to assign major quest");
-            }
-            //assigns 2 minor quests
-            for (int i = 0; i < 2; i++)
+                //assigns 1 major quest
+                var majorQuest = await _httpClient.PostAsync(($"{url}/AssignMajorQuest"), null);
+                if (!majorQuest.IsSuccessStatusCode)
                 {
-                var minorQuest = await _httpClient.PostAsync(($"{url}/AssignMinorQuest"), null);
-                if (!minorQuest.IsSuccessStatusCode)
+                    throw new Exception("Failed to assign major quest");
+                }
+                //assigns 2 minor quests
+                for (int i = 0; i < 2; i++)
                 {
-                    throw new Exception("Failed to assign minor quest");
+                    var minorQuest = await _httpClient.PostAsync(($"{url}/AssignMinorQuest"), null);
+                    if (!minorQuest.IsSuccessStatusCode)
+                    {
+                        throw new Exception("Failed to assign minor quest");
+                    }
                 }
             }
         }
