@@ -3,6 +3,7 @@ using EcoEarthAppAPI.Data.Tables;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Configuration;
 
 namespace EcoEarthAppAPI.Controllers
 {
@@ -133,9 +134,16 @@ namespace EcoEarthAppAPI.Controllers
                 isDone = false,
                 LastLoginDate = DateTime.UtcNow
             };
-
-            _context.Quest.Add(quest);
-            _context.SaveChanges();
+            //prevents duplication
+            if (_context.Quest.Any(q => q.QuestType == "Minor" && q.CategoryId == quest.CategoryId && q.UserId == userId))
+            {
+                await AssignMinorQuest(userId);
+            }
+            else
+            {
+                _context.Quest.Add(quest);
+                _context.SaveChanges();
+            }
             return Ok(quest);
         }
 

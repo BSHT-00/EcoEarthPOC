@@ -1,7 +1,9 @@
 ﻿@page "/home"
+@using EcoEarthPOC.Components.Pages.Quests.DTOs
 @using EcoEarthPOC.Components.Services;
 @using EcoEarthPOC.Models;
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.DailyStreakService dailyStreakService
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.QuestService questService
 
 <h1>
     Welcome to EcoEarth!
@@ -34,12 +36,32 @@ else
 
 <!-- Show user's daily quests here-->
 <div class="quest-box">
+
+    <table>
+        <tr>
+            <td>
+                @foreach (var quest in quests)
+                {
+                    <p class="quest-p">@($"{quest.QuestInstruction} {quest.QuestGoal} {GetCategoryName(quest.CategoryId)} items")</p>
+                }
+            </td>
+            <td>
+                @foreach (var quest in quests)
+                {
+                    <p class="quest-p">@($"{quest.Progress}/{quest.QuestGoal}")</p>
+                }
+            </td>
+        </tr>
+    </table>
+
+
     <p class="quest-p">Ecoin Rewards Await!</p>
 </div>
 
 @code
 {
     private int DailyStreak;
+    private List<QuestDTO> quests;
     private Timer? _timer;
 
     // Id is passed here, must be changed before deployment
@@ -54,6 +76,17 @@ else
             DailyStreak = -1;
         }
 
+        try
+        {
+            quests = (await questService.GetAllQuests()).ToList();
+        }
+        catch (Exception)
+        {
+            quests = new List<QuestDTO>();
+        }
+
+
+        _timer = new Timer(async _ => await CheckDailyStreak(), null, 0, 1000);
         _timer = new Timer(async _ => await CheckDailyStreak(), null, 0, 1000);
     }
 
@@ -71,9 +104,52 @@ else
         }
     }
 
+    public async Task AssignQuests()
+    {
+        try
+        {
+            await questService.AssignQuests();
+            quests = quests = (await questService.GetAllQuests()).ToList();
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception)
+        {
+            quests = new List<QuestDTO>();
+        }
+    }
+
     public void Dispose()
     {
         _timer?.Dispose();
     }
+
+    //converts questCategory to string
+    private string GetCategoryName(int categoryId)
+    {
+        var categoryName = "";
+        if (categoryId == 1)
+        {
+            categoryName = "plastic";
+        }
+        if (categoryId == 2)
+        {
+            categoryName = "glass";
+        }
+        if (categoryId == 3)
+        {
+            categoryName = "paper";
+        }
+        if (categoryId == 4)
+        {
+            categoryName = "metal";
+        }
+        if (categoryId == 5)
+        {
+            categoryName = "cardboard";
+        }
+
+        return categoryName;
+    }
+
 
 }
