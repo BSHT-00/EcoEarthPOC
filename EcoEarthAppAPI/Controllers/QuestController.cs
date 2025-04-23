@@ -21,7 +21,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpGet("{userId}/GetAllQuests")]
         public async Task<ActionResult<IEnumerable<Quest>>> GetAllQuests(int userId)
         {
-            var user = await _context.Quest.FindAsync(userId);
+            var user = await _context.UserProfile.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
@@ -76,7 +76,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpPost("{userId}/AssignMajorQuest")]
         public async Task<ActionResult> AssignMajorQuest(int userId)
         {
-            var user = await _context.Quest.FindAsync(userId);
+            var user = await _context.UserProfile.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
@@ -110,7 +110,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpPost("{userId}/AssignMinorQuest")]
         public async Task<ActionResult> AssignMinorQuest(int userId)
         {
-            var user = await _context.Quest.FindAsync(userId);
+            var user = await _context.UserProfile.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
@@ -143,7 +143,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpDelete("{userId}/DeleteQuests")]
         public async Task<ActionResult> DeleteQuests(int userId)
         {
-            var user = await _context.Quest.FindAsync(userId);
+            var user = await _context.UserProfile.FindAsync(userId);
             if (user == null)
             {
                 return NotFound();
