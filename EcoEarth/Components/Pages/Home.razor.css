@@ -3,7 +3,7 @@
 .big-box {
     font-family: Minecraft;
     width: 90%;
-    height: 100px;
+    height: fit-content;
     background-color: lightgreen;
     border: 2px solid green;
     padding: 10px;
@@ -12,12 +12,21 @@
     text-align: center;
     font-size: 30px;
     border-radius: 15px;
+    align-items: center; 
 }
 
-.sub-box {
+.button-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+    .sub-box {
     font-family: Minecraft;
+    font-size: 30px;
+    color: #fff;
     width: 90%;
-    height: 100px;
+    height: flex;
     background-image: url('Backgrounds/NavBarBackground.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -27,28 +36,114 @@
     margin: 10px;
     align-self: center;
     text-align: center;
-    border-radius: 15px; 
+    align-items: center;
+    border-radius: 15px;
 }
 
 .quest-p {
     font-size: 16px;
-    color: darkgreen;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
+    color: #fff;
+    padding: 2px;
+    margin: 0px;
+    text-align: left;
+    font-family: Minecraft;
+    align-self: center;
+}
+
+.quest-point-text {
+    font-size: 12px;
+    color: #fff;
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+    font-family: Minecraft;
+    align-self: center;
+}
+
+.quest-progress-text {
+    font-size: 16px;
+    color: #fff;
+    padding: 2px;
+    margin: 0px;
+    text-align: right;
     font-family: Minecraft;
     align-self: center;
 }
 
 .quest-box {
     font-family: Minecraft;
+    font-size: 30px;
     width: 90%;
-    height: 150px;
+    height: flex;
     background-color: lightgreen;
     border: 2px solid green;
     padding: 10px;
     align-self: center;
-    text-align: center;
+    text-align: left;
     margin: 10px;
     border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+.quest-table-head {
+    width: 100%;
+    margin: 0; 
+    padding: 0;
+}
+.quest-table-tr {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+.quest-table-td {
+    width: 100%;
+    padding: 10px;
+    vertical-align: middle;
+    text-align: left; 
+}
+
+
+
+
+table {
+    margin: auto;
+    border-spacing: 10px;
+    width: 100%;
+}
+    tr > div {
+        background-image: url('Backgrounds/NavBarBackground.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 2px solid darkgreen;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+td {
+    width: 100%;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #006400;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-image: url('Backgrounds/NavBarBackground.jpg');
+    background-size: cover;
+    image-rendering: pixelated;
+    width: auto;
+    font-family: 'Minecraft', sans-serif;
+}
+

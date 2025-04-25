@@ -4,6 +4,7 @@
 @using EcoEarthPOC.Models;
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.DailyStreakService dailyStreakService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.QuestService questService
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService userCurrencyService
 
 <h1>
     Welcome to EcoEarth!
@@ -25,41 +26,56 @@ else
 
 <!-- Show some key user insight here-->
 <div class="big-box">
-    <label>We've recycled ___ together</label>
+    <label>@($"You have {Balance} Ecoins!")</label>
+    <div class="button-container">
+        <button @onclick="NavigateToRewards" class="button">Claim Rewards!</button>
+    </div>
 </div>
 
 <!-- Show the user's daily streak-->
 <div class="sub-box">
     <label>Daily streak</label>
-    <p>@DailyStreak</p>
+    <h1>@DailyStreak</h1>
 </div>
 
 <!-- Show user's daily quests here-->
 <div class="quest-box">
+    <table class="quest-table-head">
+        <tr class="quest-table-tr">
+            <td class="quest-table-td">
+                <label>Daily Quests</label>
+            </td>
+            <td class="button-container">
+                <button @onclick="NavigateToScanner" class="button">Start Scanning!</button>
+            </td>
+        </tr>
+    </table>
     @if(quests != null)
     {
         <table>
-            <tr>
-                <td>
-                    @foreach (var quest in quests)
-                    {
-                        <p class="quest-p">@($"{quest.QuestInstruction} {quest.QuestGoal} {GetCategoryName(quest.CategoryId)} items")</p>
-                    }
-                </td>
-                <td>
-                    @foreach (var quest in quests)
-                    {
-                        <p class="quest-p">@($"{quest.Progress}/{quest.QuestGoal}")</p>
-                    }
-                </td>
-            </tr>
-    </table>
+            @foreach (var quest in quests)
+            {
+                <tr>
+                    <div>
+                        <td>
+                            <p class="quest-p">@($"{quest.QuestInstruction} {quest.QuestGoal} {GetCategoryName(quest.CategoryId)} items")</p>
+                            <p class="quest-point-text">@($" Worth {quest.QuestReward} Ecoins!")</p>
+                        </td>
+                        <td>
+                            @if(quest.isDone == true)
+                            {
+                                <p class="quest-progress-text">@($"Done!")</p>
+                            }
+                            else
+                            {
+                                <p class="quest-progress-text">@($"{quest.Progress}/{quest.QuestGoal}")</p>
+                            }
+                        </td>
+                    </div>
+                </tr>
+            }
+        </table>
     }
-    else
-    {}
-
-
-    <p class="quest-p">Ecoin Rewards Await!</p>
 </div>
 
 @code
@@ -67,6 +83,7 @@ else
     private int DailyStreak;
     private List<QuestDTO> quests;
     private Timer? _timer;
+    private int Balance;
 
     // Id is passed here, must be changed before deployment
     protected override async Task OnInitializedAsync()
@@ -88,10 +105,19 @@ else
         {
             quests = new List<QuestDTO>();
         }
+        try
+        {
+            Balance = await userCurrencyService.GetUserBalance();
+        }
+        catch (Exception)
+        {
+            Balance = -1;
+        }
 
 
         _timer = new Timer(async _ => await CheckDailyStreak(), null, 0, 1000);
         _timer = new Timer(async _ => await AssignQuests(), null, 0, 1000);
+        _timer = new Timer(async _ => await CheckBalance(), null, 0, 1000);
     }
 
     public async Task CheckDailyStreak()
@@ -122,9 +148,26 @@ else
         }
     }
 
-    public void Dispose()
+    public async Task CheckBalance()
     {
-        _timer?.Dispose();
+        try
+        {
+            Balance = await userCurrencyService.GetUserBalance();
+        }
+        catch (Exception)
+        {
+            Balance = -1;
+        }
+    }
+
+    private void NavigateToScanner()
+    {
+        NavigationManager.NavigateTo("/scanner/scanner");
+    }
+
+    private void NavigateToRewards()
+    {
+        NavigationManager.NavigateTo("/rewards");
     }
 
     //converts questCategory to string
@@ -154,6 +197,14 @@ else
 
         return categoryName;
     }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
 
 
 }
