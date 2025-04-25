@@ -87,23 +87,36 @@ namespace EcoEarthPOC.Components.Services.EcoEarthAPI_Services
                 {
                     throw new Exception("Failed to remove quests");
                 }
-
             }
-            if (questDate == null)
+            if(quests.Count() != 3)
             {
-                //assigns 1 major quest
-                var majorQuest = await _httpClient.PostAsync(($"{url}/AssignMajorQuest"), null);
-                if (!majorQuest.IsSuccessStatusCode)
+                var delete = await _httpClient.DeleteAsync($"{url}/DeleteQuests");
+                if (!delete.IsSuccessStatusCode)
                 {
-                    throw new Exception("Failed to assign major quest");
+                    throw new Exception("Failed to remove quests");
                 }
-                //assigns 2 minor quests
-                for (int i = 0; i < 2; i++)
+            }
+
+            quests = await GetAllQuests();
+            questDate = quests.FirstOrDefault()?.LastLoginDate.Date;
+            if (quests.Count() == 0)
+            {
+                if (questDate == null)
                 {
-                    var minorQuest = await _httpClient.PostAsync(($"{url}/AssignMinorQuest"), null);
-                    if (!minorQuest.IsSuccessStatusCode)
+                    //assigns 1 major quest
+                    var majorQuest = await _httpClient.PostAsync(($"{url}/AssignMajorQuest"), null);
+                    if (!majorQuest.IsSuccessStatusCode)
                     {
-                        throw new Exception("Failed to assign minor quest");
+                        throw new Exception("Failed to assign major quest");
+                    }
+                    //assigns 2 minor quests
+                    for (int i = 0; i < 2; i++)
+                    {
+                        var minorQuest = await _httpClient.PostAsync(($"{url}/AssignMinorQuest"), null);
+                        if (!minorQuest.IsSuccessStatusCode)
+                        {
+                            throw new Exception("Failed to assign minor quest");
+                        }
                     }
                 }
             }
