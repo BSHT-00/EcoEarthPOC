@@ -58,6 +58,7 @@
     protected bool validateBarcodeNumber(string barcode)
     {
         // Validate barcode using reg exp
+        // It ensures there are only numbers and that the length is correct
         // This regex ensures the barcode lengths and that all characters are numeric
         var regex = new System.Text.RegularExpressions.Regex(@"^(?:\d{8}|\d{12}|\d{13}|\d{6})$");
         return regex.IsMatch(barcode);

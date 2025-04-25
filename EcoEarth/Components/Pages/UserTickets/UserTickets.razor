@@ -87,6 +87,17 @@
             await ShowToast("Description must be more than 40 characters");
             return;
         }
+        // Additional validation added during testing
+        else if (TickDesc.Length > 1000)
+        {
+            await ShowToast("The description length cannot be larger than 1000 characters");
+            return;
+        }
+        else if(TickTitle.Length > 75)
+        {
+            await ShowToast("The title length cannot be larger than 75 characters");
+            return;
+        }
 
         // Creating ticket
         var ticket = new EcoEarthPOC.Components.Pages.UserTickets.DTOs.UserTicketsDTO

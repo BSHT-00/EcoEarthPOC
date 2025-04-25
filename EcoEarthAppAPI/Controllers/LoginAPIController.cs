@@ -27,11 +27,14 @@ namespace EcoEarthAppAPI.Controllers
             // Get next id in EEAPI
             int newUserId = GetNextId();
 
-            // If account already exists, return bad request
+            // If account already exists (In EcoEarthAppAPI) , return bad request
             if (await _context.UserProfile.FindAsync(newUserId) != null)
             {
                 return BadRequest("User already exists");
             }
+
+            if (await _context.Login.FirstOrDefaultAsync(l => l.LoginAPIId == loginId) != null)
+                return BadRequest("Account under LoginId already exists");
 
             try
             {
@@ -48,7 +51,7 @@ namespace EcoEarthAppAPI.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Error creating new account" + e.Message );
+                return BadRequest("Error creating new account" + e.Message);
             }
         }
 
@@ -76,12 +79,19 @@ namespace EcoEarthAppAPI.Controllers
         }
 
         // Creates record in the login table
+        // Due to relationships, this method can only be used through the CreateNewAccount method
+        // This is because this method requires a UserProfile to be created first
         [HttpPost("{userId}/{LoginId}")]
         public async Task<IActionResult> RegisterUser(int userId, string LoginId)
         {
+            // Additional validation added during testing
+            if (userId <= 0)
+                return BadRequest("UserId must be greater than 0");
+            if (LoginId == null || LoginId == "")
+                return BadRequest("LoginId cannot be empty");
+
             // Check if record already exists
-            var existingLogin = await _context.Login
-                .FirstOrDefaultAsync(l => l.UserId == userId && l.LoginAPIId == LoginId);
+            var existingLogin = await _context.Login.FirstOrDefaultAsync(l => l.UserId == userId && l.LoginAPIId == LoginId);
 
             // If it does exist, return BadRequest
             if (existingLogin != null)
@@ -102,7 +112,6 @@ namespace EcoEarthAppAPI.Controllers
             }
             catch (DbUpdateException ex)
             {
-                // Log the exception (optional)
                 return BadRequest(ex.Message);            
             }
         }
@@ -111,6 +120,10 @@ namespace EcoEarthAppAPI.Controllers
         [HttpGet("{loginId}")]
         public async Task<IActionResult> GetUserId(string loginId)
         {
+            // Validation added during testing
+            if (loginId == null || loginId == "")
+                return BadRequest("LoginId cannot be empty");
+
             // Check if record exists
             var existingLogin = await _context.Login
                 .FirstOrDefaultAsync(l => l.LoginAPIId == loginId);

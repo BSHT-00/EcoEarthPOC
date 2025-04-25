@@ -29,6 +29,9 @@ namespace EcoEarthAppAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecyclableMaterials(int id)
         {
+            // Added during testing
+            if (id <= 0)
+                return BadRequest("id must be greater than 0");
             var recyclableMaterials = await _context.RecyclableMaterials.FindAsync(id);
             if (recyclableMaterials == null)
             {
@@ -57,6 +60,10 @@ namespace EcoEarthAppAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecyclableMaterials(int id)
         {
+            // Added during testing
+            if (id <= 0)
+                return BadRequest("id cannot be less than 1");
+
             var recyclableMaterials = await _context.RecyclableMaterials.FindAsync(id);
             if (recyclableMaterials == null)
             {

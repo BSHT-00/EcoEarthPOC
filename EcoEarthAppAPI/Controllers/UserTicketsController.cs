@@ -22,6 +22,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserTickets>>> GetUserTickets()
         {
+            // Adjusted method during testing to return a HTTP Status 200
             return Ok(await _context.UserTickets.ToListAsync());
         }
 
@@ -29,16 +30,20 @@ namespace EcoEarthAppAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserTickets>> GetUserTickets(int id)
         {
+            // Added during testing
             if (id <= 0)
             {
                 return BadRequest("Invalid ticket ID");
             }
 
             var userTickets = await _context.UserTickets.FindAsync(id);
+
+            // Added during testing
             if (userTickets == null)
             {
                 return NotFound("There is no ticket with that id");
             }
+
             return Ok(userTickets);
         }
 
@@ -46,7 +51,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpGet("incomplete")]
         public async Task<ActionResult<IEnumerable<UserTickets>>> GetIncompleteTickets()
         {
-            // OrderBy added in during testing
+            // OrderBy added in during testing, also added in the HTTP Status OK 
             return Ok(await _context.UserTickets
                 .Where(x => x.IsCompleted == false)
                 .OrderBy(a => a.Date)
@@ -57,6 +62,7 @@ namespace EcoEarthAppAPI.Controllers
         [HttpPut("{ticketId}")]
         public IActionResult MarkTicketComplete(int ticketId)
         {
+            // Added during testing to filter invalid id values
             if (ticketId <= 0)
             {
                 return BadRequest("Invalid ticket ID");
@@ -67,6 +73,7 @@ namespace EcoEarthAppAPI.Controllers
                 .Where(x => x.IsCompleted == false)
                 .FirstOrDefault();
 
+            // Added during testing, nothing was returned before
             if (userTicket == null)
                 return NotFound();
 

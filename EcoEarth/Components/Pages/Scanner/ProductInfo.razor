@@ -42,7 +42,6 @@
                     }
                 }
             }
-
         </ul>
 
         <img class="product-image" src="@productInfo.ProductInfo.SelectedImages["front"].Display["en"]" />
@@ -118,6 +117,11 @@
             }
 
             material.Material = material.Material.Replace("en:", "").Replace("-", " ").Replace("_", " ");
+
+            // Added during testing, handles cases where a material exists but the shape isn't specified
+            if (material.Shape == null)
+                material.Shape = "Unknown";
+
             material.Shape = material.Shape.Replace("en:", "").Replace("-", " ").Replace("_", " ");
         }
 
@@ -129,6 +133,10 @@
     {
         try
         {
+            // Added during testing, imposes a 15 Ecoin limit on products
+            if (PointsToAssign > 15)
+                PointsToAssign = 15;
+
             var srvResponse = _userCurrencyService.AddCurrency(PointsToAssign);
         }
         catch (Exception e)
