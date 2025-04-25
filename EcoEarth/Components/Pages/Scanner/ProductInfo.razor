@@ -1,10 +1,12 @@
 ﻿@page "/scanner/productinfo/{ProductId}"
 @using EcoEarthPOC.Components.Pages.Scanner.Data.DTOs
+@using EcoEarthPOC.Components.Pages.Quests.DTOs
 @using EcoEarthPOC.Components.Pages.Scanner
 @inject EcoEarthPOC.Components.Services.OFFPackaging _offService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.IsProductRecyclableService _isProductRecyclableService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.UserCurrencyService _userCurrencyService
 @inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.DailyStreakService _dailyStreakService
+@inject EcoEarthPOC.Components.Services.EcoEarthAPI_Services.QuestService _questService
 
 <!--- Displaying Product Info-->
 <div>
@@ -49,6 +51,10 @@
 
         <div class="UserRewardsBox">
             <p>This product has earned you @PointsToAssign Ecoins!</p>
+            @if(BonusPoints != 0)
+            {
+                <p>+@BonusPoints Ecoins from completed quests!</p>
+            }
         </div>
 
 
@@ -90,6 +96,12 @@
     // Holds the number of points to assign to a user
     public int PointsToAssign { get; set; }
 
+    //Holds the number of points gained from quests
+    public int BonusPoints { get; set; }
+
+    //Holds users quests
+    private List<QuestDTO> quests;
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -126,6 +138,8 @@
         }
 
         recyclableProductMaterials = InitialiseRecycleList(productInfo.ProductInfo.DetailedPackaging);
+
+        await GetQuestReward();
     }
 
     // Assigns currency to a user
@@ -137,7 +151,7 @@
             if (PointsToAssign > 15)
                 PointsToAssign = 15;
 
-            var srvResponse = _userCurrencyService.AddCurrency(PointsToAssign);
+            var srvResponse = _userCurrencyService.AddCurrency(PointsToAssign + BonusPoints);
         }
         catch (Exception e)
         {
@@ -220,6 +234,7 @@
     {
         AssigningCurrency();
         UpdateStreak();
+        UpdateQuestProgress();
         switch (page)
         {
             case 1:
@@ -243,6 +258,93 @@
             return;
         }
     }
+
+    //updates quest progress and awards points 
+    public async Task UpdateQuestProgress()
+    {
+        try
+        {
+            quests = (await _questService.GetAllQuests()).ToList();
+
+            //checks product catergories
+            foreach (var material in recyclableProductMaterials)
+            {
+                if(material.Material != null) {
+                    var categoryMaterial = new IsItRecyclableDTO();
+                    try
+                    {
+                        categoryMaterial = recylableMaterials.FirstOrDefault(m => m.Material.ToLower().Contains(material.Material.ToLower()));
+                    }
+                    catch { }
+                    if (categoryMaterial != null)
+                    {
+                        //updates quest progress
+                        foreach (var quest in quests)
+                        {
+                            if(quest.isDone == false)
+                            {
+                                if (quest.CategoryId == categoryMaterial.CategoryId || quest.CategoryId == 6)
+                                {
+                                    await _questService.UpdateQuestProgress(quest.QuestId);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+    }
+
+    //Gets the amount of bonus points the user could earn
+    public async Task GetQuestReward()
+    {
+        try
+        {
+            quests = (await _questService.GetAllQuests()).ToList();
+
+            foreach (var quest in quests)
+            {
+                if (quest.isDone == false)
+                {
+                    int progressCount = 0;
+
+                    foreach (var material in recyclableProductMaterials)
+                    {
+                        if (material.Material != null)
+                        {
+                            var categoryMaterial = new IsItRecyclableDTO();
+                            try
+                            {
+                                categoryMaterial = recylableMaterials.FirstOrDefault(m => m.Material.ToLower().Contains(material.Material.ToLower()));
+                            }
+                            catch { }
+                            if (categoryMaterial != null)
+                            {
+                                if (quest.CategoryId == categoryMaterial.CategoryId || quest.CategoryId == 6)
+                                {
+                                    progressCount++;
+                                }
+                            }
+                        }
+                    }
+                    if (quest.Progress + progressCount >= quest.QuestGoal)
+                    {
+                        BonusPoints += quest.QuestReward;
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+    }
+
+
 
 
     [Inject]

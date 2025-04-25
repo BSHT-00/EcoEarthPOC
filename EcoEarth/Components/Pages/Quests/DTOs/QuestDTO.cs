@@ -1,23 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EcoEarthAppAPI.Data.Tables
+namespace EcoEarthPOC.Components.Pages.Quests.DTOs
 {
-    public class Quest
+    internal class QuestDTO
     {
-        [Key]
-        [Required]
         public int QuestId { get; set; }
-
-        [Required]
         public int UserId { get; set; } //to assign quests to a user
 
         public string QuestType { get; set; }   //Major/Minor
 
-        public string QuestInstruction {  get; set; }  //Recycle/Scan
+        public string QuestInstruction { get; set; }  //Recycle/Scan
 
-        public int QuestGoal {  get; set; } //3/5
+        public int QuestGoal { get; set; } //3/5
 
         public int QuestReward { get; set; }    //5/10
 
@@ -28,7 +26,5 @@ namespace EcoEarthAppAPI.Data.Tables
         public bool isDone { get; set; }
 
         public DateTime LastLoginDate { get; set; } //to set daily quests
-
-        public UserProfile UserProfile { get; set; }
     }
 }

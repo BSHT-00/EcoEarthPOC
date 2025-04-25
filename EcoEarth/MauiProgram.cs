@@ -62,6 +62,11 @@ namespace EcoEarthPOC
                 client.BaseAddress = new Uri("http://localhost:7111/api");
             });
 
+            builder.Services.AddHttpClient<QuestService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:7111/api");
+            });
+
             builder.Services.AddSingleton<AppVariables>();
 
             builder.UseMauiApp<App>().UseBarcodeReader();

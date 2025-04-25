@@ -20,7 +20,6 @@ namespace EcoEarthAppAPI.Data
 
         public DbSet<DailyStreak> DailyStreak { get; set; }
         public DbSet<Quest> Quest { get; set; }
-        public DbSet<DailyQuests> DailyQuests { get; set; }
 
 
         public EcoEarthAppAPIDbContext()
@@ -59,26 +58,11 @@ namespace EcoEarthAppAPI.Data
                 .WithOne(up => up.Login)
                 .HasForeignKey<Login>(l => l.UserId);
 
-            // Defining composite relationship in DailyQuest table
-            modelBuilder.Entity<DailyQuests>()
-                .HasKey(x => new { x.UserId, x.QuestId });
-
-            modelBuilder.Entity<DailyQuests>()
-                .HasOne(dq => dq.userProfile)
-                .WithMany(up => up.DailyQuests)
-                .HasForeignKey(dq => dq.UserId);
-
-            modelBuilder.Entity<DailyQuests>()
-             .HasOne(dq => dq.Quest)
-             .WithMany()
-             .HasForeignKey(dq => dq.QuestId);
-
-
-            // Defining composite relationship in Quest table
+            // 1 - MANY
             modelBuilder.Entity<Quest>()
-                .HasOne(q => q.RecyclableMaterials)
-                .WithMany()
-                .HasForeignKey(q => q.CategoryId);
+                .HasOne(q => q.UserProfile)
+                .WithMany(up => up.Quests)
+                .HasForeignKey(q => q.UserId);
 
             // 1-1
             modelBuilder.Entity<UserCurrency>()
