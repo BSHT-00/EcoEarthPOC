@@ -8511,23 +8511,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\S3028837\\.nuget\\packages\\": {},
+    "C:\\Users\\imran\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
+      "projectUniqueName": "C:\\Users\\imran\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
       "projectName": "LoginAPI",
-      "projectPath": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
-      "packagesPath": "C:\\Users\\S3028837\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\obj\\",
+      "projectPath": "C:\\Users\\imran\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
+      "packagesPath": "C:\\Users\\imran\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\imran\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\S3028837\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\imran\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8553,9 +8553,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -8623,8 +8623,30 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 9.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1904",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'starkbank-ecdsa' 1.2.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-j3jw-j2j8-2wv9",
+      "libraryId": "starkbank-ecdsa",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

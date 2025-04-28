@@ -21,6 +21,10 @@ namespace EcoEarthAppAPI.Data
         public DbSet<DailyStreak> DailyStreak { get; set; }
         public DbSet<Quest> Quest { get; set; }
 
+        public DbSet<Reward> Rewards { get; set; }
+        public DbSet<UserReward> UserRewards { get; set; }
+
+
 
         public EcoEarthAppAPIDbContext()
         {
@@ -48,6 +52,8 @@ namespace EcoEarthAppAPI.Data
             modelBuilder.Entity<PastRecycledClassCount>().HasKey(x => x.UserId);
             modelBuilder.Entity<DailyStreak>().HasKey(x => x.UserId);
             modelBuilder.Entity<Quest>().HasKey(x => x.QuestId);
+            modelBuilder.Entity<Reward>().HasKey(x => x.RewardId);
+            modelBuilder.Entity<UserReward>().HasKey(x => x.UserRId);
 
             // Defining composite relationship in Login table
             modelBuilder.Entity<Login>()

@@ -205,6 +205,122 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EcoEarthAppAPI.Controllers.QuestController",
+    "Method": "GetQuest",
+    "RelativePath": "api/Quest/{questId}/GetQuest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "EcoEarthAppAPI.Data.Tables.Quest",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "EcoEarthAppAPI.Controllers.QuestController",
+    "Method": "UpdateProgress",
+    "RelativePath": "api/Quest/{questId}/UpdateProgress",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcoEarthAppAPI.Controllers.QuestController",
+    "Method": "AssignMajorQuest",
+    "RelativePath": "api/Quest/{userId}/AssignMajorQuest",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcoEarthAppAPI.Controllers.QuestController",
+    "Method": "AssignMinorQuest",
+    "RelativePath": "api/Quest/{userId}/AssignMinorQuest",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcoEarthAppAPI.Controllers.QuestController",
+    "Method": "DeleteQuests",
+    "RelativePath": "api/Quest/{userId}/DeleteQuests",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EcoEarthAppAPI.Controllers.QuestController",
+    "Method": "GetAllQuests",
+    "RelativePath": "api/Quest/{userId}/GetAllQuests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[EcoEarthAppAPI.Data.Tables.Quest, EcoEarthAppAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "EcoEarthAppAPI.Controllers.RecyclableMaterialsController",
     "Method": "GetRecyclableMaterials",
     "RelativePath": "api/RecyclableMaterials",
