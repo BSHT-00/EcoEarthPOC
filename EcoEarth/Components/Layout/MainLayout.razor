@@ -63,16 +63,20 @@
         // using EEAPI to log user in
         try
         {
-            var id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+            if (AppVariables.IsLoggedIn == true)
+            {
+                // if the user is logged in, we will get their ID
+                var id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+                AppVariables.UserId = id;
+            }
+            else
+                NavigationManager.NavigateTo("/Login");
         }
         // if they are not logged in, this catch will be ran
         catch
         {
             NavigationManager.NavigateTo("/Login");
         }
-
-        AppVariables.UserId = id;
-
         _timer = new Timer(async _ => await UpdateUserCurrency(), null, 0, 1000);
     }
 
