@@ -10,7 +10,6 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using LoginAPI.Context;
 
 namespace LoginAPI.Controllers
 {
@@ -125,45 +124,25 @@ namespace LoginAPI.Controllers
         }
 
 
-        //[AllowAnonymous]
-        //   [HttpPost("ResetPassword")]
-        //   public async Task<IActionResult> ResetPassword(ResetPasswordDTO model)
-        //  {
-        //   var user = await _userManager.FindByEmailAsync(model.Email);
-        // if (user == null)
-        // {
-        // Don't reveal that the user does not exist
-        //  return Ok(new { Message = "Password reset successfully" });
-        //   }
+        //    [AllowAnonymous]
+        //    [HttpPost("ResetPassword")]
+        //    public async Task<IActionResult> ResetPassword(ResetPasswordDTO model)
+        //    {
+        //        var user = await _userManager.FindByEmailAsync(model.Email);
+        //        if (user == null)
+        //        {
+        //            // Don't reveal that the user does not exist
+        //            return Ok(new { Message = "Password reset successfully" });
+        //        }
 
-        //       var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
-        //       if (result.Succeeded)
-        //       {
-        //           return Ok(new { Message = "Password reset successfully" });
-        //       }
+        //        var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+        //        if (result.Succeeded)
+        //        {
+        //            return Ok(new { Message = "Password reset successfully" });
+        //        }
 
-        //      return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
-        //   }
-
-
-        [HttpPost("change-password")]
-        public async Task<IActionResult> ChangePassword(ChangePasswordDto request)
-        {
-            var user = await _userManager.FindByIdAsync(request.UserId);
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
-
-            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
-            if (result.Succeeded)
-            {
-                return Ok("Password changed successfully.");
-            }
-
-            return BadRequest("Failed to change password.");
-        }
-
+        //        return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
+        //    }
 
         //    [AllowAnonymous]
         //    [HttpGet("ConfirmEmail")]

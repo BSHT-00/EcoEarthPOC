@@ -61,14 +61,14 @@
         AppVariables.IsLoggedIn = Setting.UserBasicDetail != null;
 
         // using EEAPI to log user in
-        var id = -1;
-        if (id == -1)
+        try
         {
-
+            var id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
         }
-        else
+        // if they are not logged in, this catch will be ran
+        catch
         {
-            id = await loginEEService.Login(Setting.UserBasicDetail.UserID);
+            NavigationManager.NavigateTo("/Login");
         }
 
         AppVariables.UserId = id;

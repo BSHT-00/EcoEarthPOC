@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\taylo\\Source\\Repos\\EcoEarthPOC14\\LoginAPI\\LoginAPI.csproj": {}
+    "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\taylo\\Source\\Repos\\EcoEarthPOC14\\LoginAPI\\LoginAPI.csproj": {
+    "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\taylo\\Source\\Repos\\EcoEarthPOC14\\LoginAPI\\LoginAPI.csproj",
+        "projectUniqueName": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
         "projectName": "LoginAPI",
-        "projectPath": "C:\\Users\\taylo\\Source\\Repos\\EcoEarthPOC14\\LoginAPI\\LoginAPI.csproj",
-        "packagesPath": "C:\\Users\\taylo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\taylo\\Source\\Repos\\EcoEarthPOC14\\LoginAPI\\obj\\",
+        "projectPath": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\LoginAPI.csproj",
+        "packagesPath": "C:\\Users\\S3028837\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\S3028837\\source\\repos\\BSHT-00\\EcoEarthPOC\\LoginAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\taylo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\S3028837\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
