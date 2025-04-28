@@ -16,5 +16,6 @@ namespace LoginAPI.Data
         public string? Password { get; set; }
 
         public string? RefreshToken { get; set; }
+
     }
 }

@@ -302,6 +302,187 @@
         }
       }
     },
+    "/api/Quest/{userId}/GetAllQuests": {
+      "get": {
+        "tags": [
+          "Quest"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quest"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quest"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quest"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Quest/{questId}/GetQuest": {
+      "get": {
+        "tags": [
+          "Quest"
+        ],
+        "parameters": [
+          {
+            "name": "questId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quest"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quest"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Quest/{questId}/UpdateProgress": {
+      "put": {
+        "tags": [
+          "Quest"
+        ],
+        "parameters": [
+          {
+            "name": "questId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quest/{userId}/AssignMajorQuest": {
+      "post": {
+        "tags": [
+          "Quest"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quest/{userId}/AssignMinorQuest": {
+      "post": {
+        "tags": [
+          "Quest"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quest/{userId}/DeleteQuests": {
+      "delete": {
+        "tags": [
+          "Quest"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/RecyclableMaterials": {
       "get": {
         "tags": [
@@ -838,6 +1019,58 @@
   },
   "components": {
     "schemas": {
+      "Quest": {
+        "required": [
+          "questId",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "questId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "questType": {
+            "type": "string",
+            "nullable": true
+          },
+          "questInstruction": {
+            "type": "string",
+            "nullable": true
+          },
+          "questGoal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "questReward": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "progress": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isDone": {
+            "type": "boolean"
+          },
+          "lastLoginDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userProfile": {
+            "$ref": "#/components/schemas/UserProfile"
+          }
+        },
+        "additionalProperties": false
+      },
       "RecyclableMaterials": {
         "required": [
           "categoryId",
@@ -876,10 +1109,10 @@
       },
       "UserTickets": {
         "required": [
-          "date",
           "description",
-          "ticketId",
-          "title"
+          "platform",
+          "title",
+          "userEmail"
         ],
         "type": "object",
         "properties": {
@@ -888,20 +1121,23 @@
             "format": "int32"
           },
           "title": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "description": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "date": {
             "type": "string",
             "format": "date"
           },
           "isCompleted": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
+          },
+          "platform": {
+            "type": "string",
+            "nullable": true
           },
           "userEmail": {
             "type": "string",
