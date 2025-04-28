@@ -2,7 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/EcoEarthAppAPI
+
 LoginAPI/obj/Debug/net8.0/LoginAPI.AssemblyInfo.cs
 LoginAPI/obj/Debug/net8.0/LoginAPI.AssemblyInfo.cs
 LoginAPI/obj/Debug/net8.0/LoginAPI.AssemblyInfoInputs.cache
