@@ -10,6 +10,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using LoginAPI.Context;
 
 namespace LoginAPI.Controllers
 {
@@ -75,7 +76,7 @@ namespace LoginAPI.Controllers
 
             if (isValidUser)
             {
-               var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenHandler = new JwtSecurityTokenHandler();
 
                 var keyDetail = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
 
@@ -104,7 +105,7 @@ namespace LoginAPI.Controllers
 
         }
 
-        
+
         // Returns a UserIdDTO, which only contains the userId currently using email
         [AllowAnonymous]
         [HttpGet("GetUser/{Email}")]
@@ -112,7 +113,7 @@ namespace LoginAPI.Controllers
         {
             var user = await _userManager.FindByNameAsync(Email);
 
-            if (user == null) 
+            if (user == null)
                 return NotFound();
 
             var userIdDTO = new userIdDTO
@@ -121,6 +122,25 @@ namespace LoginAPI.Controllers
             };
 
             return Ok(userIdDTO);
+        }
+
+
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto request)
+        {
+            var user = await _userManager.FindByIdAsync(request.UserId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            if (result.Succeeded)
+            {
+                return Ok("Password changed successfully.");
+            }
+            return BadRequest("Failed to change password.");
         }
 
 
@@ -169,4 +189,3 @@ namespace LoginAPI.Controllers
         //    }
     }
 }
-

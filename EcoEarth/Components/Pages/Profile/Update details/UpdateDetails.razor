@@ -2,24 +2,15 @@
 
 <h3>UpdateDetails</h3>
 
-<button @onclick="NavigateToChangeUsername">Change username</button>
 <button @onclick="NavigateToChangePassword">Change password</button>
-<button @onclick="NavigateToChangeEmail">Change email</button>
 
 @code {
-    private void NavigateToChangeUsername()
-    {
-        NavigationManager.NavigateTo("/profile/UpdateDetails/ChangeUsername");
-    }
     private void NavigateToChangePassword()
     {
         NavigationManager.NavigateTo("/profile/UpdateDetails/ChangePassword");
     }
-    private void NavigateToChangeEmail()
-    {
-        NavigationManager.NavigateTo("/profile/UpdateDetails/ChangeEmail");
-    } 
 
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 }
+
