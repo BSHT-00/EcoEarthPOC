@@ -29,6 +29,13 @@ Follow these steps when cloning the project:
    ```powershell
    Update-Database
    ```
+5. Navigate to the EcoEarth folder in your file explorer and enable "see hidden items"
+6. Open the applicationhost.config file in a text editor and change the bindings to this:
+        <bindings>
+                    <binding protocol="http" bindingInformation="*:15019:127.0.0.1" />
+                    <binding protocol="https" bindingInformation="*:44371:127.0.0.1" />
+		    <binding protocol="http" bindingInformation="*:15019:localhost" />
+        </bindings>
 
 ### 4. Configuring Multiple Startup Projects
 - Set **EcoEarthPOC**, **EcoEarthAppAPI**, and **LoginAPI** as **multiple startup projects**.
